@@ -1,0 +1,19 @@
+@charset "utf-8";
+@import "less/z";
+@import "color";
+
+.reset();
+
+.header{
+    @h:48px;
+    @boder:2px;
+    
+    border: @boder solid @link_hover;
+    height: @h;
+    
+    .logo{
+        height: 27px;
+        width: 80px;
+        background: url("../img/logo.jpg") left top no-repeat;
+    }
+}
