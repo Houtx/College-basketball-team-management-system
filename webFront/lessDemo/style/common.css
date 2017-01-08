@@ -24,11 +24,87 @@ a {
   text-decoration: none;
 }
 .header {
-  border: 2px solid #fa7d3c;
+  border-top: 2px solid #fa7d3c;
   height: 48px;
 }
 .header .logo {
+  float: left;
+  display: inline;
   height: 27px;
   width: 80px;
-  background: url("../img/logo.jpg") left top no-repeat;
+  background: url("../img/logo.png") left top no-repeat;
+  margin: 8px 30px 13px 0px;
+}
+.header .logo a {
+  /*为什么这里加block*/
+  display: block;
+  height: 100%;
+  text-indent: -99em;
+}
+.header_content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1024px;
+  *zoom: 1;
+}
+.header_content:before,
+.header_content:after {
+  display: table;
+  content: "";
+}
+.header_content:after {
+  clear: both;
+}
+.header .search {
+  float: left;
+  display: inline;
+  width: 568px;
+  height: 28px;
+  border: solid 1px #ccc;
+  background-color: #F2F2F5;
+  /*运算符之间要有空格否则会报错*/
+  /*2px是border占的空间*/
+  margin: 9px 0;
+}
+.header .search_input {
+  float: left;
+  display: inline;
+  width: 513px;
+  height: 28px;
+  /*用于支持IE9 ？？*/
+  line-height: 28px 9;
+  padding: 0 8px;
+}
+.header .search_btn {
+  width: 17px;
+  height: 16px;
+  background: url(../img/search.png) left top no-repeat;
+  margin-top: 6px;
+  margin-right: 10px;
+  float: right;
+  display: inline;
+}
+.headerNav {
+  float: right;
+  display: inline;
+  font-family: "Microsoft Yahei", "微软雅黑";
+  font-size: 12px;
+  height: 22px;
+  margin: 13px 0;
+}
+.headerNav li {
+  float: left;
+  display: inline;
+  margin-right: 18px;
+}
+.headerNav a {
+  display: inline-block;
+  height: 22px;
+  line-height: 22px;
+  background: url(../img/icon.png) left center no-repeat;
+  color: #333333;
+  padding-left: 26px;
+}
+.headerNav a:hover {
+  color: #fa7d3c;
 }
