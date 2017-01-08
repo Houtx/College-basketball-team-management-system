@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 开启SpringMVC注解模式 -->
+
+    <!--简化配置:
+    	①自动注册DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter			
+				DefaultAnnotationHandlerMapping将扫描当前所有已经注册的spring beans中的@requestmapping标注以找出url 和 handler method处理函数的关系并予以关联。				
+    	②提供一系列:数据绑定,数字和日期的format,@NumberFormat,@DataTimeFormat,xml,json默认读写支持
+    	数据绑定的意思
+    		@RequestMapping(value="/{seckillId}/detail",method=RequestMethod.GET)
+				public String detail(@PathVariable(value="seckillId")Long seckillId,Model model)
+			如上例子在url路径中的seckillId可以直接映射到方法的seckillId参数中
+    -->	
+	<mvc:annotation-driven/>
+	
+	<!-- DispatcherServlet上下文，管理Controller下所以的Bean -->
+	 <context:component-scan base-package="ubtms.basic.controller
+	 									  ,ubtms.module.community.controller
+	 									  ,ubtms.module.user.controller"/>
+	 
+	<!-- 静态资源默认servlet配置 -->
+    <!--2:静态资源默认servlet配置
+    	①加入对静态资源的处理:js,css,gif,png
+    	<mvc:resources mapping="" location=""/>标签同样具有静态资源处理功能
+    	②允许使用"/"做整体映射
+    -->	
+	<mvc:default-servlet-handler/>
+	
+	
+	<!-- 配置JSP,这一项必须放到配置文件最后 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    	<!-- 相当于webapps/WEB-INF/jsp -->
+    	<property name="prefix" value="/WEB-INF/jsp/"/>
+    	<property name="suffix" value=".jsp"/>
+    </bean>
+   
+
+</beans>

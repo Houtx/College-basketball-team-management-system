@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ubtms.module.school.dao.SchoolDao">
+    <select id="queryById" resultType="School">
+        SELECT * FROM school
+        WHERE sch_id = #{schId}
+    </select>
+
+    <select id="queryByName" resultType="School">
+        SELECT * FROM school
+        WHERE sch_name = #{schName}
+    </select>
+
+    <insert id="insertSchool">
+        INSERT INTO school
+        VALUES (#{schId},#{schName},#{schLogo})
+    </insert>
+
+</mapper>
