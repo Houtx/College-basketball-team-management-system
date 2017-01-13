@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by jinzhany on 2016/12/18.
  */
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
     @ResponseBody

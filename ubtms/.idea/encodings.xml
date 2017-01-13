@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/src/main/java/org/seckill/dto/SeckillResult.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/seckill/service/impl/SeckillServiceImpl.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/org/seckill/web/SeckillController.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/ubtms/basic/dto/Result.java" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />

@@ -7,6 +7,24 @@ public class School {
     private int schId;
     private String schName;
     private String schLogo;
+    private byte state;
+    private String introduction;
+
+    public byte getState() {
+        return state;
+    }
+
+    public void setState(byte state) {
+        this.state = state;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 
     public int getSchId() {
         return schId;

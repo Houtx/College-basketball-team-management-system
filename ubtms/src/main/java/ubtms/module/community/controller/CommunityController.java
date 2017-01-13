@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/community")
 public class CommunityController {
 
+
     @RequestMapping("/articleAdd")
     public String articleAdd(){
 

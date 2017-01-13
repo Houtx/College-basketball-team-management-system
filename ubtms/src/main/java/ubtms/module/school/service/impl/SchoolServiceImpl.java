@@ -13,8 +13,7 @@ import ubtms.module.school.service.SchoolService;
 public class SchoolServiceImpl implements SchoolService {
     @Autowired
     SchoolDao schoolDao;
-/*    @Autowired
-    User user;*/
+
     @Override
     public int insertSchool() {
         School school = new School();
