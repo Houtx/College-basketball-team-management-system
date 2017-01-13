@@ -14,12 +14,12 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
 	<!--[if lt IE 9]>
-	<script type="text/javascript" src="resources/lib//html5.js"></script>
-	<script type="text/javascript" src="resources/lib//respond.min.js"></script>
+	<script type="text/javascript" src="resources/lib/html5.js"></script>
+	<script type="text/javascript" src="resources/lib/respond.min.js"></script>
 	<![endif]-->
-	<link href="resources/css/H-ui.min.css" rel="stylesheet" type="text/css" />
-	<link href="resources/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
-	<link href="resources/lib//Hui-iconfont/1.0.7/iconfont.css" rel="stylesheet" type="text/css" />
+	<link href="resources/css/H-ui/H-ui.min.css" rel="stylesheet" type="text/css" />
+	<link href="resources/css/H-ui/H-ui.admin.css" rel="stylesheet" type="text/css" />
+	<link href="resources/lib/Hui-iconfont/1.0.7/iconfont.css" rel="stylesheet" type="text/css" />
 	<link href="resources/skin/default/skin.css" rel="stylesheet" type="text/css" id="skin" />
 	<link href="resources/css/style.css" rel="stylesheet" type="text/css" />
 	<!--[if IE 6]>
@@ -87,8 +87,8 @@
 </section>
 </body>
 
-<script type="text/javascript" src="resources/script/jquery.min.js"></script>
-<script type="text/javascript" src="resources/script/H-ui.js"></script>
-<script type="text/javascript" src="resources/script/H-ui.admin.js"></script>
+<script type="text/javascript" src="resources/lib/jquery.min.js"></script>
+<script type="text/javascript" src="resources/js/H-ui/H-ui.js"></script>
+<script type="text/javascript" src="resources/js/H-ui/H-ui.admin.js"></script>
 
 </html>
