@@ -1,18 +1,7 @@
 @charset "utf-8";
 @import "color";
 @row_top: 30px;
-@nav_height:40px;
-@nav_margin_bottom:30px;
-.myNav{
-    background-color: @nav_color;
-    height:@nav_height;
-    width: 100%;
-    margin-bottom: @nav_margin_bottom;
-    .navContent{
-        margin-top: @nav_height/4;
-    }
-}
-
+@detail_row_martin_top:30px;
 .myForm{
     >div{
        margin-bottom: @row_top;     
@@ -22,5 +11,9 @@
             margin-top: 76px;
         }
     }
+}
+
+.detailRow{
+    margin-top: @detail_row_martin_top;
 }
 

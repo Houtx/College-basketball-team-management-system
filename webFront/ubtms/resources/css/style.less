@@ -1,5 +1,6 @@
 @charset "utf-8";
-
+@nav_height:40px;
+@import "color";
 .myColCenterBlock {
     float: none;
     display: block;
@@ -7,6 +8,14 @@
     margin-right: auto;
 }
 
+.myNav{
+    background-color: @nav_color;
+    height:@nav_height;
+    width: 100%;
+    .navContent{
+        margin-top: @nav_height/4;
+    }
+}
 
 .detailBtnDiv{
     .picBtnDiv(168px,"../images/school/hp.jpg");
