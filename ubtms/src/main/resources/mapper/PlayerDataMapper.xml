@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ubtms.module.user.dao.PlayerDataMapper" >
+  <resultMap id="BaseResultMap" type="ubtms.module.user.entity.PlayerData" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="TINYINT" />
+    <result column="shot" property="shot" jdbcType="INTEGER" />
+    <result column="field_goal" property="fieldGoal" jdbcType="TINYINT" />
+    <result column="three_point_shot" property="threePointShot" jdbcType="TINYINT" />
+    <result column="three_point_shot_goal" property="threePointShotGoal" jdbcType="TINYINT" />
+    <result column="backboard" property="backboard" jdbcType="TINYINT" />
+    <result column="assist" property="assist" jdbcType="TINYINT" />
+    <result column="steal" property="steal" jdbcType="TINYINT" />
+    <result column="blockshot" property="blockshot" jdbcType="TINYINT" />
+    <result column="turnover" property="turnover" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, score, shot, field_goal, three_point_shot, three_point_shot_goal, backboard, 
+    assist, steal, blockshot, turnover
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ubtms.module.user.entity.PlayerDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from player_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from player_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from player_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ubtms.module.user.entity.PlayerDataExample" >
+    delete from player_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ubtms.module.user.entity.PlayerData" >
+    insert into player_data (id, score, shot, 
+      field_goal, three_point_shot, three_point_shot_goal, 
+      backboard, assist, steal, 
+      blockshot, turnover)
+    values (#{id,jdbcType=INTEGER}, #{score,jdbcType=TINYINT}, #{shot,jdbcType=INTEGER}, 
+      #{fieldGoal,jdbcType=TINYINT}, #{threePointShot,jdbcType=TINYINT}, #{threePointShotGoal,jdbcType=TINYINT}, 
+      #{backboard,jdbcType=TINYINT}, #{assist,jdbcType=TINYINT}, #{steal,jdbcType=TINYINT}, 
+      #{blockshot,jdbcType=TINYINT}, #{turnover,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="ubtms.module.user.entity.PlayerData" >
+    insert into player_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="shot != null" >
+        shot,
+      </if>
+      <if test="fieldGoal != null" >
+        field_goal,
+      </if>
+      <if test="threePointShot != null" >
+        three_point_shot,
+      </if>
+      <if test="threePointShotGoal != null" >
+        three_point_shot_goal,
+      </if>
+      <if test="backboard != null" >
+        backboard,
+      </if>
+      <if test="assist != null" >
+        assist,
+      </if>
+      <if test="steal != null" >
+        steal,
+      </if>
+      <if test="blockshot != null" >
+        blockshot,
+      </if>
+      <if test="turnover != null" >
+        turnover,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=TINYINT},
+      </if>
+      <if test="shot != null" >
+        #{shot,jdbcType=INTEGER},
+      </if>
+      <if test="fieldGoal != null" >
+        #{fieldGoal,jdbcType=TINYINT},
+      </if>
+      <if test="threePointShot != null" >
+        #{threePointShot,jdbcType=TINYINT},
+      </if>
+      <if test="threePointShotGoal != null" >
+        #{threePointShotGoal,jdbcType=TINYINT},
+      </if>
+      <if test="backboard != null" >
+        #{backboard,jdbcType=TINYINT},
+      </if>
+      <if test="assist != null" >
+        #{assist,jdbcType=TINYINT},
+      </if>
+      <if test="steal != null" >
+        #{steal,jdbcType=TINYINT},
+      </if>
+      <if test="blockshot != null" >
+        #{blockshot,jdbcType=TINYINT},
+      </if>
+      <if test="turnover != null" >
+        #{turnover,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ubtms.module.user.entity.PlayerDataExample" resultType="java.lang.Integer" >
+    select count(*) from player_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update player_data
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=TINYINT},
+      </if>
+      <if test="record.shot != null" >
+        shot = #{record.shot,jdbcType=INTEGER},
+      </if>
+      <if test="record.fieldGoal != null" >
+        field_goal = #{record.fieldGoal,jdbcType=TINYINT},
+      </if>
+      <if test="record.threePointShot != null" >
+        three_point_shot = #{record.threePointShot,jdbcType=TINYINT},
+      </if>
+      <if test="record.threePointShotGoal != null" >
+        three_point_shot_goal = #{record.threePointShotGoal,jdbcType=TINYINT},
+      </if>
+      <if test="record.backboard != null" >
+        backboard = #{record.backboard,jdbcType=TINYINT},
+      </if>
+      <if test="record.assist != null" >
+        assist = #{record.assist,jdbcType=TINYINT},
+      </if>
+      <if test="record.steal != null" >
+        steal = #{record.steal,jdbcType=TINYINT},
+      </if>
+      <if test="record.blockshot != null" >
+        blockshot = #{record.blockshot,jdbcType=TINYINT},
+      </if>
+      <if test="record.turnover != null" >
+        turnover = #{record.turnover,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update player_data
+    set id = #{record.id,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=TINYINT},
+      shot = #{record.shot,jdbcType=INTEGER},
+      field_goal = #{record.fieldGoal,jdbcType=TINYINT},
+      three_point_shot = #{record.threePointShot,jdbcType=TINYINT},
+      three_point_shot_goal = #{record.threePointShotGoal,jdbcType=TINYINT},
+      backboard = #{record.backboard,jdbcType=TINYINT},
+      assist = #{record.assist,jdbcType=TINYINT},
+      steal = #{record.steal,jdbcType=TINYINT},
+      blockshot = #{record.blockshot,jdbcType=TINYINT},
+      turnover = #{record.turnover,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ubtms.module.user.entity.PlayerData" >
+    update player_data
+    <set >
+      <if test="score != null" >
+        score = #{score,jdbcType=TINYINT},
+      </if>
+      <if test="shot != null" >
+        shot = #{shot,jdbcType=INTEGER},
+      </if>
+      <if test="fieldGoal != null" >
+        field_goal = #{fieldGoal,jdbcType=TINYINT},
+      </if>
+      <if test="threePointShot != null" >
+        three_point_shot = #{threePointShot,jdbcType=TINYINT},
+      </if>
+      <if test="threePointShotGoal != null" >
+        three_point_shot_goal = #{threePointShotGoal,jdbcType=TINYINT},
+      </if>
+      <if test="backboard != null" >
+        backboard = #{backboard,jdbcType=TINYINT},
+      </if>
+      <if test="assist != null" >
+        assist = #{assist,jdbcType=TINYINT},
+      </if>
+      <if test="steal != null" >
+        steal = #{steal,jdbcType=TINYINT},
+      </if>
+      <if test="blockshot != null" >
+        blockshot = #{blockshot,jdbcType=TINYINT},
+      </if>
+      <if test="turnover != null" >
+        turnover = #{turnover,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ubtms.module.user.entity.PlayerData" >
+    update player_data
+    set score = #{score,jdbcType=TINYINT},
+      shot = #{shot,jdbcType=INTEGER},
+      field_goal = #{fieldGoal,jdbcType=TINYINT},
+      three_point_shot = #{threePointShot,jdbcType=TINYINT},
+      three_point_shot_goal = #{threePointShotGoal,jdbcType=TINYINT},
+      backboard = #{backboard,jdbcType=TINYINT},
+      assist = #{assist,jdbcType=TINYINT},
+      steal = #{steal,jdbcType=TINYINT},
+      blockshot = #{blockshot,jdbcType=TINYINT},
+      turnover = #{turnover,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

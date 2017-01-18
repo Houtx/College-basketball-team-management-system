@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ubtms.module.bill.dao.BillMapper" >
+  <resultMap id="BaseResultMap" type="ubtms.module.bill.entity.Bill" >
+    <id column="bill_id" property="billId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="pay" property="pay" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="school_id" property="schoolId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bill_id, type, remark, pay, time, school_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ubtms.module.bill.entity.BillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bill
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bill
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ubtms.module.bill.entity.BillExample" >
+    delete from bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ubtms.module.bill.entity.Bill" >
+    insert into bill (bill_id, type, remark, 
+      pay, time, school_id
+      )
+    values (#{billId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, 
+      #{pay,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{schoolId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="ubtms.module.bill.entity.Bill" >
+    insert into bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        bill_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="pay != null" >
+        pay,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="schoolId != null" >
+        school_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="pay != null" >
+        #{pay,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ubtms.module.bill.entity.BillExample" resultType="java.lang.Integer" >
+    select count(*) from bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bill
+    <set >
+      <if test="record.billId != null" >
+        bill_id = #{record.billId,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=TINYINT},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pay != null" >
+        pay = #{record.pay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.schoolId != null" >
+        school_id = #{record.schoolId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bill
+    set bill_id = #{record.billId,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=TINYINT},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      pay = #{record.pay,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      school_id = #{record.schoolId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ubtms.module.bill.entity.Bill" >
+    update bill
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="pay != null" >
+        pay = #{pay,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="schoolId != null" >
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ubtms.module.bill.entity.Bill" >
+    update bill
+    set type = #{type,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      pay = #{pay,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      school_id = #{schoolId,jdbcType=INTEGER}
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </update>
+</mapper>

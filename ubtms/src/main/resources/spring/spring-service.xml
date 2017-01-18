@@ -12,10 +12,16 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 <!-- 主要进行 扫描service包-->
 <!-- 事务管理 -->
-
-
     <!--扫描service包(包含子包)下所有使用注解的类型-->
-    <context:component-scan base-package="ubtms.module.school.service"></context:component-scan>
+    <context:component-scan base-package="ubtms.module.school.service,
+                                           ubtms.module.user.service,
+                                           ubtms.module.community.service,
+                                           ubtms.module.role.service,
+                                           ubtms.module.game.service,
+                                           ubtms.module.attendance.service,
+                                           ubtms.module.training.service,
+                                           ubtms.module.bill.service">
+    </context:component-scan>
 
     <!--配置事务管理器(mybatis采用的是JDBC的事务管理器)-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -25,5 +31,17 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
     <!--配置基于注解的声明式事务,默认使用注解来管理事务行为-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
+    <tx:advice id="tx" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="update*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="delete*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
 
+    <!--<aop:config>-->
+        <!--<aop:pointcut expression="execution(* dao.*.*(..))" id="perform"/>-->
+        <!--<aop:advisor pointcut-ref="perform" advice-ref="tx"/>-->
+    <!--</aop:config>-->
  </beans>

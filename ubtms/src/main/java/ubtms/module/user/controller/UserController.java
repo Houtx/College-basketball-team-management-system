@@ -1,12 +1,19 @@
 package ubtms.module.user.controller;
 
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import ubtms.basic.util.FileUtil;
 import ubtms.basic.util.ImgUtil;
+import ubtms.module.role.entity.Role;
+import ubtms.module.role.service.RoleService;
+import ubtms.module.school.entity.School;
+import ubtms.module.school.service.SchoolService;
+import ubtms.module.user.entity.User;
+import ubtms.module.user.service.UserService;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +30,28 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private User user;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private Role role;
+    @Autowired
+    private SchoolService schoolService;
+    @Autowired
+    private School school;
+
+    @RequestMapping("/mainPage")
+    public String mainPage(HttpServletRequest request){
+        String account = request.getParameter("account");
+        String password = request.getParameter("password");
+        user.setPhone(account);
+        user.setPassword(password);
+
+        return "/mainPage";
+    }
 
     @ResponseBody
     @RequestMapping("/imgUpload")

@@ -11,7 +11,7 @@
 	<body>
 		<p>大家好！</p>
 		<%
-			response.sendRedirect("/homePage/mainPage");
+			response.sendRedirect("/user/mainPage");
 		%>
 	</body>
 </html>

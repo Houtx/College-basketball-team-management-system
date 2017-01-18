@@ -66,13 +66,7 @@ public class SchoolController {
             in.close();
 
             // 读取特定属性
-            //String key = "ip";
             picDir = props.getProperty("savePicUrl");
-
-            //这里封装了读取配置文件的方法 配置文件中有图片的存放地址和获取地址
-//            Properties properties = PropertiesUtil
-//                    .getProperties("configure/driverpicurl.properties");
-            //picDir = properties.getProperty("savePicUrl");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

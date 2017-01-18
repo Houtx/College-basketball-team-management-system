@@ -5,10 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ubtms.module.school.dao.SchoolDao;
+import ubtms.module.school.dao.SchoolMapper;
 import ubtms.module.school.entity.School;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by jinzhany on 2016/12/8.
@@ -18,18 +16,18 @@ import static org.junit.Assert.*;
         ,"classpath:spring/spring-service.xml"})
 public class SchoolServiceImplTest {
     @Autowired
-    SchoolDao schoolDao;
+    SchoolMapper schoolMapper;
 
     @Test
-    //²âÊÔÍ¨¹ý
+    //ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
     public void insertSchool() throws Exception {
         School school = new School();
-        school.setSchName("¹ã¶«¹¤Òµ´óÑ§");
-        if (schoolDao.queryByName(school.getSchName())==null){
-            System.out.println("²åÈë³É¹¦£º"+schoolDao.insertSchool(school));
+        school.setSchName("ï¿½ã¶«ï¿½ï¿½Òµï¿½ï¿½Ñ§");
+        if (schoolMapper.queryByName(school.getSchName())==null){
+            System.out.println("ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½"+ schoolMapper.insertSchool(school));
         }
-        //schoolDao.insertSchool()
-        System.out.println("²åÈëÊ§°Ü");
+        //schoolMapper.insertSchool()
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
     }
 
 }

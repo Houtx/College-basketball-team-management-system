@@ -23,10 +23,14 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 	<mvc:annotation-driven/>
 	
 	<!-- DispatcherServlet上下文，管理Controller下所以的Bean -->
-	 <context:component-scan base-package="ubtms.basic.controller
-	 									  ,ubtms.module.school.controller
-	 									  ,ubtms.module.community.controller
-	 									  ,ubtms.module.user.controller"/>
+	 <context:component-scan base-package="ubtms.module.school.controller,
+                                           ubtms.module.user.controller,
+                                           ubtms.module.community.controller,
+                                           ubtms.module.role.controller,
+                                           ubtms.module.game.controller,
+                                           ubtms.module.attendance.controller,
+                                           ubtms.module.training.controller,
+                                           ubtms.module.bill.controller"/>
 	 
 	<!-- 静态资源默认servlet配置 -->
     <!--2:静态资源默认servlet配置
