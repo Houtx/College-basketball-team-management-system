@@ -1,5 +1,7 @@
 package ubtms.module.role.entity;
 
+import java.util.List;
+
 public class SubMenu {
     private Integer id;
 
@@ -10,6 +12,38 @@ public class SubMenu {
     private String name;
 
     private Integer sort;
+
+    private Menu menu;
+
+    private List<Permission> permissions;
+
+    public SubMenu() {
+    }
+
+    public SubMenu(Integer id, Integer parentId, String url, String name, Integer sort, List<Permission> Permissions) {
+        this.id = id;
+        this.parentId = parentId;
+        this.url = url;
+        this.name = name;
+        this.sort = sort;
+        this.permissions = Permissions;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permission> Permissions) {
+        this.permissions = Permissions;
+    }
 
     public Integer getId() {
         return id;
@@ -50,4 +84,6 @@ public class SubMenu {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
+
+
 }

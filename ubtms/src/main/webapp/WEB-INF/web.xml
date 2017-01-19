@@ -4,7 +4,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-  <servlet>
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:log4j.properties</param-value><!-- log4j配置文件路径 -->
+	</context-param>
+	<listener>
+		<!-- 容器初始化（销毁）时开启（关闭）Log4j -->
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+
+	<servlet>
     <servlet-name>ubtms-dispatcher</servlet-name>
     	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     
@@ -13,12 +22,13 @@
     			<param-name>contextConfigLocation</param-name>
     			<param-value>classpath:spring/spring-*.xml</param-value>
    		 </init-param>
-  </servlet>
+  	</servlet>
   
   
-  <servlet-mapping>
-    <servlet-name>ubtms-dispatcher</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
-  
+	  <servlet-mapping>
+		<servlet-name>ubtms-dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	  </servlet-mapping>
+
+
 </web-app>

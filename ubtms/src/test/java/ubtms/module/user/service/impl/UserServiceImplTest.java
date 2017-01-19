@@ -8,8 +8,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ubtms.module.user.dao.UserMapper;
 import ubtms.module.user.entity.User;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by jinzhany on 2017/1/17.
  */

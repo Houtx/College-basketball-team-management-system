@@ -23,10 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean selectByAccountAndPassword(User user) {
-//        if (userDao.queryByAccountAndPassword(user)!=0){
-//
-//        }
-        return false;
+    public User selectByAccountAndPassword(User user) {
+        return userMapper.selectByAccountAndPassword(user);
     }
 }

@@ -22,6 +22,8 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Integer id);
 
+    User selectByAccountAndPassword(User user);
+
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 
     int updateByExampleWithBLOBs(@Param("record") User record, @Param("example") UserExample example);

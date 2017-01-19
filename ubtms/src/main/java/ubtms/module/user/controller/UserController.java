@@ -47,10 +47,14 @@ public class UserController {
     public String mainPage(HttpServletRequest request){
         String account = request.getParameter("account");
         String password = request.getParameter("password");
-        user.setPhone(account);
-        user.setPassword(password);
-
-        return "/mainPage";
+        User user1 = new User(account,password);
+        User user2 = user1=userService.selectByAccountAndPassword(user1);
+        if (user2!=null){
+            //userService user2.getRoleId();
+            return "/mainPage";
+        }else {
+            return "/login";
+        }
     }
 
     @ResponseBody

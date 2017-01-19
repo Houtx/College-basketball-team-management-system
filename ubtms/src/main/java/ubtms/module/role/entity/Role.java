@@ -1,13 +1,38 @@
 package ubtms.module.role.entity;
 
+import java.util.List;
+
 public class Role {
     private Integer id;
 
     private String roleName;
 
-    private Integer menuId;
-
     private Integer schoolId;
+
+    private List<Menu> menus;
+
+
+    public Role() {
+    }
+
+    public Role(Integer id) {
+        this.id = id;
+    }
+
+    public Role(Integer id, String roleName, Integer schoolId, List<Menu> menus) {
+        this.id = id;
+        this.roleName = roleName;
+        this.schoolId = schoolId;
+        this.menus = menus;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
+    }
 
     public Integer getId() {
         return id;
@@ -25,19 +50,22 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public Integer getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(Integer menuId) {
-        this.menuId = menuId;
-    }
-
     public Integer getSchoolId() {
         return schoolId;
     }
 
     public void setSchoolId(Integer schoolId) {
         this.schoolId = schoolId;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "menus=" + menus +
+                ", schoolId=" + schoolId +
+                ", roleName='" + roleName + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

@@ -1,6 +1,6 @@
 package ubtms.module.role.entity;
 
-public class Right {
+public class Permission {
     private Integer id;
 
     private Integer parentId;
@@ -14,6 +14,20 @@ public class Right {
     * 0ÆôÓÃ 1½ûÓÃ
     */
     private Byte state;
+
+    private Integer sort;
+
+    private SubMenu subMenu;
+    public Permission() {
+    }
+
+    public SubMenu getSubMenu() {
+        return subMenu;
+    }
+
+    public void setSubMenu(SubMenu subMenu) {
+        this.subMenu = subMenu;
+    }
 
     public Integer getId() {
         return id;
@@ -45,5 +59,25 @@ public class Right {
 
     public void setState(Byte state) {
         this.state = state;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    @Override
+    public String toString() {
+        return "Permission{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", type=" + type +
+                ", state=" + state +
+                ", sort=" + sort +
+                ", subMenu=" + subMenu +
+                '}';
     }
 }

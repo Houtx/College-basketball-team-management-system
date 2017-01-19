@@ -254,66 +254,6 @@ public class RoleExample {
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdIsNull() {
-            addCriterion("menu_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdIsNotNull() {
-            addCriterion("menu_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdEqualTo(Integer value) {
-            addCriterion("menu_id =", value, "menuId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdNotEqualTo(Integer value) {
-            addCriterion("menu_id <>", value, "menuId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdGreaterThan(Integer value) {
-            addCriterion("menu_id >", value, "menuId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("menu_id >=", value, "menuId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdLessThan(Integer value) {
-            addCriterion("menu_id <", value, "menuId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdLessThanOrEqualTo(Integer value) {
-            addCriterion("menu_id <=", value, "menuId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdIn(List<Integer> values) {
-            addCriterion("menu_id in", values, "menuId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdNotIn(List<Integer> values) {
-            addCriterion("menu_id not in", values, "menuId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdBetween(Integer value1, Integer value2) {
-            addCriterion("menu_id between", value1, value2, "menuId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMenuIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("menu_id not between", value1, value2, "menuId");
-            return (Criteria) this;
-        }
-
         public Criteria andSchoolIdIsNull() {
             addCriterion("school_id is null");
             return (Criteria) this;

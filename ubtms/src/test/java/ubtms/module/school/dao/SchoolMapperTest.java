@@ -12,7 +12,6 @@ import javax.annotation.Resource;
  * Created by jinzhany on 2016/12/7.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-//����junit spring�������ļ�·��
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class SchoolMapperTest {
     @Resource

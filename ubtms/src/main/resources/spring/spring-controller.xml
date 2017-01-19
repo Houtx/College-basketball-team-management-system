@@ -21,7 +21,7 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 			如上例子在url路径中的seckillId可以直接映射到方法的seckillId参数中
     -->	
 	<mvc:annotation-driven/>
-	
+
 	<!-- DispatcherServlet上下文，管理Controller下所以的Bean -->
 	 <context:component-scan base-package="ubtms.module.school.controller,
                                            ubtms.module.user.controller,

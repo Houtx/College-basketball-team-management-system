@@ -7,5 +7,6 @@ import ubtms.module.user.entity.User;
  */
 public interface UserService {
     int selectById(Integer id);
-    boolean selectByAccountAndPassword(User user);
+    User selectByAccountAndPassword(User user);
+    //getUserRight(User user);
 }

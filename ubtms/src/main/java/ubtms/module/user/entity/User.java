@@ -1,8 +1,9 @@
 package ubtms.module.user.entity;
 
+import ubtms.module.role.entity.Role;
+
 public class User {
     private Integer id;
-
     /**
     * 11Î»ÊÖ»úºÅÂë
     */
@@ -44,6 +45,13 @@ public class User {
     private Integer roleId;
 
     private String headPic;
+
+    private Role role;
+
+    public User(String phone, String password) {
+        this.phone = phone;
+        this.password = password;
+    }
 
     public Integer getId() {
         return id;
@@ -147,6 +155,14 @@ public class User {
 
     public void setHeadPic(String headPic) {
         this.headPic = headPic;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
