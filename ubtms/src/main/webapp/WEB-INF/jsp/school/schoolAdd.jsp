@@ -45,7 +45,7 @@
 
     <div class="row detailRow">
         <div class="col-xs-8 col-md-6 myColCenterBlock">
-            <form target="ajaxUpload" class="form-horizontal myForm" role="form" id="headImgForm" action="/school/imgUpload" method="post" enctype="multipart/form-data">
+            <form target="ajaxUpload" class="form-horizontal myForm" role="form" id="headImgForm" action="/school/imgUpload" method="post" enctype="multipart/form-rows">
                 <div class="form-group picRow">
                     <label for="file" class="col-sm-2 control-label">校徽</label>
                     <div class="col-sm-10">
@@ -56,7 +56,7 @@
                 </div>
             </form>
             <iframe name="ajaxUpload" style="display:none"></iframe>
-            <form class="form-horizontal myForm" role="form" id="schoolForm" method="post" enctype="multipart/form-data">
+            <form class="form-horizontal myForm" role="form" id="schoolForm" method="post" enctype="multipart/form-rows">
                 <div class="form-group">
                     <label for="schoolName" class="col-sm-2 control-label">校名</label>
                     <div class="col-sm-10">
@@ -66,7 +66,7 @@
                 <div class="form-group" style="margin-top: 30px;">
                     <label for="intfroduction" class="col-sm-2 control-label">简介</label>
                     <div class="col-sm-10">
-                        <textarea maxlength="200" id="intfroduction" class="form-control" rows="6"></textarea>
+                        <textarea maxlength="200" id="intfroduction" class="form-control" r="6"></textarea>
                     </div>
                 </div>
             </form>
@@ -88,7 +88,7 @@
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="resources/lib/bootstrap.min.js"></script>
+<script src="resources/lib/bootstrap/bootstrap.min.js"></script>
 
 <script src="resources/lib/bootstrap-table/bootstrap-table.js"></script>
 <script src="resources/js/school/schoolDetail.js"></script>

@@ -126,13 +126,35 @@
     </if>
   </select>
 
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from user
-    where id = #{id,jdbcType=INTEGER}
+  <select id="select" resultMap="ResultMapWithBLOBs">
+    select * from user
+    <where>
+      <if test="id!= null">
+        id = #{id}
+      </if>
+      <if test="phone != null">
+        AND phone like #{phone}
+      </if>
+      <if test="password != null">
+        AND password like #{password}
+      </if>
+      <if test="realName != null">
+        AND real_name like #{password}
+      </if>
+
+      <if test="sex != null">
+        AND sex like #{sex}
+      </if>
+      <if test="state != null">
+        AND state like #{state}
+      </if>
+      <if test="grade != null">
+        AND grade like #{grade}
+      </if>
+      <if test="duty != null">
+        AND duty like #{duty}
+      </if>
+    </where>
   </select>
 
 

@@ -4,33 +4,17 @@ package ubtms.module.school.entity;
  * Created by jinzhany on 2016/12/7.
  */
 public class School {
-    private int schId;
+    private Integer schId;
     private String schName;
     private String schLogo;
-    private byte state;
+    private Short state;
     private String introduction;
 
-    public byte getState() {
-        return state;
-    }
-
-    public void setState(byte state) {
-        this.state = state;
-    }
-
-    public String getIntroduction() {
-        return introduction;
-    }
-
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
-    }
-
-    public int getSchId() {
+    public Integer getSchId() {
         return schId;
     }
 
-    public void setSchId(int schId) {
+    public void setSchId(Integer schId) {
         this.schId = schId;
     }
 
@@ -48,6 +32,22 @@ public class School {
 
     public void setSchLogo(String schLogo) {
         this.schLogo = schLogo;
+    }
+
+    public Short getState() {
+        return state;
+    }
+
+    public void setState(Short state) {
+        this.state = state;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 
     @Override

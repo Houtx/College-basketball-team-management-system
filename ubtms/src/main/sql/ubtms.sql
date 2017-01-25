@@ -10,10 +10,28 @@ Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-01-13 20:59:47
+Date: 2017-01-23 22:53:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for article
+-- ----------------------------
+DROP TABLE IF EXISTS `article`;
+CREATE TABLE `article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `content` text,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `article_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of article
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for attendance
@@ -43,7 +61,7 @@ CREATE TABLE `bill` (
   `type` tinyint(4) DEFAULT NULL COMMENT '1衣\n2食\n3住\n4行',
   `remark` varchar(45) DEFAULT NULL,
   `pay` varchar(45) DEFAULT NULL,
-  `time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `time` timestamp NULL DEFAULT NULL,
   `school_id` int(11) NOT NULL,
   PRIMARY KEY (`bill_id`),
   KEY `school_id` (`school_id`),
@@ -52,6 +70,27 @@ CREATE TABLE `bill` (
 
 -- ----------------------------
 -- Records of bill
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for comment
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `content` text,
+  `article_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `article_id` (`article_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`),
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of comment
 -- ----------------------------
 
 -- ----------------------------
@@ -83,15 +122,41 @@ CREATE TABLE `menu` (
   `icon` varchar(20) DEFAULT NULL,
   `name` varchar(20) NOT NULL,
   `sort` int(11) DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `state` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
+INSERT INTO `menu` VALUES ('1', '&#xe62d;', '人员管理', '3', '1', '1');
+INSERT INTO `menu` VALUES ('2', '&#xe62d;', '球队管理', '1', '1', '1');
+
+-- ----------------------------
+-- Table structure for permission
+-- ----------------------------
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE `permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL,
+  `type` tinyint(4) DEFAULT NULL COMMENT '1增 2删 3改 4查',
+  `state` tinyint(4) DEFAULT NULL COMMENT '1启用状态 0禁用状态',
+  `sort` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`),
+  CONSTRAINT `permission_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `sub_menu` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of permission
+-- ----------------------------
+INSERT INTO `permission` VALUES ('1', '1', '1', '1', null);
+INSERT INTO `permission` VALUES ('2', '1', '2', '1', null);
+INSERT INTO `permission` VALUES ('3', '1', '3', '1', null);
+INSERT INTO `permission` VALUES ('4', '1', '4', '1', null);
 
 -- ----------------------------
 -- Table structure for player_data
@@ -117,21 +182,24 @@ CREATE TABLE `player_data` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for right
+-- Table structure for reply
 -- ----------------------------
-DROP TABLE IF EXISTS `right`;
-CREATE TABLE `right` (
+DROP TABLE IF EXISTS `reply`;
+CREATE TABLE `reply` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) NOT NULL,
-  `type` tinyint(4) DEFAULT NULL COMMENT '0查 1增 2改 3删',
-  `state` tinyint(4) DEFAULT NULL COMMENT '0启用 1禁用',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `content` text,
+  `comment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `parent_id` (`parent_id`),
-  CONSTRAINT `right_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `sub_menu` (`id`)
+  KEY `article_id` (`comment_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`),
+  CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of right
+-- Records of reply
 -- ----------------------------
 
 -- ----------------------------
@@ -157,6 +225,25 @@ CREATE TABLE `rival_player_data` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for role
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(20) DEFAULT NULL,
+  `school_id` int(11) NOT NULL,
+  `state` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `school_id` (`school_id`),
+  CONSTRAINT `role_ibfk_2` FOREIGN KEY (`school_id`) REFERENCES `school` (`sch_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES ('1', '系统管理员', '1', null);
+
+-- ----------------------------
 -- Table structure for school
 -- ----------------------------
 DROP TABLE IF EXISTS `school`;
@@ -167,11 +254,12 @@ CREATE TABLE `school` (
   `state` tinyint(4) DEFAULT NULL COMMENT '0启用 1禁用',
   ` introduction` varchar(400) DEFAULT NULL,
   PRIMARY KEY (`sch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of school
 -- ----------------------------
+INSERT INTO `school` VALUES ('1', '系统', null, '1', null);
 
 -- ----------------------------
 -- Table structure for school_player_data
@@ -205,14 +293,18 @@ CREATE TABLE `sub_menu` (
   `url` varchar(200) NOT NULL,
   `name` varchar(20) NOT NULL,
   `sort` int(11) DEFAULT NULL,
+  `state` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `sub_menu_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `menu` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sub_menu
 -- ----------------------------
+INSERT INTO `sub_menu` VALUES ('1', '1', 'school/schoolMng', '学校管理', '1', '1');
+INSERT INTO `sub_menu` VALUES ('2', '1', 'school/roleMng', '角色管理', '2', '1');
+INSERT INTO `sub_menu` VALUES ('3', '1', 'school/userMng', '人员管理', '3', '1');
 
 -- ----------------------------
 -- Table structure for training
@@ -261,20 +353,21 @@ CREATE TABLE `user` (
   `real_name` varchar(12) NOT NULL,
   `sex` tinyint(4) DEFAULT NULL COMMENT '0女性 1男性',
   `head_pic` text,
-  `type` tinyint(4) NOT NULL,
-  `state` tinyint(4) NOT NULL,
+  `state` tinyint(4) NOT NULL COMMENT '1启用 0禁用',
   `height` float DEFAULT NULL,
   `weight` float DEFAULT NULL,
   `grade` varchar(50) DEFAULT NULL,
   `shirt_num` tinyint(4) DEFAULT NULL COMMENT '球衣号码',
   `duty` tinyint(4) DEFAULT NULL COMMENT '1-5表示1到5号位',
-  `school_id` int(11) NOT NULL,
+  `role_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_ibfk_1` (`school_id`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `school` (`sch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('2', 'bbq', '123', '哈哈哈', null, null, '1', null, null, null, null, null, '1');
+INSERT INTO `user` VALUES ('3', 'admin', '123456', '系统管理员1', null, null, '1', null, null, null, null, null, '1');
 SET FOREIGN_KEY_CHECKS=1;

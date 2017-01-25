@@ -7,9 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import ubtms.basic.dto.MngResult;
+import ubtms.basic.entity.LimitObjet;
 import ubtms.basic.util.FileUtil;
 import ubtms.basic.util.ImgUtil;
+import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
 
 import javax.imageio.ImageIO;
@@ -34,12 +38,28 @@ public class SchoolController {
     @Autowired
     SchoolService schoolService;
 
-    @RequestMapping("/addSchoolPage")
-    public String addSchoolPage(){
-        return "school/schoolAdd";
+    @RequestMapping("/schoolMngPage")
+    public String schoolMngPage(){
+        return "/school/schoolMng";
     }
 
-    @RequestMapping("/addSchool")
+    @RequestMapping("/schoolGetAction")
+    @ResponseBody
+    public MngResult<List<School>> getSchools(int limit, int offset){
+        LimitObjet<School> limitObjet = new LimitObjet<School>(new School(),offset,limit);
+        List<School> schools = schoolService.selectWithLimit(limitObjet);
+        MngResult<List<School>> result = new MngResult<List<School>>(true, schools,schools.size());
+        return result;
+    }
+
+    @RequestMapping("/schoolAddPage")
+    public String schoolAddPage() {
+
+        System.out.println("in");
+        return "/school/schoolAdd";
+    }
+
+    @RequestMapping("/schoolAddAction")
     public String addSchool(HttpServletRequest request, HttpServletResponse response){
         MultipartFile file= (MultipartFile) request.getSession().getAttribute("img");
         String schoolName = request.getParameter("schoolName").toString();

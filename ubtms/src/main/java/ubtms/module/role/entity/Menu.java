@@ -17,16 +17,29 @@ public class Menu {
 
     private Role role;
 
+    private Byte state;
+
     public Menu() {
+
     }
 
-    public Menu(Integer id, String icon, String name, Integer sort, Integer roleId, List<SubMenu> subMenus) {
+    public Menu(Integer id, String icon, String name, Integer sort, Integer roleId, List<SubMenu> subMenus, Role role, Byte state) {
         this.id = id;
         this.icon = icon;
         this.name = name;
         this.sort = sort;
         this.roleId = roleId;
         this.subMenus = subMenus;
+        this.role = role;
+        this.state = state;
+    }
+
+    public Byte getState() {
+        return state;
+    }
+
+    public void setState(Byte state) {
+        this.state = state;
     }
 
     public Role getRole() {

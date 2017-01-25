@@ -15,6 +15,7 @@
 <html>
 
 <head>
+    <base href="<%=basePath%>">
     <meta name="viewport" content="width=device-width" />
     <title>BootStrap Table使用</title>
     <meta charset="utf-8">
@@ -30,7 +31,6 @@
 
 <body>
 <div class="container-fluid">
-
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 myNav">
             <div class="navContent">
@@ -41,7 +41,6 @@
 
     <div class="row mngMainBody">
         <div class="panel panel-default mngSearch">
-            <div class="panel-heading">查询条件</div>
             <div class="panel-body">
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:15px">
@@ -79,7 +78,7 @@
                 </button>
             </div>
 
-            <table id="tb_departments"></table>
+            <table id="tb_schools"></table>
         </div>
     </div>
 </div>

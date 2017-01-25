@@ -13,8 +13,40 @@
         SELECT * FROM school
         WHERE sch_name = #{schName}
     </select>
+    <select id="select" resultType="School">
+        SELECT * FROM school
+        <where>
+            <if test="schId!=0">
+                sch_id=#{schId}
+            </if>
+            <if test="schName!=null">
+                sch_name like #{schName}
+            </if>
+            <if test="state!=null">
+                state=#{state}
+            </if>
+        </where>
+    </select>
+    <select id="selectWithLimit" resultType="School">
+        SELECT * FROM school
+        <where>
+            <if test="data.schId!=null">
+                sch_id=#{data.schId}
+            </if>
+            <if test="data.schName!=null">
+                sch_name like #{data.schName}
+            </if>
+            <if test="data.state!=null">
+                state=#{data.state}
+            </if>
+        </where>
+        <if test="limit!=null">
+            limit #{offset},#{limit}
+        </if>
+    </select>
 
-    <insert id="saveSchool">
+
+    <insert id="insertSchool">
         INSERT INTO school
         VALUES (#{schId},#{schName},#{schLogo})
     </insert>

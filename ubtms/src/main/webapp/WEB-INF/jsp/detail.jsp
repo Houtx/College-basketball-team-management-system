@@ -5,7 +5,7 @@
 
 <head>
     <title>秒杀详情页</title>
-    <%@ include file="common/head2.jsp" %>
+    <%@ include file="common/head.jsp" %>
 </head>
 
 <body>

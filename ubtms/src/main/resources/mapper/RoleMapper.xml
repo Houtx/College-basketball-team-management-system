@@ -8,12 +8,10 @@
   </resultMap>
   
   <resultMap id="roleRightsMap" type="ubtms.module.role.entity.Role">
-    <!--<constructor>-->
-      <!--<idArg column="role_id" javaType="INTEGER"/>-->
-    <!--</constructor>-->
     <id column="role_id" property="id" jdbcType="INTEGER" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
     <result column="role_school_id" property="schoolId" jdbcType="INTEGER" />
+    <result column="role_state" property="state" jdbcType="TINYINT" />
     <collection property="menus" resultMap="menusMap"/>
   </resultMap>
 
@@ -22,15 +20,18 @@
     <result column="menu_name" property="name"/>
     <result column="menu_icon" property="icon"/>
     <result column="menu_sort" property="sort"/>
+    <result column="menu_state" property="state"/>
     <association property="role" resultMap="roleRightsMap"/>
     <collection property="subMenus" resultMap="subMenusMap"/>
   </resultMap>
 
   <resultMap id="subMenusMap" type="ubtms.module.role.entity.SubMenu">
     <id  column="sub_menu_id" property="id"/>
-    <result column="menu_name" property="name"/>
-    <result column="menu_sort" property="sort"/>
-    <result column="menu_url" property="url"/>
+    <result column="sub_menu_name" property="name"/>
+    <result column="sub_menu_sort" property="sort"/>
+    <result column="sub_menu_url" property="url"/>
+    <result column="sub_menu_state" property="state"/>
+
     <association property="menu" resultMap="menusMap"/>
     <collection property="permissions" ofType="ubtms.module.role.entity.Permission">
       <id  column="permission_id" property="id"/>
@@ -52,20 +53,22 @@
       s.url AS sub_menu_url,
       s.name AS sub_menu_name,
       s.sort AS sub_menu_sort,
+      s.state AS sub_menu_state,
       m.id AS menu_id,
       m.icon AS menu_icon,
       m.name AS menu_name,
       m.sort AS menu_sort,
+      m.state AS menu_state,
       rl.id AS role_id,
-      role_name AS role_name,
+      rl.role_name AS role_name,
+      rl.state AS role_state,
       rl.school_id AS role_school_id
-    FROM permission p
-    INNER JOIN sub_menu s ON s.id=p.parent_id
-    INNER JOIN menu m ON m.id=s.parent_id
-    INNER JOIN role rl ON rl.id=m.role_id
+    FROM role rl
+    INNER JOIN menu m ON m.role_id=rl.id
+    INNER JOIN sub_menu s ON s.parent_id=m.id
+    INNER JOIN permission p ON p.parent_id=s.id
     where rl.id=#{id}
   </select>
-  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

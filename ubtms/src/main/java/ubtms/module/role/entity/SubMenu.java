@@ -14,19 +14,30 @@ public class SubMenu {
     private Integer sort;
 
     private Menu menu;
+    private Byte state;
 
     private List<Permission> permissions;
 
     public SubMenu() {
     }
 
-    public SubMenu(Integer id, Integer parentId, String url, String name, Integer sort, List<Permission> Permissions) {
+    public SubMenu(Integer id, Integer parentId, String url, String name, Integer sort, Menu menu, Byte state, List<Permission> permissions) {
         this.id = id;
         this.parentId = parentId;
         this.url = url;
         this.name = name;
         this.sort = sort;
-        this.permissions = Permissions;
+        this.menu = menu;
+        this.state = state;
+        this.permissions = permissions;
+    }
+
+    public Byte getState() {
+        return state;
+    }
+
+    public void setState(Byte state) {
+        this.state = state;
     }
 
     public Menu getMenu() {

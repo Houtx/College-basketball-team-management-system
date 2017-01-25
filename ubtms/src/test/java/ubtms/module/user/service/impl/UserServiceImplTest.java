@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 import ubtms.module.user.dao.UserMapper;
 import ubtms.module.user.entity.User;
 
@@ -24,8 +25,14 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void selectByAccountAndPassword() throws Exception {
-
+    public void select() throws Exception {
+       // User user = new User("root","123456");
+        User user = new User();
+       // user.setId(1);
+        user.setPhone("admin");
+        user.setPassword("123456");
+        User user2 = userMapper.select(user);
+        System.out.println(user2);
     }
 
 }

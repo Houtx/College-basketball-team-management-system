@@ -4,9 +4,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ubtms.basic.entity.LimitObjet;
 import ubtms.module.school.entity.School;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by jinzhany on 2016/12/7.
@@ -16,7 +18,6 @@ import javax.annotation.Resource;
 public class SchoolMapperTest {
     @Resource
     private SchoolMapper schoolMapper;
-    //�˴����ֱ�Ӻ��ԣ���Ϊ���ǲ��������Ҳ���bean
     @Test
     public void queryById() throws Exception {
         System.out.println(schoolMapper.queryById(1));
@@ -33,5 +34,15 @@ public class SchoolMapperTest {
         school.setSchName("�㶫��ҵ��ѧ");
         System.out.println(schoolMapper.insertSchool(school));
     }
+
+    @Test
+    public void selectWithLimit() throws Exception {
+        //short a = 1;
+        School school = new School();
+        //school.setState(a);
+        LimitObjet<School> limitObjet = new LimitObjet<>(school,0,10);
+        System.out.println(schoolMapper.selectWithLimit(limitObjet));
+    }
+
 
 }

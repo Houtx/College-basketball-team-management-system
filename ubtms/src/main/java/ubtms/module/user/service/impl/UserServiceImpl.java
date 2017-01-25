@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectByAccountAndPassword(User user) {
-        return userMapper.selectByAccountAndPassword(user);
+    public User select(User user) {
+        return userMapper.select(user);
     }
 }

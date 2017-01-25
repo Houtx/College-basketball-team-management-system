@@ -48,6 +48,9 @@ public class User {
 
     private Role role;
 
+    public User() {
+    }
+
     public User(String phone, String password) {
         this.phone = phone;
         this.password = password;

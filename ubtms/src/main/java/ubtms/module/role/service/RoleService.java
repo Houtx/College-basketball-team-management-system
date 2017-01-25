@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface RoleService {
     int saveRole();
-    Role selectRoleById(Integer id);
+    Role selectByPrimaryKey(Integer id);
 }

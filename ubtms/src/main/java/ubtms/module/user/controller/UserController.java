@@ -3,6 +3,7 @@ package ubtms.module.user.controller;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,30 +33,33 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private User user;
+//    @Autowired
+//    private User user;
     @Autowired
     private RoleService roleService;
-    @Autowired
-    private Role role;
+//    @Autowired
+//    private Role role;
     @Autowired
     private SchoolService schoolService;
-    @Autowired
-    private School school;
+//    @Autowired
+//    private School school;
 
     @RequestMapping("/mainPage")
-    public String mainPage(HttpServletRequest request){
-        String account = request.getParameter("account");
-        String password = request.getParameter("password");
-        User user1 = new User(account,password);
-        User user2 = user1=userService.selectByAccountAndPassword(user1);
+    public String mainPage(HttpServletRequest request, Model model){
+
+//        String account = request.getParameter("account");
+//        String password = request.getParameter("password");
+        User user1 = new User("admin","123456");
+        User user2 = user1=userService.select(user1);
         if (user2!=null){
-            //userService user2.getRoleId();
+            Role role = roleService.selectByPrimaryKey(user2.getRoleId());
+            model.addAttribute("menus", role.getMenus());
             return "/mainPage";
         }else {
             return "/login";
         }
     }
+
 
     @ResponseBody
     @RequestMapping("/imgUpload")

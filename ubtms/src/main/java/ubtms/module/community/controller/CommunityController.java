@@ -10,5 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/community")
 public class CommunityController {
-
+    @RequestMapping("/articleAddPage")
+    public String articleAddPage(){
+        System.out.println("in");
+        return "/community/articleAdd";
+    }
 }

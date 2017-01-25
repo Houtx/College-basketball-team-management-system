@@ -2,9 +2,12 @@ package ubtms.module.school.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ubtms.basic.entity.LimitObjet;
 import ubtms.module.school.dao.SchoolMapper;
 import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
+
+import java.util.List;
 
 /**
  * Created by jinzhany on 2016/12/8.
@@ -15,17 +18,27 @@ public class SchoolServiceImpl implements SchoolService {
     SchoolMapper schoolMapper;
 
     @Override
-    public int svaeSchool() {
-        School school = new School();
-        school.setSchName("广东工业大学");
-        if (schoolMapper.queryByName(school.getSchName())==null){
-            System.out.println("影响行数："+ schoolMapper.insertSchool(school));
-            return 1;
-        }
-        //schoolMapper.insertSchool()
-        System.out.println("学校已存在");
+    public int svaeSchool(School school) {
         return 0;
     }
 
+    @Override
+    public School selectOne(School school) {
+        return schoolMapper.select(school).get(0);
+    }
 
+    @Override
+    public List<School> selectCollection(School school) {
+        return schoolMapper.select(school);
+    }
+
+    @Override
+    public List<School> selectCollection() {
+        return schoolMapper.select(null);
+    }
+
+    @Override
+    public List<School> selectWithLimit(LimitObjet<School> schoolLimitObjet) {
+        return schoolMapper.selectWithLimit(schoolLimitObjet);
+    }
 }

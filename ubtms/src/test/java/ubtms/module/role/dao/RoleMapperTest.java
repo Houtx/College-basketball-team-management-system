@@ -23,9 +23,9 @@ public class RoleMapperTest {
 
     @Test
     public void selectByPrimaryKey() throws Exception {
-       List<Role> roles =  roleMapper.selectByPrimaryKey(1);
+       Role role =  roleMapper.selectByPrimaryKey(1);
         log.info("success");
-        System.out.println(roles);
+        System.out.println(role);
     }
 
 }
