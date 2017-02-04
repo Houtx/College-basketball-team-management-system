@@ -6,25 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@ include file="../common/basePath.jsp"%>
+
 <!DOCTYPE html>
 
 <html>
 
 <head>
-    <base href="<%=basePath%>">
-    <meta name="viewport" content="width=device-width" />
-    <title>BootStrap Table使用</title>
-    <meta charset="utf-8">
-
-    <!--引入图标-->
-    <link href="resources/lib/Hui-iconfont/1.0.7/iconfont.css" rel="stylesheet" type="text/css" />
-    <link href="resources/lib/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <%@ include file="../common/head.jsp"%>
+    <title>学校管理</title>
     <link href="resources/lib/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
-    <link href="resources/css/style.css" rel="stylesheet" type="text/css" />
     <link href="resources/css/mng.css" rel="stylesheet" type="text/css" />
 
 </head>
@@ -34,7 +25,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 myNav">
             <div class="navContent">
-                <i class="Hui-iconfont">&#xe62d;</i>&nbsp;学校管理&nbsp;&nbsp;>&nbsp;&nbsp;添加学校
+                <i class="Hui-iconfont">&#xe62d;</i>&nbsp;学校管理
             </div>
         </div>
     </div>
@@ -57,6 +48,7 @@
                                 <option>禁用</option>
                             </select>
                         </div>
+
                         <div class="col-sm-4" style="text-align:left;">
                             <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
                         </div>
@@ -64,8 +56,8 @@
                 </form>
             </div>
         </div>
-        <div>
 
+        <div>
             <div id="toolbar" class="btn-group">
                 <button id="btn_add" type="button" class="btn btn-default">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
@@ -85,11 +77,8 @@
 
 </body>
 
-<script src="resources/lib/jquery.min.js"></script>
-<script src="resources/lib/bootstrap/bootstrap.min.js"></script>
-<script src="resources/lib/bootstrap-table/bootstrap-table.js"></script>
-<script src="resources/lib/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-
+<%@ include file="../common/footer.jsp"%>
+<%@ include file="../common/bs-table.jsp"%>
 <script src="resources/js/school/schoolMng.js"></script>
 
 </html>

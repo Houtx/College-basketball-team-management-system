@@ -55,7 +55,6 @@ public class SchoolController {
     @RequestMapping("/schoolAddPage")
     public String schoolAddPage() {
 
-        System.out.println("in");
         return "/school/schoolAdd";
     }
 

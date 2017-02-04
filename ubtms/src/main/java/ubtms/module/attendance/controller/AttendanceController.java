@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/attendance")
 public class AttendanceController {
+    @RequestMapping("/attendanceAddPage")
+    public String attendanceAddPage() {
+        return "attendance/attendanceAdd";
+    }
 
 
 }

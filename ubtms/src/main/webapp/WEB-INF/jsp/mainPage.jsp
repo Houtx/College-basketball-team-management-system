@@ -79,12 +79,16 @@
 		</c:forEach>
 
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe62d;</i><spring:message code="common.04"/> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a _href="/community/articleAddPage" rows-title="添加文章" href="javascript:void(0)">角色管理</a></li>
 					<li><a _href="/school/schoolAddPage" rows-title="添加学校" href="javascript:void(0)">权限管理</a></li>
 					<li><a _href="/school/schoolMngPage" rows-title="学校管理" href="javascript:void(0)">管理员列表</a></li>
+					<li><a _href="/bill/billAddPage" rows-title="添加账单" href="javascript:void(0)">添加账单</a></li>
+					<li><a _href="/user/userAddPage" rows-title="添加人员" href="javascript:void(0)">添加人员</a></li>
+					<li><a _href="/attendance/attendanceAddPage" rows-title="添加考勤" href="javascript:void(0)">添加考勤</a></li>
+
 				</ul>
 			</dd>
 		</dl>

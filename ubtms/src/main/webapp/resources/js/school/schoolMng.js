@@ -5,6 +5,7 @@ $(function () {
     var oTable = new TableInit();
     oTable.Init();
 
+    debugger;
     //2.初始化Button的点击事件
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
@@ -84,13 +85,14 @@ var ButtonInit = function () {
     var postdata = {};
 
     oInit.Init = function () {
-        //$("#btn_add").click(function () {
-        //    $("#myModalLabel").text("新增");
-        //    $("#myModal").find(".form-control").val("");
-        //    $('#myModal').modal()
-
-        //    postdata.DEPARTMENT_ID = "";
-        //});
+        $("#btn_add").click(function () {
+            debugger;
+            window.document.location="school/schoolAddPage";
+           //$("#myModalLabel").text("新增");
+           //$("#myModal").find(".form-control").val("");
+           //$('#myModal').modal()
+           //postdata.DEPARTMENT_ID = "";
+        });
 
         //$("#btn_edit").click(function () {
         //    var arrselections = $("#tb_departments").bootstrapTable('getSelections');

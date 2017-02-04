@@ -11,7 +11,7 @@
 	<body>
 		<p>大家好！</p>
 		<%
-			response.sendRedirect("/user/mainPage");
+			response.sendRedirect("/user/mainPage?lang=zh_CN");
 		%>
 	</body>
 </html>

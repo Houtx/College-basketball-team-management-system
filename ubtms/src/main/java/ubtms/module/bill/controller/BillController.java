@@ -11,5 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/bill")
 public class BillController {
+    @RequestMapping("/billAddPage")
+    public String billAddPage() {
+        return "/bill/billAdd";
+    }
 
 }

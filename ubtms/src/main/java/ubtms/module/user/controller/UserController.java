@@ -59,7 +59,12 @@ public class UserController {
             return "/login";
         }
     }
+    
+    @RequestMapping("/userAddPage")
+    public String userAddPage() {
 
+        return "/user/userAdd";
+    }
 
     @ResponseBody
     @RequestMapping("/imgUpload")
