@@ -53,7 +53,8 @@ public class UserController {
         User user2 = user1=userService.select(user1);
         if (user2!=null){
             Role role = roleService.selectByPrimaryKey(user2.getRoleId());
-            model.addAttribute("menus", role.getMenus());
+            //model.addAttribute("menus", role.getMenus());
+            request.getSession().setAttribute("menus",role.getMenus());
             return "/mainPage";
         }else {
             return "/login";

@@ -27,9 +27,7 @@
 	<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 	<script>DD_belatedPNG.fix('*');</script>
 	<![endif]-->
-	<title>H-ui.admin v2.3</title>
-	<meta name="keywords" content="H-ui.admin v2.3,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-	<meta name="description" content="H-ui.admin v2.3，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+	<title>CROSSOVER高校篮球管理系统</title>
 </head>
 <body>
 <header class="Hui-header cl"> <a class="Hui-logo l" title="H-ui.admin v2.3" href="/">H-ui.admin</a> <a class="Hui-logo-m l" href="/" title="H-ui.admin">H-ui</a> <span class="Hui-subtitle l">V2.3</span>
@@ -60,7 +58,6 @@
 <aside class="Hui-aside">
 	<input runat="server" id="divScrollValue" type="hidden" value="" />
 	<div class="menu_dropdown bk_2">
-
 		<c:forEach items="${menus}" var="menu">
 			<c:if test="${menu.state==1}">
 				<dl>
@@ -69,7 +66,7 @@
 						<ul>
 							<c:forEach items="${menu.subMenus}" var="subMenu">
 								<c:if test="${subMenu.state==1}">
-									<li><a _href="${subMenu.url}" rows-title="${subMenu.name}" href="###">${subMenu.name}</a></li>
+									<li><a _href="${subMenu.url}?id=${subMenu.id}" rows-title="${subMenu.name}" href="javascript:void(0)">${subMenu.name}</a></li>
 								</c:if>
 							</c:forEach>
 						</ul>
@@ -79,12 +76,12 @@
 		</c:forEach>
 
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i><spring:message code="common.04"/> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a _href="/community/articleAddPage" rows-title="添加文章" href="javascript:void(0)">角色管理</a></li>
 					<li><a _href="/school/schoolAddPage" rows-title="添加学校" href="javascript:void(0)">权限管理</a></li>
-					<li><a _href="/school/schoolMngPage" rows-title="学校管理" href="javascript:void(0)">管理员列表</a></li>
+					<li><a _href="/school/schoolMngPage" rows-title="学校管理" href="javascript:void(0)">学校管理</a></li>
 					<li><a _href="/bill/billAddPage" rows-title="添加账单" href="javascript:void(0)">添加账单</a></li>
 					<li><a _href="/user/userAddPage" rows-title="添加人员" href="javascript:void(0)">添加人员</a></li>
 					<li><a _href="/attendance/attendanceAddPage" rows-title="添加考勤" href="javascript:void(0)">添加考勤</a></li>

@@ -5,7 +5,7 @@ $(function () {
     var oTable = new TableInit();
     oTable.Init();
 
-    debugger;
+   // debugger;
     //2.初始化Button的点击事件
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
@@ -43,11 +43,14 @@ var TableInit = function () {
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
             columns: [{
+                title:null,
                 checkbox: true,
                 width:'4%'
             }, {
-                field: 'num',
                 title: '序号',
+                formatter:function(value,row,index){
+                   return index+1;
+                },
                 width:'5%'
             },{
                 field: 'schName',
@@ -58,12 +61,23 @@ var TableInit = function () {
                 title: '状态',
                 width:'20%'
             }, {
-                field: 'ParentName',
                 title: '操作',
+                formatter:function(value,row,index){
+                    var editState = $('#schoolEdit').val();
+                    var detail = "<a href='/school/schoolViewAndEditAction?schId="+row.schId+"&type=0'><i class='glyphicon glyphicon-eye-open'></i></a>";
+                    var edit = "<a href='/school/schoolViewAndEditAction?schId="+row.schId+"&type=1' style='margin-left: 20px'><i class='glyphicon glyphicon-pencil'></i></a>";
+                    if(editState==1){
+                        return detail+edit;
+                    }else {
+                        return detail;
+                    }
+                },
                 width:'20%'
             },]
         });
     };
+
+
 
     //得到查询的参数
     oTableInit.queryParams = function (params) {
@@ -86,7 +100,7 @@ var ButtonInit = function () {
 
     oInit.Init = function () {
         $("#btn_add").click(function () {
-            debugger;
+            //debugger;
             window.document.location="school/schoolAddPage";
            //$("#myModalLabel").text("新增");
            //$("#myModal").find(".form-control").val("");
@@ -116,37 +130,113 @@ var ButtonInit = function () {
         //    $('#myModal').modal();
         //});
 
-        //$("#btn_delete").click(function () {
-        //    var arrselections = $("#tb_departments").bootstrapTable('getSelections');
-        //    if (arrselections.length <= 0) {
-        //        toastr.warning('请选择有效数据');
-        //        return;
-        //    }
+        $("#btn_delete").click(function () {
+           var arrselections = $("#tb_schools").bootstrapTable('getSelections');
+           if (arrselections.length <= 0) {
+               //toastr.warning('请选择有效数据');
+               return;
+           }
+            for (var i=0;i<arrselections.length;i++){
+                delete arrselections[i]["0"];
+            }
+            $.ajax({
+                type: "post",
+                url: "/school/schoolDelAction",
+                dataType:"json",
+                contentType:"application/json;charset=utf-8",
+                data: JSON.stringify(arrselections),
+                success: function (data, status) {
+                    if (status == "success") {
+                        toastr.success('提交数据成功');
+                        $("#tb_schools").bootstrapTable('refresh');
+                    }
+                },
+                error: function () {
+                    toastr.error('Error');
+                },
+                complete: function () {
 
-        //    Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
-        //        if (!e) {
-        //            return;
-        //        }
-        //        $.ajax({
-        //            type: "post",
-        //            url: "/Home/Delete",
-        //            data: { "": JSON.stringify(arrselections) },
-        //            success: function (data, status) {
-        //                if (status == "success") {
-        //                    toastr.success('提交数据成功');
-        //                    $("#tb_departments").bootstrapTable('refresh');
-        //                }
-        //            },
-        //            error: function () {
-        //                toastr.error('Error');
-        //            },
-        //            complete: function () {
+                }
 
-        //            }
+            });
+           // Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
+           //     if (!e) {
+           //         return;
+           //     }
+           //     $.ajax({
+           //         type: "post",
+           //         url: "/school/schoolDelAction",
+           //         data: { "delList": JSON.stringify(arrselections) },
+           //         success: function (data, status) {
+           //             if (status == "success") {
+           //                 toastr.success('提交数据成功');
+           //                 $("#tb_schools").bootstrapTable('refresh');
+           //             }
+           //         },
+           //         error: function () {
+           //             toastr.error('Error');
+           //         },
+           //         complete: function () {
+           //
+           //         }
+           //
+           //     });
+           // });
+        });
 
-        //        });
-        //    });
-        //});
+        $("#btn_disable").click(function () {
+            var arrselections = $("#tb_schools").bootstrapTable('getSelections');
+            if (arrselections.length <= 0) {
+                //toastr.warning('请选择有效数据');
+                return;
+            }
+            for (var i=0;i<arrselections.length;i++){
+                delete arrselections[i]["0"];
+            }
+            $.ajax({
+                type: "post",
+                url: "/school/schoolDisableAction",
+                dataType:"json",
+                contentType:"application/json;charset=utf-8",
+                data: JSON.stringify(arrselections),
+                success: function (data, status) {
+                    if (status == "success") {
+                        //toastr.success('提交数据成功');
+                        $("#tb_schools").bootstrapTable('refresh');
+                    }
+                },
+                error: function () {
+                    //toastr.error('Error');
+                },
+                complete: function () {
+
+                }
+
+            });
+            // Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
+            //     if (!e) {
+            //         return;
+            //     }
+            //     $.ajax({
+            //         type: "post",
+            //         url: "/school/schoolDelAction",
+            //         data: { "delList": JSON.stringify(arrselections) },
+            //         success: function (data, status) {
+            //             if (status == "success") {
+            //                 toastr.success('提交数据成功');
+            //                 $("#tb_schools").bootstrapTable('refresh');
+            //             }
+            //         },
+            //         error: function () {
+            //             toastr.error('Error');
+            //         },
+            //         complete: function () {
+            //
+            //         }
+            //
+            //     });
+            // });
+        });
 
         //$("#btn_submit").click(function () {
         //    postdata.DEPARTMENT_NAME = $("#txt_departmentname").val();

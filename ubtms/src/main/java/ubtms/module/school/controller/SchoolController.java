@@ -1,28 +1,24 @@
 package ubtms.module.school.controller;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.ibatis.annotations.Param;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ubtms.basic.dto.MngResult;
 import ubtms.basic.entity.LimitObjet;
-import ubtms.basic.util.FileUtil;
-import ubtms.basic.util.ImgUtil;
+
+import ubtms.module.role.entity.Menu;
+import ubtms.module.role.entity.Permission;
+import ubtms.module.role.entity.SubMenu;
 import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
 
-import javax.imageio.ImageIO;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,7 +35,38 @@ public class SchoolController {
     SchoolService schoolService;
 
     @RequestMapping("/schoolMngPage")
-    public String schoolMngPage(){
+    public String schoolMngPage(HttpServletRequest request){
+        List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
+        for (int i=0;i<menus.size();i++) {
+            Menu menu = menus.get(i);
+            List<SubMenu> subMenus = menu.getSubMenus();
+            for (int j=0;j < subMenus.size();j++) {
+                SubMenu subMenu = subMenus.get(j);
+                if(subMenu.getName().equals("学校管理")){
+                    List<Permission> permissions = subMenu.getPermissions();
+                    for (int k=0;k < permissions.size();k++) {
+                        Permission permission = permissions.get(k);
+                        switch (permission.getType()) {
+                            case 1:
+                                request.getSession().setAttribute("schoolAdd",permission.getState());
+                                break;
+                            case 2:
+                                request.getSession().setAttribute("schoolDel",permission.getState());
+                                break;
+                            case 3:
+                                request.getSession().setAttribute("schoolEdit",permission.getState());
+                                break;
+                            case 4:
+                                request.getSession().setAttribute("schoolDetail",permission.getState());
+                                break;
+                            case 5:
+                                request.getSession().setAttribute("schoolDisable",permission.getState());
+                                break;
+                        }
+                    }
+                }
+            }
+        }
         return "/school/schoolMng";
     }
 
@@ -56,6 +83,27 @@ public class SchoolController {
     public String schoolAddPage() {
 
         return "/school/schoolAdd";
+    }
+
+    @RequestMapping("/schoolViewAndEditAction")
+    public String viewAndEditSchool(HttpServletRequest request){
+        String type = request.getParameter("type");
+        String schId = request.getParameter("schId");
+        return null;
+    }
+
+    @RequestMapping(value = "/schoolDelAction",method =RequestMethod.POST)
+    @ResponseBody
+    public String delSchool(@RequestBody List<School> schools){
+
+        return null;
+    }
+
+    @RequestMapping(value = "/schoolDisableAction",method =RequestMethod.POST)
+    @ResponseBody
+    public String disableSchool(@RequestBody List<School> schools){
+
+        return null;
     }
 
     @RequestMapping("/schoolAddAction")

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../common/tag.jsp" %>
 <%@ include file="../common/basePath.jsp"%>
 
 <!DOCTYPE html>
@@ -59,15 +60,22 @@
 
         <div>
             <div id="toolbar" class="btn-group">
-                <button id="btn_add" type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
-                </button>
-                <button id="btn_delete" type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-                </button>
-                <button id="btn_delete" type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>禁用
-                </button>
+                <input id="schoolEdit" type="hidden" value="${schoolEdit}" />
+                <c:if test="${schoolAdd==1}">
+                    <button id="btn_add" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                    </button>
+                </c:if>
+                <c:if test="${schoolDel==1}">
+                    <button id="btn_delete" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                    </button>
+                </c:if>
+                <c:if test="${schoolDisable==1}">
+                    <button id="btn_disable" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>禁用
+                    </button>
+                </c:if>
             </div>
 
             <table id="tb_schools"></table>
