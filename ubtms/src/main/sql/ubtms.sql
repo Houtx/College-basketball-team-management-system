@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-02-04 20:27:09
+Date: 2017-02-07 19:03:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -132,7 +132,7 @@ CREATE TABLE `menu` (
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', '', '人员管理', '3', '1', '1');
+INSERT INTO `menu` VALUES ('1', '&#xe62d;', '人员管理', '3', '1', '1');
 INSERT INTO `menu` VALUES ('2', '', '球队管理', '1', '1', '1');
 
 -- ----------------------------
@@ -148,7 +148,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `permission_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `sub_menu` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of permission
@@ -157,6 +157,15 @@ INSERT INTO `permission` VALUES ('1', '1', '1', '1', null);
 INSERT INTO `permission` VALUES ('2', '1', '2', '1', null);
 INSERT INTO `permission` VALUES ('3', '1', '3', '1', null);
 INSERT INTO `permission` VALUES ('4', '1', '4', '1', null);
+INSERT INTO `permission` VALUES ('5', '2', '1', '1', null);
+INSERT INTO `permission` VALUES ('6', '2', '2', '1', null);
+INSERT INTO `permission` VALUES ('7', '2', '3', '1', null);
+INSERT INTO `permission` VALUES ('8', '2', '4', '1', null);
+INSERT INTO `permission` VALUES ('9', '3', '1', '1', null);
+INSERT INTO `permission` VALUES ('10', '3', '2', '1', null);
+INSERT INTO `permission` VALUES ('11', '3', '3', '1', null);
+INSERT INTO `permission` VALUES ('12', '3', '4', '1', null);
+INSERT INTO `permission` VALUES ('13', '1', '5', '1', null);
 
 -- ----------------------------
 -- Table structure for player_data
@@ -318,9 +327,9 @@ CREATE TABLE `sub_menu` (
 -- ----------------------------
 -- Records of sub_menu
 -- ----------------------------
-INSERT INTO `sub_menu` VALUES ('1', '1', 'school/schoolMngPage', '学校管理', '1', '1');
-INSERT INTO `sub_menu` VALUES ('2', '1', 'school/roleMng', '角色管理', '2', '1');
-INSERT INTO `sub_menu` VALUES ('3', '1', 'school/userMng', '人员管理', '3', '1');
+INSERT INTO `sub_menu` VALUES ('1', '1', '/school/schoolMngPage', '学校管理', '1', '1');
+INSERT INTO `sub_menu` VALUES ('2', '1', '/school/roleMng', '角色管理', '2', '1');
+INSERT INTO `sub_menu` VALUES ('3', '1', '/school/userMng', '人员管理', '3', '1');
 
 -- ----------------------------
 -- Table structure for training
