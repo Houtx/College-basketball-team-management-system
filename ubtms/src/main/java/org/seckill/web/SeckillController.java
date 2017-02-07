@@ -66,16 +66,16 @@ public class SeckillController {
 	//响应ajax的json请求
 	//produces: 指定返回的内容类型,仅当request请求头中的(Accept)类型中包含该指定类型才返回;
 	public SeckillResult<Exposer> exposer(@PathVariable(value="seckillId")Long seckillId) {
-		SeckillResult<Exposer> result;
+		SeckillResult<Exposer> SeckillResult;
 		
 		try {
 			Exposer exposer = seckillService.exportSeckillUrl(seckillId);
-			result = new SeckillResult<Exposer>(true, exposer);
+			SeckillResult = new SeckillResult<Exposer>(true, exposer);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			result = new SeckillResult<Exposer>(false, e.getMessage());
+			SeckillResult = new SeckillResult<Exposer>(false, e.getMessage());
 		}
-		return result;
+		return SeckillResult;
 	}
 	
 	
@@ -84,12 +84,12 @@ public class SeckillController {
 			produces={"application/json;charset=UTF-8"})
 	@ResponseBody
 	public SeckillResult<SeckillExecution> execute(@PathVariable(value="seckillId") Long seckillId,
-			@PathVariable(value="md5") String md5,@CookieValue(value="killPhone",required=false) Long killPhone) {
+											@PathVariable(value="md5") String md5, @CookieValue(value="killPhone",required=false) Long killPhone) {
 		//@CookieValue value是绑定cookie的值，默认required=true
 		//如果该值没有绑定cookie则抛出异常，required设置成false则忽略异常
 		//所以下面判断killPhone是否为空，手动抛出异常
 		if (killPhone==null) {
-			return new SeckillResult<SeckillExecution>(false, SeckillStatEnum.NOT_LOGIN.getStateInfo());						
+			return new SeckillResult<SeckillExecution>(false, SeckillStatEnum.NOT_LOGIN.getStateInfo());
 		}
 		
 		try {

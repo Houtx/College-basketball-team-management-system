@@ -17,4 +17,6 @@ public interface SchoolMapper {
     School queryByName(String schName);
     List<School> select(School school);
     List<School> selectWithLimit(LimitObjet<School> school);
+    int updateSchoolById(School school);
+    int countSchool();
 }

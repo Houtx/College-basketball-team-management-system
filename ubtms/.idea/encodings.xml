@@ -6,9 +6,11 @@
     <file url="file://$PROJECT_DIR$/src/main/java/org/seckill/dto/SeckillResult.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/org/seckill/entity/Seckill.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/org/seckill/entity/SuccessKilled.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/seckill/enums/SeckillStatEnum.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/org/seckill/service/impl/SeckillServiceImpl.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/org/seckill/web/SeckillController.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/ubtms/basic/dto/MngResult.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ubtms/basic/enums/ResultStatEnum.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/ubtms/module/role/entity/Permission.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/ubtms/module/user/entity/PlayerData.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/ubtms/module/user/entity/SchoolPlayerData.java" charset="GBK" />

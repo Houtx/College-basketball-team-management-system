@@ -41,4 +41,23 @@ public class SchoolServiceImpl implements SchoolService {
     public List<School> selectWithLimit(LimitObjet<School> schoolLimitObjet) {
         return schoolMapper.selectWithLimit(schoolLimitObjet);
     }
+
+    @Override
+    public int updateSchoolById(School school) {
+        return schoolMapper.updateSchoolById(school);
+    }
+
+    @Override
+    public int updateSchoolById(List<School> schools) {
+        int sum=0;
+        for (School school : schools) {
+            sum+=this.updateSchoolById(school);
+        }
+        return sum;
+    }
+
+    @Override
+    public int getSchoolNum() {
+        return schoolMapper.countSchool();
+    }
 }

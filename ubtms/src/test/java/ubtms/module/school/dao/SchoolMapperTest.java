@@ -44,5 +44,9 @@ public class SchoolMapperTest {
         System.out.println(schoolMapper.selectWithLimit(limitObjet));
     }
 
+    @Test
+    public void countSchool() throws Exception {
 
+        System.out.println(schoolMapper.countSchool());
+    }
 }

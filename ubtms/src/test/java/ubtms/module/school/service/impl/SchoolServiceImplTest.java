@@ -19,7 +19,6 @@ public class SchoolServiceImplTest {
     SchoolMapper schoolMapper;
 
     @Test
-    //����ͨ��
     public void insertSchool() throws Exception {
         School school = new School();
         school.setSchName("�㶫��ҵ��ѧ");
@@ -29,5 +28,18 @@ public class SchoolServiceImplTest {
         //schoolMapper.insertSchool()
         System.out.println("����ʧ��");
     }
+
+    @Test
+    public void updateSchoolById() {
+        School school = new School();
+        school.setSchName("中大");
+        school.setSchId(5);
+        short s = 0;
+        school.setState(s);
+
+        int i= schoolMapper.updateSchoolById(school);
+        System.out.println(i);
+    }
+
 
 }

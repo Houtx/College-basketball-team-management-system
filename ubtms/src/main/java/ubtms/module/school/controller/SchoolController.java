@@ -75,13 +75,12 @@ public class SchoolController {
     public MngResult<List<School>> getSchools(int limit, int offset){
         LimitObjet<School> limitObjet = new LimitObjet<School>(new School(),offset,limit);
         List<School> schools = schoolService.selectWithLimit(limitObjet);
-        MngResult<List<School>> result = new MngResult<List<School>>(true, schools,schools.size());
+        MngResult<List<School>> result = new MngResult<List<School>>(true, schools,schoolService.getSchoolNum());
         return result;
     }
 
     @RequestMapping("/schoolAddPage")
     public String schoolAddPage() {
-
         return "/school/schoolAdd";
     }
 
@@ -101,9 +100,16 @@ public class SchoolController {
 
     @RequestMapping(value = "/schoolDisableAction",method =RequestMethod.POST)
     @ResponseBody
-    public String disableSchool(@RequestBody List<School> schools){
-
-        return null;
+    public Map<String, Object>  disableSchool(@RequestBody List<School> schools){
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            schoolService.updateSchoolById(schools);
+            map.put("success", true);
+        } catch (Exception e) {
+            map.put("success", false);
+            e.printStackTrace();
+        }
+        return map;
     }
 
     @RequestMapping("/schoolAddAction")

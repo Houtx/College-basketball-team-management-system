@@ -9,12 +9,15 @@ $(function () {
     //2.初始化Button的点击事件
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
+    //初始化消息框位置
+    toastr.options = {positionClass:'toast-top-center',showDuration: "300",timeOut:"800"};
 });
 
 
 var TableInit = function () {
     //debugger;
     var oTableInit = new Object();
+    oTableInit.curPageNum=0;
     //初始化Table
     oTableInit.Init = function () {
         $('#tb_schools').bootstrapTable({
@@ -30,7 +33,7 @@ var TableInit = function () {
             sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
             pageNumber:1,                       //初始化加载第一页，默认第一页
             pageSize: 10,                       //每页的记录行数（*）
-            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            pageList: [10,20],        //可供选择的每页的行数（*）
             search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
             strictSearch: true,
             showColumns: false,                  //是否显示列筛选按钮
@@ -49,7 +52,7 @@ var TableInit = function () {
             }, {
                 title: '序号',
                 formatter:function(value,row,index){
-                   return index+1;
+                   return index+1+oTableInit.curPageNum;
                 },
                 width:'5%'
             },{
@@ -57,12 +60,19 @@ var TableInit = function () {
                 title: '校名',
                 width:'51%'
             },{
-                field: 'state',
                 title: '状态',
+                formatter:function(value,row,index){
+                    debugger;
+                    if(row.state==1)
+                        return "正常";
+                    else
+                        return "已禁用";
+                },
                 width:'20%'
             }, {
                 title: '操作',
-                formatter:function(value,row,index){
+                formatter:function(value,row,index,params){
+                    debugger;
                     var editState = $('#schoolEdit').val();
                     var detail = "<a href='/school/schoolViewAndEditAction?schId="+row.schId+"&type=0'><i class='glyphicon glyphicon-eye-open'></i></a>";
                     var edit = "<a href='/school/schoolViewAndEditAction?schId="+row.schId+"&type=1' style='margin-left: 20px'><i class='glyphicon glyphicon-pencil'></i></a>";
@@ -76,12 +86,11 @@ var TableInit = function () {
             },]
         });
     };
-
-
-
+    
     //得到查询的参数
     oTableInit.queryParams = function (params) {
-        //debugger;
+        debugger;
+        oTableInit.curPageNum=params.offset;
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
@@ -191,6 +200,7 @@ var ButtonInit = function () {
                 return;
             }
             for (var i=0;i<arrselections.length;i++){
+                arrselections[i]["state"]=0;
                 delete arrselections[i]["0"];
             }
             $.ajax({
@@ -201,12 +211,12 @@ var ButtonInit = function () {
                 data: JSON.stringify(arrselections),
                 success: function (data, status) {
                     if (status == "success") {
-                        //toastr.success('提交数据成功');
+                        toastr.success('禁用成功');
                         $("#tb_schools").bootstrapTable('refresh');
                     }
                 },
                 error: function () {
-                    //toastr.error('Error');
+                    toastr.error('禁用失败');
                 },
                 complete: function () {
 

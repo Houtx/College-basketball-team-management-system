@@ -14,4 +14,7 @@ public interface SchoolService {
     List<School> selectCollection(School school);
     List<School> selectCollection();
     List<School> selectWithLimit(LimitObjet<School> schoolLimitObjet);
+    int updateSchoolById(School school);
+    int updateSchoolById(List<School> schools) throws Exception;
+    int getSchoolNum();
 }

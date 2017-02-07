@@ -45,6 +45,28 @@
         </if>
     </select>
 
+    <update id="updateSchoolById">
+        UPDATE school
+        <set>
+            <if test="schName!=null">
+                sch_name=#{schName},
+            </if>
+            <if test="schLogo!=null">
+                sch_logo=#{schLogo},
+            </if>
+            <if test="state!=null">
+                state=#{state},
+            </if>
+            <if test="introduction!=null">
+                introduction=#{introduction}
+            </if>
+        </set>
+        WHERE sch_id=#{schId}
+    </update>
+
+    <select id="countSchool" resultType="int">
+        select count(*) from school
+    </select>
 
     <insert id="insertSchool">
         INSERT INTO school
