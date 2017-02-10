@@ -19,6 +19,12 @@
 		<!--引入自定义css-->
 		<link href="resources/css/style.css" rel="stylesheet" type="text/css" />
 		<link href="resources/css/detail.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript">
+			function show() {
+				$('#testhidden').css('visibility', 'visible');
+			}
+		</script>
+
 	</head>
 
 	<body>
@@ -30,7 +36,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="row detailRow">
 				<div class="col-xs-8 col-md-6 myColCenterBlock">
 					<form target="ajaxUpload" class="form-horizontal myForm" role="form" id="headImgForm" action="/school/imgUpload" method="post" enctype="multipart/form-data">
@@ -44,27 +50,30 @@
 						</div>
 					</form>
 					<iframe name="ajaxUpload" style="display:none"></iframe>
+
 					<form class="form-horizontal myForm" role="form" id="schoolForm" method="post" enctype="multipart/form-data">
 						<div class="form-group">
-							<label for="schoolName" class="col-sm-2 control-label">校名</label>
+							<label for="schoolName" class="col-sm-2 control-label"><span class="requiredMsg">*</span>校名</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="schoolName" name="schoolName">
+								<span class="help-block errorMsg" " id="schoolName-error ">A block of help.</span>
 							</div>
 						</div>
-						<div class="form-group" style="margin-top: 30px;">
-							<label for="intfroduction" class="col-sm-2 control-label">简介</label>
-							<div class="col-sm-10">
-								<textarea maxlength="200" id="intfroduction" class="form-control" rows="6"></textarea>
+						<div class="form-group ">
+							<label for="intfroduction " class="col-sm-2 control-label ">简介</label>
+							<div class="col-sm-10 ">
+								<textarea maxlength="200 " name="introduction " id="introduction " class="form-control " rows="6 "></textarea>
 							</div>
 						</div>
 					</form>
-					<div class="row">
-						<div class="col-sm-2">
+					<div class="row ">
+						<div class="col-sm-2 ">
 						</div>
-						<div class="col-sm-10">
-							<div style=" margin-left: auto; margin-right: auto;">
-								<input type="button" onclick="schoolDetail.schoolAdd.submitForm()" style="width: 100px;" class="btn btn-primary" value="保存" />
-								<input type="button" onclick="submitSchoolData()" style="width: 100px;" class="btn btn-primary" value="返回" />
+						<div class="col-sm-10 ">
+							<div style=" margin-left: auto; margin-right: auto; ">
+								<input type="button " onclick="schoolDetail.schoolAdd.submitForm() " style="width: 100px; " class="btn btn-primary " value="保存 " />
+								<input type="button " onclick="submitSchoolData() " style="width: 100px; " class="btn btn-primary " value="返回 " />
+      							<input class="btn btn-primary " " type="submit " value="Submit ">
 							</div>
 						</div>
 					</div>
@@ -74,18 +83,16 @@
 	</body>
 
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js "></script>
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="resources/lib/bootstrap/bootstrap.min.js"></script>
+	<script src="resources/lib/bootstrap/bootstrap.min.js "></script>
 
-	<script src="resources/lib/bootstrap-table/bootstrap-table.js"></script>
-	<script src="resources/js/school/schoolDetail.js"></script>
+	<script src="resources/lib/bootstrap-table/bootstrap-table.js "></script>
+	<script src="resources/lib/jquery-validate/jquery.validate.min.js "></script>
+	<script src="resources/lib/jquery-validate/messages_zh.min.js "></script>
+	<script src="resources/js/school/schoolDetail.js "></script>
+	<script type="text/javascript ">
 
-	<script type="text/javascript">
-		$(function() {
-			//使用EL表达式传入参数
-
-		})
 	</script>
 
 </html>

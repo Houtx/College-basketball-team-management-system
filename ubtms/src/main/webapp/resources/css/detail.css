@@ -1,6 +1,13 @@
 @charset "utf-8";
 .myForm > div {
-  margin-bottom: 30px;
+  margin-bottom: 0px;
+}
+.myForm > div .requiredMsg {
+  color: red;
+}
+.myForm > div .errorMsg {
+  visibility: hidden;
+  margin-bottom: 5px;
 }
 .myForm .picRow label {
   margin-top: 76px;

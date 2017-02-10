@@ -3,11 +3,14 @@ package ubtms.module.school.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ubtms.basic.dto.MngResult;
 import ubtms.basic.entity.LimitObjet;
 
+import ubtms.basic.enums.CommonConstant;
+import ubtms.basic.util.FileUtil;
 import ubtms.module.role.entity.Menu;
 import ubtms.module.role.entity.Permission;
 import ubtms.module.role.entity.SubMenu;
@@ -17,12 +20,8 @@ import ubtms.module.school.service.SchoolService;
 
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -32,10 +31,12 @@ import java.util.*;
 @RequestMapping("/school")
 public class SchoolController {
     @Autowired
-    SchoolService schoolService;
+    private SchoolService schoolService;
+//    @Autowired
+//    private School school;
 
     @RequestMapping("/schoolMngPage")
-    public String schoolMngPage(HttpServletRequest request){
+    public String schoolMngPage(HttpServletRequest request,Model model){
         List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
         for (int i=0;i<menus.size();i++) {
             Menu menu = menus.get(i);
@@ -79,6 +80,20 @@ public class SchoolController {
         return result;
     }
 
+    @ResponseBody
+    @RequestMapping("/schoolValidateAction")
+    public boolean validateSchool(HttpServletRequest request) {
+        try {
+            String school = request.getParameter("schoolName");
+            school = new String(school.getBytes("ISO-8859-1"), "UTF-8");
+            boolean res = schoolService.validateSchool(school);
+            return res;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     @RequestMapping("/schoolAddPage")
     public String schoolAddPage() {
         return "/school/schoolAdd";
@@ -86,8 +101,8 @@ public class SchoolController {
 
     @RequestMapping("/schoolViewAndEditAction")
     public String viewAndEditSchool(HttpServletRequest request){
-        String type = request.getParameter("type");
-        String schId = request.getParameter("schId");
+        String schoolName = request.getParameter("parma");
+       // schoolService.
         return null;
     }
 
@@ -113,60 +128,33 @@ public class SchoolController {
     }
 
     @RequestMapping("/schoolAddAction")
-    public String addSchool(HttpServletRequest request, HttpServletResponse response){
-        MultipartFile file= (MultipartFile) request.getSession().getAttribute("img");
-        String schoolName = request.getParameter("schoolName").toString();
-
-        // 获取图片的文件名
-        String fileName = file.getOriginalFilename();
-        // 获取图片的扩展名
-        String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
-        // 新的图片文件名 = 获取时间戳+"."图片扩展名
-        String newFileName = String.valueOf(System.currentTimeMillis()) + "." + extensionName;
-        saveFile(newFileName, file);
-        return "school/schoolAdd";
-    }
-
-    private void saveFile(String newFileName, MultipartFile filedata) {
-        // TODO Auto-generated method stub
-        // 根据配置文件获取服务器图片存放路径
-        String picDir = "";
+    @ResponseBody
+    public Map<String, Object>  addSchool(HttpServletRequest request){
+        Map<String, Object> map = new HashMap<String, Object>();
+        String schoolName = request.getParameter("parma").toString();
+        String introduction = request.getParameter("introduction").toString();
         try {
-            Properties props = new Properties();
-
-            InputStream in = getClass().getResourceAsStream("/picurl.properties");
-            props.load(in);
-            in.close();
-
-            // 读取特定属性
-            picDir = props.getProperty("savePicUrl");
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+            School school = new School();
+            if (request.getParameter("pic") != null) {
+                MultipartFile file= (MultipartFile) request.getSession().getAttribute("schoolImg");
+                InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICSAVEPATH);
+                String fileName = FileUtil.saveFile(file, picurlProperties);
+                school.setSchLogo(fileName);
+            }
+            school.setSchName(schoolName);
+            school.setIntroduction(introduction);
+            schoolService.svaeSchool(school);
+            map.put("success", true);
+        }catch (Exception e){
+            map.put("success", false);
             e.printStackTrace();
         }
-        String saveFilePath = picDir;
-
-        /* 构建文件目录 */
-        File fileDir = new File(saveFilePath);
-        if (!fileDir.exists()) {
-            fileDir.mkdirs();
-        }
-
-        try {
-            FileOutputStream out = new FileOutputStream(saveFilePath + "\\" + newFileName);
-            // 写入文件
-            out.write(filedata.getBytes());
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("upload success");
+        return map;
     }
 
     @RequestMapping("/imgUpload")
-    public void uploadImg(HttpServletRequest request,@RequestParam("file") MultipartFile file) {
-        request.getSession().setAttribute("img",file);
+    public void uploadImg(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
+        request.getSession().setAttribute("schoolImg",file);
     }
 
 }

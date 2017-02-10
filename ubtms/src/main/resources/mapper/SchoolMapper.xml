@@ -16,7 +16,7 @@
     <select id="select" resultType="School">
         SELECT * FROM school
         <where>
-            <if test="schId!=0">
+            <if test="schId!=null">
                 sch_id=#{schId}
             </if>
             <if test="schName!=null">
@@ -70,7 +70,7 @@
 
     <insert id="insertSchool">
         INSERT INTO school
-        VALUES (#{schId},#{schName},#{schLogo})
+        VALUES (#{schId},#{schName},#{schLogo},#{state},#{introduction})
     </insert>
 
 </mapper>

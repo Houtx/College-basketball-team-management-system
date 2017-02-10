@@ -11,17 +11,11 @@ import ubtms.basic.util.FileUtil;
 import ubtms.basic.util.ImgUtil;
 import ubtms.module.role.entity.Role;
 import ubtms.module.role.service.RoleService;
-import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
 import ubtms.module.user.entity.User;
 import ubtms.module.user.service.UserService;
-
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,26 +72,25 @@ public class UserController {
         if (file.getSize() > 1024 * 1024) {
             //Todo
         }
-
-        try {
-            byte[] s = file.getBytes();
-            img = Base64.encodeBase64String(s);
-            imgSuffix = FileUtil.getFileSuffix(file.getOriginalFilename());
-
-
-            request.getSession().setAttribute("headImg",img);
-            request.getSession().setAttribute("headImgSuffix",imgSuffix);
-
-            //获取图片宽高
-            InputStream is = file.getInputStream();
-            BufferedImage buffImg = ImageIO.read(is);
-
-
-            String imgParm = ImgUtil.getImgParam(buffImg.getWidth(),buffImg.getHeight(),260,260);
-            request.getSession().setAttribute("imgParm",imgParm);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            byte[] s = file.getBytes();
+//            img = Base64.encodeBase64String(s);
+//            imgSuffix = FileUtil.getFileSuffix(file.getOriginalFilename());
+//
+//
+//            request.getSession().setAttribute("headImg",img);
+//            request.getSession().setAttribute("headImgSuffix",imgSuffix);
+//
+//            //获取图片宽高
+//            InputStream is = file.getInputStream();
+//            BufferedImage buffImg = ImageIO.read(is);
+//
+//
+//            String imgParm = ImgUtil.getImgParam(buffImg.getWidth(),buffImg.getHeight(),260,260);
+//            request.getSession().setAttribute("imgParm",imgParm);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 

@@ -10,6 +10,17 @@ public class School {
     private Short state;
     private String introduction;
 
+
+    public School() {
+    }
+    public School(Integer schId) {
+        this.schId = schId;
+    }
+
+    public School(String schName) {
+        this.schName = schName;
+    }
+
     public Integer getSchId() {
         return schId;
     }

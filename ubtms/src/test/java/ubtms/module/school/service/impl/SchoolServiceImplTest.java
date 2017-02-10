@@ -41,5 +41,16 @@ public class SchoolServiceImplTest {
         System.out.println(i);
     }
 
+    @Test
+    public void validateSchool() {
+        String schoolName="系统";
+        School oldSchool =  schoolMapper.select(new School(schoolName)).get(0);
+        if (oldSchool!=null){
+            System.out.println("test res:not on");
+            return;
+        }
+        System.out.println("test res:on");
+    }
+
 
 }

@@ -12,7 +12,7 @@
 
 <head>
     <title>人员添加</title>
-     <%@ include file="../common/head.jsp"%>
+     <%@ include file="../common/common_head.jsp"%>
     <link href="resources/css/detail.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -160,13 +160,6 @@
     </div>
 </div>
 </body>
-<%@ include file="../common/footer.jsp"%>
+<%@ include file="../common/common_footer.jsp"%>
 <script src="resources/js/school/schoolDetail.js"></script>
-<script type="text/javascript">
-    $(function() {
-        //使用EL表达式传入参数
-
-    })
-</script>
-
 </html>

@@ -20,7 +20,7 @@
 <html>
 
 <head>
-    <%@ include file="../common/head.jsp"%>
+    <%@ include file="../common/common_head.jsp"%>
     <title>添加考勤</title>
     <link href="resources/lib/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
     <link href="resources/css/detail.css" rel="stylesheet" type="text/css" />
@@ -65,7 +65,7 @@
 
 </body>
 
-<%@ include file="../common/footer.jsp"%>
+<%@ include file="../common/common_footer.jsp"%>
 <%@ include file="../common/bs-table.jsp"%>
 <script src="resources/js/attendance/attendanceAdd.js"></script>
 

@@ -12,7 +12,7 @@
 
 <head>
     <title>账单添加</title>
-    <%@ include file="../common/head.jsp"%>
+    <%@ include file="../common/common_head.jsp"%>
     <link href="resources/css/detail.css" rel="stylesheet" type="text/css" />
     <link href="resources/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 
@@ -92,7 +92,7 @@
 </body>
 
 
-<%@ include file="../common/footer.jsp"%>
+<%@ include file="../common/common_footer.jsp"%>
 <script src="resources/lib/bootstrap-datetimepicker/moment-with-locales.js"></script>
 <script src="resources/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 

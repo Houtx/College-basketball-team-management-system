@@ -19,12 +19,25 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public int svaeSchool(School school) {
-        return 0;
+        short state=1;
+        school.setState(state);
+        schoolMapper.insertSchool(school);
+        return 1;
+    }
+
+    @Override
+    public boolean validateSchool(String schoolName) {
+        School oldSchool =  selectOne(new School(schoolName));
+        if (oldSchool!=null){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public School selectOne(School school) {
-        return schoolMapper.select(school).get(0);
+        List<School> schoolList  =  schoolMapper.select(school);
+        return schoolList.size()!=0 ? schoolList.get(0) : null;
     }
 
     @Override

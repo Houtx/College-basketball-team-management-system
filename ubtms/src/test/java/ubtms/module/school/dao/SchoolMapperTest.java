@@ -31,7 +31,9 @@ public class SchoolMapperTest {
     @Test
     public void insertSchool() throws Exception {
         School school = new School();
-        school.setSchName("�㶫��ҵ��ѧ");
+        //school.setSchId(55);
+        school.setSchName("地厅要");
+        school.setSchLogo("safb.jpg");
         System.out.println(schoolMapper.insertSchool(school));
     }
 

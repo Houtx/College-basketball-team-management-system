@@ -62,7 +62,6 @@ var TableInit = function () {
             },{
                 title: '状态',
                 formatter:function(value,row,index){
-                    debugger;
                     if(row.state==1)
                         return "正常";
                     else
@@ -72,7 +71,6 @@ var TableInit = function () {
             }, {
                 title: '操作',
                 formatter:function(value,row,index,params){
-                    debugger;
                     var editState = $('#schoolEdit').val();
                     var detail = "<a href='/school/schoolViewAndEditAction?schId="+row.schId+"&type=0'><i class='glyphicon glyphicon-eye-open'></i></a>";
                     var edit = "<a href='/school/schoolViewAndEditAction?schId="+row.schId+"&type=1' style='margin-left: 20px'><i class='glyphicon glyphicon-pencil'></i></a>";
@@ -89,7 +87,6 @@ var TableInit = function () {
     
     //得到查询的参数
     oTableInit.queryParams = function (params) {
-        debugger;
         oTableInit.curPageNum=params.offset;
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小

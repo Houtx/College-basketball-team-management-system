@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface SchoolService {
     int svaeSchool(School school);
+    boolean validateSchool(String schoolName);
     School selectOne(School school);
     List<School> selectCollection(School school);
     List<School> selectCollection();
