@@ -18,5 +18,6 @@ public interface SchoolMapper {
     List<School> select(School school);
     List<School> selectWithLimit(LimitObjet<School> school);
     int updateSchoolById(School school);
-    int countSchool();
+    int countSchool(School school);
+    int deleteSchool(List<School> schools);
 }

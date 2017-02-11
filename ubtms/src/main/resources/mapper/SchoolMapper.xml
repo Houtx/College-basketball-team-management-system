@@ -20,10 +20,10 @@
                 sch_id=#{schId}
             </if>
             <if test="schName!=null">
-                sch_name like #{schName}
+                AND sch_name like #{schName}
             </if>
             <if test="state!=null">
-                state=#{state}
+                AND state=#{state}
             </if>
         </where>
     </select>
@@ -34,10 +34,10 @@
                 sch_id=#{data.schId}
             </if>
             <if test="data.schName!=null">
-                sch_name like #{data.schName}
+                AND sch_name like #{data.schName}
             </if>
             <if test="data.state!=null">
-                state=#{data.state}
+                AND state=#{data.state}
             </if>
         </where>
         <if test="limit!=null">
@@ -48,9 +48,6 @@
     <update id="updateSchoolById">
         UPDATE school
         <set>
-            <if test="schName!=null">
-                sch_name=#{schName},
-            </if>
             <if test="schLogo!=null">
                 sch_logo=#{schLogo},
             </if>
@@ -65,7 +62,18 @@
     </update>
 
     <select id="countSchool" resultType="int">
-        select count(*) from school
+        SELECT count(*)  FROM school
+        <where>
+            <if test="schId!=null">
+                sch_id=#{schId}
+            </if>
+            <if test="schName!=null">
+                AND sch_name=#{schName}
+            </if>
+            <if test="state!=null">
+                AND state=#{state}
+            </if>
+        </where>
     </select>
 
     <insert id="insertSchool">
@@ -73,4 +81,11 @@
         VALUES (#{schId},#{schName},#{schLogo},#{state},#{introduction})
     </insert>
 
+
+    <delete id="deleteSchool" parameterType="java.util.List">
+        delete from school where sch_id in
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+            #{item.schId}
+        </foreach>
+    </delete>
 </mapper>

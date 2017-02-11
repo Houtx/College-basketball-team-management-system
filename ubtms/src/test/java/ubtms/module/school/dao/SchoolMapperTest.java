@@ -8,6 +8,7 @@ import ubtms.basic.entity.LimitObjet;
 import ubtms.module.school.entity.School;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +49,29 @@ public class SchoolMapperTest {
 
     @Test
     public void countSchool() throws Exception {
+        short s = 1;
+        School school = new School();
+        school.setSchName("系统");
+        school.setState(s);
+        System.out.println(schoolMapper.countSchool(school));
+    }
 
-        System.out.println(schoolMapper.countSchool());
+    @Test
+    public void deleteSchool(){
+        List<School> schools = new ArrayList<School>(){};
+        School b = new School(5);
+        School a = new School(2);
+        schools.add(a);
+        schools.add(b);
+        try {
+            int aq = schoolMapper.deleteSchool(schools);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void selectOne(){
+       List<School> school =  schoolMapper.select(new School(33));
     }
 }

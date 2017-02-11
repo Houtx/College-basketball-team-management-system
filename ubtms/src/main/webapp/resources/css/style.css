@@ -1,4 +1,10 @@
 @charset "utf-8";
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
 .myColCenterBlock {
   float: none;
   display: block;

@@ -22,6 +22,7 @@
 	<link href="resources/css/H-ui/H-ui.admin.css" rel="stylesheet" type="text/css" />
 	<link href="resources/lib/Hui-iconfont/1.0.7/iconfont.css" rel="stylesheet" type="text/css" />
 	<link href="resources/skin/default/skin.css" rel="stylesheet" type="text/css" id="skin" />
+	<link href="resources/lib/toastr/toastr.min.css"  rel="stylesheet">
 	<link href="resources/css/style.css" rel="stylesheet" type="text/css" />
 	<!--[if IE 6]>
 	<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
@@ -110,5 +111,4 @@
 <script type="text/javascript" src="resources/lib/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/H-ui/H-ui.js"></script>
 <script type="text/javascript" src="resources/js/H-ui/H-ui.admin.js"></script>
-
 </html>

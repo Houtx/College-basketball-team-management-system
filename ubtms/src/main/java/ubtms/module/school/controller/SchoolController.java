@@ -11,12 +11,10 @@ import ubtms.basic.entity.LimitObjet;
 
 import ubtms.basic.enums.CommonConstant;
 import ubtms.basic.util.FileUtil;
+import ubtms.basic.util.PermissionUtil;
 import ubtms.module.role.entity.Menu;
-import ubtms.module.role.entity.Permission;
-import ubtms.module.role.entity.SubMenu;
 import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
-
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,58 +34,47 @@ public class SchoolController {
 //    private School school;
 
     @RequestMapping("/schoolMngPage")
-    public String schoolMngPage(HttpServletRequest request,Model model){
-        List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
-        for (int i=0;i<menus.size();i++) {
-            Menu menu = menus.get(i);
-            List<SubMenu> subMenus = menu.getSubMenus();
-            for (int j=0;j < subMenus.size();j++) {
-                SubMenu subMenu = subMenus.get(j);
-                if(subMenu.getName().equals("学校管理")){
-                    List<Permission> permissions = subMenu.getPermissions();
-                    for (int k=0;k < permissions.size();k++) {
-                        Permission permission = permissions.get(k);
-                        switch (permission.getType()) {
-                            case 1:
-                                request.getSession().setAttribute("schoolAdd",permission.getState());
-                                break;
-                            case 2:
-                                request.getSession().setAttribute("schoolDel",permission.getState());
-                                break;
-                            case 3:
-                                request.getSession().setAttribute("schoolEdit",permission.getState());
-                                break;
-                            case 4:
-                                request.getSession().setAttribute("schoolDetail",permission.getState());
-                                break;
-                            case 5:
-                                request.getSession().setAttribute("schoolDisable",permission.getState());
-                                break;
-                        }
-                    }
-                }
-            }
+    public String schoolMngPage(HttpServletRequest request) {
+        if (request.getSession().getAttribute("schoolAdd") == null) {
+            List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
+            int[] perssions = PermissionUtil.getPermission(menus, "学校管理");
+            request.getSession().setAttribute("schoolAddP", perssions[1]);
+            request.getSession().setAttribute("schoolDelP", perssions[2]);
+            request.getSession().setAttribute("schoolEditP", perssions[3]);
+            request.getSession().setAttribute("schoolDetailP", perssions[4]);
         }
         return "/school/schoolMng";
     }
 
     @RequestMapping("/schoolGetAction")
     @ResponseBody
-    public MngResult<List<School>> getSchools(int limit, int offset){
-        LimitObjet<School> limitObjet = new LimitObjet<School>(new School(),offset,limit);
-        List<School> schools = schoolService.selectWithLimit(limitObjet);
-        MngResult<List<School>> result = new MngResult<List<School>>(true, schools,schoolService.getSchoolNum());
-        return result;
+    public MngResult<List<School>> getSchools(int limit, int offset, String schoolName, String state) {
+        School school = new School();
+        try {
+            schoolName = new String(schoolName.getBytes("ISO-8859-1"), "UTF-8");
+            if (schoolName != null && !schoolName.equals("")) {
+                school.setSchName(schoolName);
+            }
+            if (!state.equals("2")) {
+                school.setState(Short.valueOf(state));
+            }
+            LimitObjet<School> limitObjet = new LimitObjet<School>(school, offset, limit);
+            List<School> schools = schoolService.selectWithLimit(limitObjet);
+            MngResult<List<School>> result = new MngResult<List<School>>(true, schools, schoolService.getSchoolNum(school));
+            return result;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @ResponseBody
     @RequestMapping("/schoolValidateAction")
     public boolean validateSchool(HttpServletRequest request) {
         try {
-            String school = request.getParameter("schoolName");
+            String school = request.getParameter("schoolNameStr");
             school = new String(school.getBytes("ISO-8859-1"), "UTF-8");
-            boolean res = schoolService.validateSchool(school);
-            return res;
+            return schoolService.validateSchool(school);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return false;
@@ -96,26 +83,47 @@ public class SchoolController {
 
     @RequestMapping("/schoolAddPage")
     public String schoolAddPage() {
-        return "/school/schoolAdd";
+        return "school/schoolAddAndEdit";
     }
 
     @RequestMapping("/schoolViewAndEditAction")
-    public String viewAndEditSchool(HttpServletRequest request){
-        String schoolName = request.getParameter("parma");
-       // schoolService.
-        return null;
+    public String viewAndEditSchool(HttpServletRequest request, Model model) {
+        int schId = Integer.valueOf(request.getParameter("schId"));
+        School school = schoolService.selectOne(schId);
+        school.getSchLogo();
+        String schoolLogoName = school.getSchLogo();
+        if (schoolLogoName != null) {
+            //获取服务器url物理路径
+            String basePath="/resources/images/common";
+            String urlFilePathName= request.getSession().getServletContext().getRealPath(basePath);
+
+            InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICPATH);
+            FileUtil.putPicToTomcat(school.getSchLogo(),picurlProperties,urlFilePathName);
+        }
+        model.addAttribute("schoolDetail", school);
+        model.addAttribute("type", request.getParameter("type"));
+
+        return "school/schoolAddAndEdit";
     }
 
-    @RequestMapping(value = "/schoolDelAction",method =RequestMethod.POST)
+    @RequestMapping(value = "/schoolDelAction", method = RequestMethod.POST)
     @ResponseBody
-    public String delSchool(@RequestBody List<School> schools){
-
-        return null;
+    public Map<String, Object> delSchool(@RequestBody List<School> schools) {
+        Map<String, Object> map =new HashMap<String, Object>();
+        try {
+            schoolService.deleteSchool(schools);
+            map.put("success", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("msg", "删除失败:选择学校已被引用");
+        }
+        return map;
     }
 
-    @RequestMapping(value = "/schoolDisableAction",method =RequestMethod.POST)
+    @RequestMapping(value = "/schoolDisableAction", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object>  disableSchool(@RequestBody List<School> schools){
+    public Map<String, Object> disableSchool(@RequestBody List<School> schools) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
             schoolService.updateSchoolById(schools);
@@ -127,17 +135,42 @@ public class SchoolController {
         return map;
     }
 
+    @RequestMapping("/schoolEditAction")
+    @ResponseBody
+    public Map<String, Object> editSchool(HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            Integer schId = Integer.valueOf(request.getParameter("schId").toString());
+            String introduction = request.getParameter("introduction").toString();
+            School school = new School(schId);
+            school.setIntroduction(introduction);
+            if (request.getParameter("pic") != null) {
+                MultipartFile file = (MultipartFile) request.getSession().getAttribute("schoolImg");
+                InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICPATH);
+                String fileName = FileUtil.saveFile(file, picurlProperties);
+                school.setSchLogo(fileName);
+            }
+            schoolService.updateSchoolById(school);
+            map.put("success", true);
+        } catch (Exception e) {
+            map.put("success", false);
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+
     @RequestMapping("/schoolAddAction")
     @ResponseBody
-    public Map<String, Object>  addSchool(HttpServletRequest request){
+    public Map<String, Object> addSchool(HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
-        String schoolName = request.getParameter("parma").toString();
+        String schoolName = request.getParameter("schoolNameStr").toString();
         String introduction = request.getParameter("introduction").toString();
         try {
             School school = new School();
             if (request.getParameter("pic") != null) {
-                MultipartFile file= (MultipartFile) request.getSession().getAttribute("schoolImg");
-                InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICSAVEPATH);
+                MultipartFile file = (MultipartFile) request.getSession().getAttribute("schoolImg");
+                InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICPATH);
                 String fileName = FileUtil.saveFile(file, picurlProperties);
                 school.setSchLogo(fileName);
             }
@@ -145,7 +178,7 @@ public class SchoolController {
             school.setIntroduction(introduction);
             schoolService.svaeSchool(school);
             map.put("success", true);
-        }catch (Exception e){
+        } catch (Exception e) {
             map.put("success", false);
             e.printStackTrace();
         }
@@ -153,8 +186,8 @@ public class SchoolController {
     }
 
     @RequestMapping("/imgUpload")
-    public void uploadImg(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
-        request.getSession().setAttribute("schoolImg",file);
+    public void uploadImg(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        request.getSession().setAttribute("schoolImg", file);
     }
 
 }

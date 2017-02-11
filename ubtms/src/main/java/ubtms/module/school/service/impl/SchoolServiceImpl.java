@@ -41,6 +41,11 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
+    public School selectOne(Integer schId) {
+        return selectOne(new School(schId));
+    }
+
+    @Override
     public List<School> selectCollection(School school) {
         return schoolMapper.select(school);
     }
@@ -71,6 +76,16 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public int getSchoolNum() {
-        return schoolMapper.countSchool();
+        return schoolMapper.countSchool(new School());
+    }
+
+    @Override
+    public int getSchoolNum(School school) {
+        return schoolMapper.countSchool(school);
+    }
+
+    @Override
+    public int deleteSchool(List<School> schools) {
+        return schoolMapper.deleteSchool(schools);
     }
 }

@@ -1,17 +1,34 @@
 ﻿
-$(function () {
-    //debugger;
-    //1.初始化Table
-    var oTable = new TableInit();
-    oTable.Init();
 
-   // debugger;
-    //2.初始化Button的点击事件
-    var oButtonInit = new ButtonInit();
-    oButtonInit.Init();
-    //初始化消息框位置
-    toastr.options = {positionClass:'toast-top-center',showDuration: "300",timeOut:"800"};
-});
+var schoolMng={
+    serachClick:function () {
+        $("#tb_schools").bootstrapTable('refresh');
+    },
+
+    URL:{
+        getSChools:function () {
+            return 'school/schoolGetAction';
+        },
+        add: function() {
+            return 'school/schoolAddPage';
+        },
+        detailAndEdit:function(){
+            return '/school/schoolViewAndEditAction';
+        },
+        delete:function () {
+            return "/school/schoolDelAction";
+        }
+    },
+
+    init:function () {
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+        //2.初始化Button的点击事件
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+    }
+}
 
 
 var TableInit = function () {
@@ -21,7 +38,7 @@ var TableInit = function () {
     //初始化Table
     oTableInit.Init = function () {
         $('#tb_schools').bootstrapTable({
-            url: 'school/schoolGetAction',         //请求后台的URL（*）
+            url: schoolMng.URL.getSChools(),         //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
@@ -50,30 +67,34 @@ var TableInit = function () {
                 checkbox: true,
                 width:'4%'
             }, {
+                align: 'center',
                 title: '序号',
                 formatter:function(value,row,index){
                    return index+1+oTableInit.curPageNum;
                 },
-                width:'5%'
+                width:'4%'
             },{
+                align: 'center',
                 field: 'schName',
                 title: '校名',
-                width:'51%'
+                width:'52%'
             },{
+                align: 'center',
                 title: '状态',
                 formatter:function(value,row,index){
                     if(row.state==1)
                         return "正常";
                     else
-                        return "已禁用";
+                        return "禁用";
                 },
                 width:'20%'
             }, {
+                align: 'center',
                 title: '操作',
                 formatter:function(value,row,index,params){
-                    var editState = $('#schoolEdit').val();
-                    var detail = "<a href='/school/schoolViewAndEditAction?schId="+row.schId+"&type=0'><i class='glyphicon glyphicon-eye-open'></i></a>";
-                    var edit = "<a href='/school/schoolViewAndEditAction?schId="+row.schId+"&type=1' style='margin-left: 20px'><i class='glyphicon glyphicon-pencil'></i></a>";
+                    var editState = $('#schoolEditP').val();
+                    var detail = "<a href="+schoolMng.URL.detailAndEdit()+"?schId="+row.schId+"&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
+                    var edit = "<a href="+schoolMng.URL.detailAndEdit()+"?schId="+row.schId+"&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
                     if(editState==1){
                         return detail+edit;
                     }else {
@@ -88,17 +109,17 @@ var TableInit = function () {
     //得到查询的参数
     oTableInit.queryParams = function (params) {
         oTableInit.curPageNum=params.offset;
+        var schoolState=$('#searchSchoolSate').val();
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
-            // departmentname: $("#txt_search_departmentname").val(),
-            // statu: $("#txt_search_statu").val()
+            schoolName:$('#searchSchoolName').val(),
+            state:schoolState
         };
         return temp;
     };
     return oTableInit;
 };
-
 
 var ButtonInit = function () {
     var oInit = new Object();
@@ -106,12 +127,7 @@ var ButtonInit = function () {
 
     oInit.Init = function () {
         $("#btn_add").click(function () {
-            //debugger;
-            window.document.location="school/schoolAddPage";
-           //$("#myModalLabel").text("新增");
-           //$("#myModal").find(".form-control").val("");
-           //$('#myModal').modal()
-           //postdata.DEPARTMENT_ID = "";
+            window.document.location=schoolMng.URL.add();
         });
 
         //$("#btn_edit").click(function () {
@@ -137,31 +153,33 @@ var ButtonInit = function () {
         //});
 
         $("#btn_delete").click(function () {
-           var arrselections = $("#tb_schools").bootstrapTable('getSelections');
-           if (arrselections.length <= 0) {
-               //toastr.warning('请选择有效数据');
-               return;
-           }
-            for (var i=0;i<arrselections.length;i++){
-                delete arrselections[i]["0"];
+            var arrselections = $("#tb_schools").bootstrapTable('getSelections');
+            if (arrselections.length <= 0) {
+                toastr.warning('请选择至少一条数据');
+                return;
             }
+            var select = new Array();
+            for (var i=0;i<arrselections.length;i++){
+                var selectSchool = new Object();
+                selectSchool.schId=arrselections[i].schId;
+                select.push(selectSchool);
+            }
+
+            
             $.ajax({
                 type: "post",
-                url: "/school/schoolDelAction",
+                url: schoolMng.URL.delete(),
                 dataType:"json",
                 contentType:"application/json;charset=utf-8",
-                data: JSON.stringify(arrselections),
+                data: JSON.stringify(select),
                 success: function (data, status) {
-                    if (status == "success") {
-                        toastr.success('提交数据成功');
+                    debugger;
+                    if (data.success) {
+                        toastr.success('删除成功');
                         $("#tb_schools").bootstrapTable('refresh');
+                    }else {
+                        toastr.error(data.msg);
                     }
-                },
-                error: function () {
-                    toastr.error('Error');
-                },
-                complete: function () {
-
                 }
 
             });
@@ -193,32 +211,32 @@ var ButtonInit = function () {
         $("#btn_disable").click(function () {
             var arrselections = $("#tb_schools").bootstrapTable('getSelections');
             if (arrselections.length <= 0) {
-                //toastr.warning('请选择有效数据');
+                toastr.warning('请选择至少一条数据');
                 return;
             }
+            var select = new Array();
             for (var i=0;i<arrselections.length;i++){
-                arrselections[i]["state"]=0;
-                delete arrselections[i]["0"];
+                var selectSchool = new Object();
+                selectSchool.schId=arrselections[i].schId;
+                selectSchool.state=arrselections[i].state;
+
+                select.push(selectSchool);
             }
             $.ajax({
                 type: "post",
                 url: "/school/schoolDisableAction",
                 dataType:"json",
                 contentType:"application/json;charset=utf-8",
-                data: JSON.stringify(arrselections),
+                data: JSON.stringify(select),
                 success: function (data, status) {
-                    if (status == "success") {
+                    debugger;
+                    if (data.success) {
                         toastr.success('禁用成功');
                         $("#tb_schools").bootstrapTable('refresh');
+                    }else {
+                        toastr.error('禁用失败');
                     }
-                },
-                error: function () {
-                    toastr.error('禁用失败');
-                },
-                complete: function () {
-
                 }
-
             });
             // Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
             //     if (!e) {
@@ -277,3 +295,13 @@ var ButtonInit = function () {
 
     return oInit;
 };
+
+
+
+
+$(function () {
+    //debugger;
+    schoolMng.init();
+    //初始化消息框位置
+    myToastr.init();
+});

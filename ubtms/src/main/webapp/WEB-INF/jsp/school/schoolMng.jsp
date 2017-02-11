@@ -36,22 +36,22 @@
             <div class="panel-body">
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:15px">
-                        <label class="control-label col-sm-1" for="txt_search_departmentname">校名</label>
+                        <label class="control-label col-sm-1" for="searchSchoolName">校名</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="txt_search_departmentname">
+                            <input type="text" class="form-control" id="searchSchoolName" />
                         </div>
-                        <label class="control-label col-sm-1" for="stateSelect">状态</label>
+                        <label class="control-label col-sm-1" for="searchSchoolSate">状态</label>
 
                         <div class="col-sm-3">
-                            <select id="stateSelect" class="form-control">
-                                <option>全部</option>
-                                <option>正常</option>
-                                <option>禁用</option>
+                            <select id="searchSchoolSate" class="form-control">
+                                <option value="2">全部</option>
+                                <option value="1">正常</option>
+                                <option value="0">禁用</option>
                             </select>
                         </div>
 
                         <div class="col-sm-4" style="text-align:left;">
-                            <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
+                            <input type="button" style="margin-left:50px"  class="btn btn-primary" onclick="schoolMng.serachClick()" value="查询"/>
                         </div>
                     </div>
                 </form>
@@ -60,18 +60,18 @@
 
         <div>
             <div id="toolbar" class="btn-group">
-                <input id="schoolEdit" type="hidden" value="${schoolEdit}" />
-                <c:if test="${schoolAdd==1}">
+                <input id="schoolEditP" type="hidden" value="${schoolEditP}" />
+                <c:if test="${schoolAddP==1}">
                     <button id="btn_add" type="button" class="btn btn-default">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
                     </button>
                 </c:if>
-                <c:if test="${schoolDel==1}">
+                <c:if test="${schoolDelP==1}">
                     <button id="btn_delete" type="button" class="btn btn-default">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
                     </button>
                 </c:if>
-                <c:if test="${schoolDisable==1}">
+                <c:if test="${schoolEditP==1}">
                     <button id="btn_disable" type="button" class="btn btn-default">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>禁用
                     </button>
