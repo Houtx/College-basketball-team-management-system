@@ -1,22 +1,29 @@
 package ubtms.module.user.controller;
 
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import ubtms.basic.util.FileUtil;
-import ubtms.basic.util.ImgUtil;
+import ubtms.basic.dto.MngResult;
+import ubtms.basic.entity.LimitObjet;
+import ubtms.basic.util.PermissionUtil;
+import ubtms.module.role.entity.Menu;
 import ubtms.module.role.entity.Role;
+import ubtms.module.role.entity.RoleExample;
 import ubtms.module.role.service.RoleService;
+import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
 import ubtms.module.user.entity.User;
+import ubtms.module.user.entity.UserExample;
 import ubtms.module.user.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,57 +50,94 @@ public class UserController {
 
 //        String account = request.getParameter("account");
 //        String password = request.getParameter("password");
-        User user1 = new User("admin","123456");
-        User user2 = user1=userService.select(user1);
-        if (user2!=null){
-            Role role = roleService.selectByPrimaryKey(user2.getRoleId());
+        User user = new User("admin","123456");
+        user=userService.select(user);
+        if (user!=null){
+            Role role = roleService.selectByPrimaryKey(user.getRoleId());
             //model.addAttribute("menus", role.getMenus());
+            request.getSession().setAttribute("loginUser", user.getPhone());
+            request.getSession().setAttribute("loginSchool",schoolService.selectOne(role.getSchoolId()));
             request.getSession().setAttribute("menus",role.getMenus());
             return "/mainPage";
         }else {
             return "/login";
         }
     }
+
+    @RequestMapping("/userMngPage")
+    public String schoolMngPage(HttpServletRequest request) {
+        if (request.getSession().getAttribute("userAddP") == null) {
+            List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
+            int[] perssions = PermissionUtil.getPermission(menus, "人员管理");
+            request.getSession().setAttribute("userAddP", perssions[1]);
+            request.getSession().setAttribute("userDelP", perssions[2]);
+            request.getSession().setAttribute("userEditP", perssions[3]);
+            request.getSession().setAttribute("userDetailP", perssions[4]);
+        }
+        return "/user/userMng";
+    }
+    
     
     @RequestMapping("/userAddPage")
     public String userAddPage() {
-
-        return "/user/userAdd";
+        return "user/userAddAndEdit";
     }
 
     @ResponseBody
     @RequestMapping("/imgUpload")
     public void uploadImg(HttpServletRequest request, HttpServletResponse response, MultipartFile image_file) {
-        String img = "";
-        String imgSuffix = "";
-        MultipartFile file = null;
-        Map<String,Object> map = new HashMap<String,Object>();
-        //检测图片大小 < 1M
-        if (file.getSize() > 1024 * 1024) {
-            //Todo
-        }
-//        try {
-//            byte[] s = file.getBytes();
-//            img = Base64.encodeBase64String(s);
-//            imgSuffix = FileUtil.getFileSuffix(file.getOriginalFilename());
-//
-//
-//            request.getSession().setAttribute("headImg",img);
-//            request.getSession().setAttribute("headImgSuffix",imgSuffix);
-//
-//            //获取图片宽高
-//            InputStream is = file.getInputStream();
-//            BufferedImage buffImg = ImageIO.read(is);
-//
-//
-//            String imgParm = ImgUtil.getImgParam(buffImg.getWidth(),buffImg.getHeight(),260,260);
-//            request.getSession().setAttribute("imgParm",imgParm);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
     }
 
+    @RequestMapping("/userGetAction")
+    @ResponseBody
+    public MngResult<List<User>> getSchools(int limit, int offset,String userName,String schoolName,HttpServletRequest request) {
+        UserExample userExample = new UserExample();
+        userExample.setLimit(limit);
+        userExample.setOffset(offset);
+        int total;
+        List<User> users = new ArrayList<User>();
+        try {
+            request.setCharacterEncoding("utf-8");
+//            schoolName = new String(schoolName.getBytes("ISO-8859-1"), "UTF-8");
+//            userName = new String(userName.getBytes("ISO-8859-1"), "UTF-8");
+//            roleName = new String(roleName.getBytes("ISO-8859-1"), "UTF-8");
+            School school = schoolService.selectOne(new School(schoolName));
+            if (!schoolName.isEmpty() && school==null) {
+                return new MngResult<List<User>>(true, new ArrayList<User>(),0);
+            }
+            //学校存在，或者操作者选择了全部
+            int schId=0;
+            if (school != null) {//选择了一所学校
+                schId=school.getSchId();
+                Role role = new Role();
+                role.setSchoolId(schId);
+                User user = new User();
+                user.setRole(role);
+                if (!userName.isEmpty()) {//查询一个人
+                    user.setRealName(userName);
+                }
+                LimitObjet<User> limitObjet = new LimitObjet<>(user,offset,limit);
+                users = userService.selectWithRelative(limitObjet);
+                total = userService.countWithRelative(user);
+            }else{//操作者选择了全部学校
+                if (userName.isEmpty()) {
+                    users = userService.selectByExample(userExample);
+                }else {
+                    userExample.createCriteria().andRealNameEqualTo(userName);
+                    users = userService.selectByExample(userExample);
+                }
+                userExample.setOffset(null);
+                userExample.setLimit(null);
+                total = userService.countByExample(userExample);
+            }
+            MngResult<List<User>> result = new MngResult<List<User>>(true, users, total);
+            return result;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

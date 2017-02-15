@@ -35,7 +35,8 @@ public class SchoolController {
 
     @RequestMapping("/schoolMngPage")
     public String schoolMngPage(HttpServletRequest request) {
-        if (request.getSession().getAttribute("schoolAdd") == null) {
+        //session是否已经设置过
+        if (request.getSession().getAttribute("schoolAddP") == null) {
             List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
             int[] perssions = PermissionUtil.getPermission(menus, "学校管理");
             request.getSession().setAttribute("schoolAddP", perssions[1]);
@@ -72,7 +73,7 @@ public class SchoolController {
     @RequestMapping("/schoolValidateAction")
     public boolean validateSchool(HttpServletRequest request) {
         try {
-            String school = request.getParameter("schoolNameStr");
+            String school = request.getParameter("schoolName");
             school = new String(school.getBytes("ISO-8859-1"), "UTF-8");
             return schoolService.validateSchool(school);
         } catch (UnsupportedEncodingException e) {
@@ -121,9 +122,9 @@ public class SchoolController {
         return map;
     }
 
-    @RequestMapping(value = "/schoolDisableAction", method = RequestMethod.POST)
+    @RequestMapping(value = "/schoolStateChangeAction", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> disableSchool(@RequestBody List<School> schools) {
+    public Map<String, Object> changeSchoolState(@RequestBody List<School> schools) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
             schoolService.updateSchoolById(schools);
@@ -164,9 +165,9 @@ public class SchoolController {
     @ResponseBody
     public Map<String, Object> addSchool(HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
-        String schoolName = request.getParameter("schoolNameStr").toString();
-        String introduction = request.getParameter("introduction").toString();
         try {
+            String schoolName = request.getParameter("schoolName").toString();
+            String introduction = request.getParameter("introduction").toString();
             School school = new School();
             if (request.getParameter("pic") != null) {
                 MultipartFile file = (MultipartFile) request.getSession().getAttribute("schoolImg");

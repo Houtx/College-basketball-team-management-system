@@ -39,6 +39,7 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
     	②允许使用"/"做整体映射
     -->	
 	<mvc:default-servlet-handler/>
+
 	<!--<mvc:interceptors>-->
 		<!--<mvc:interceptor>-->
 			<!--<mvc:mapping path="/**"/>-->

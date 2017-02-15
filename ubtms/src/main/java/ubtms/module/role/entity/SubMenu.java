@@ -32,6 +32,23 @@ public class SubMenu {
         this.permissions = permissions;
     }
 
+    public SubMenu(Integer parentId,String url, String name, Integer sort, Byte state) {
+        this.url = url;
+        this.parentId = parentId;
+        this.name = name;
+        this.sort = sort;
+        this.state = state;
+    }
+
+    public SubMenu(Integer id,Integer parentId,String url, String name, Integer sort, Byte state) {
+        this.id=id;
+        this.url = url;
+        this.parentId = parentId;
+        this.name = name;
+        this.sort = sort;
+        this.state = state;
+    }
+
     public Byte getState() {
         return state;
     }
@@ -96,5 +113,15 @@ public class SubMenu {
         this.sort = sort;
     }
 
-
+    @Override
+    public String toString() {
+        return "SubMenu{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", url='" + url + '\'' +
+                ", name='" + name + '\'' +
+                ", sort=" + sort +
+                ", state=" + state +
+                '}';
+    }
 }

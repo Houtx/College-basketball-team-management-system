@@ -73,7 +73,10 @@
                 </c:if>
                 <c:if test="${schoolEditP==1}">
                     <button id="btn_disable" type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>禁用
+                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>禁用
+                    </button>
+                    <button id="btn_enable" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>启用
                     </button>
                 </c:if>
             </div>

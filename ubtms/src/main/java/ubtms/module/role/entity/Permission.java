@@ -25,6 +25,13 @@ public class Permission {
         return subMenu;
     }
 
+    public Permission(Integer parentId, Byte type, Byte state, Integer sort) {
+        this.parentId = parentId;
+        this.type = type;
+        this.state = state;
+        this.sort = sort;
+    }
+
     public void setSubMenu(SubMenu subMenu) {
         this.subMenu = subMenu;
     }

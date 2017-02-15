@@ -139,7 +139,7 @@
         AND password like #{password}
       </if>
       <if test="realName != null">
-        AND real_name like #{password}
+        AND real_name like #{realName}
       </if>
 
       <if test="sex != null">
@@ -157,6 +157,53 @@
     </where>
   </select>
 
+  <select id="countWithRelative" resultType="int">
+    SELECT count(*)
+    FROM
+    `user`
+    INNER JOIN role ON `user`.role_id = role.id
+    INNER JOIN school ON role.school_id = school.sch_id
+    <where>
+      <if test="role.schoolId!=null">
+        school.sch_id=#{role.schoolId}
+      </if>
+      <if test="realName!=null">
+        AND `user`.real_name=#{realName}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectWithRelative" resultType="User">
+    SELECT
+    `user`.id,
+    `user`.phone,
+    `user`.`password`,
+    `user`.real_name,
+    `user`.sex,
+    `user`.head_pic,
+    `user`.state,
+    `user`.height,
+    `user`.weight,
+    `user`.grade,
+    `user`.shirt_num,
+    `user`.duty,
+    `user`.role_id
+    FROM
+    `user`
+    INNER JOIN role ON `user`.role_id = role.id
+    INNER JOIN school ON role.school_id = school.sch_id
+    <where>
+      <if test="data.role.schoolId!=null">
+        school.sch_id=#{data.role.schoolId}
+      </if>
+      <if test="data.realName!=null">
+        AND `user`.real_name=#{data.realName}
+      </if>
+    </where>
+    <if test="limit!=null">
+      limit #{offset},#{limit}
+    </if>
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user

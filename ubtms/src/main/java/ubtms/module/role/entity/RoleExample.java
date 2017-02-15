@@ -38,6 +38,11 @@ public class RoleExample {
         return oredCriteria;
     }
 
+    public void setOredCriteria(List<Criteria> oredCriteria) {
+        this.oredCriteria = oredCriteria;
+    }
+
+
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
@@ -261,6 +266,11 @@ public class RoleExample {
 
         public Criteria andSchoolIdIsNotNull() {
             addCriterion("school_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatedEqualTo(Byte value) {
+            addCriterion("state =", value, "state");
             return (Criteria) this;
         }
 

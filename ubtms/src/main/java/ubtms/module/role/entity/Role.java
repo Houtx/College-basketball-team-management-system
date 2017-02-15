@@ -1,5 +1,6 @@
 package ubtms.module.role.entity;
 
+import ubtms.module.school.entity.School;
 import ubtms.module.user.entity.User;
 
 import java.util.List;
@@ -10,16 +11,44 @@ public class Role {
     private String roleName;
 
     private Integer schoolId;
+
     private Byte state;
+
     private List<Menu> menus;
 
     private List<User> users;
+
+    private School school;
 
     public Role() {
     }
 
     public Role(Integer id) {
         this.id = id;
+    }
+
+    public Role(Integer id, String roleName, Integer schoolId, Byte state, List<Menu> menus, List<User> users, School school) {
+        this.id = id;
+        this.roleName = roleName;
+        this.schoolId = schoolId;
+        this.state = state;
+        this.menus = menus;
+        this.users = users;
+        this.school = school;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    public Role(String roleName, Integer schoolId, Byte state) {
+        this.state = state;
+        this.schoolId = schoolId;
+        this.roleName = roleName;
     }
 
     public Role(Integer id, String roleName, Integer schoolId, List<Menu> menus, List<User> users) {
@@ -83,7 +112,7 @@ public class Role {
     @Override
     public String toString() {
         return "Role{" +
-                "menus=" + menus +
+                "state=" + state +
                 ", schoolId=" + schoolId +
                 ", roleName='" + roleName + '\'' +
                 ", id=" + id +

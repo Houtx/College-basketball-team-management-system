@@ -34,6 +34,14 @@ public class Menu {
         this.state = state;
     }
 
+    public Menu(String icon, String name, Integer roleId, Byte state, Integer sort) {
+        this.icon = icon;
+        this.name = name;
+        this.sort = sort;
+        this.roleId = roleId;
+        this.state = state;
+    }
+
     public Byte getState() {
         return state;
     }

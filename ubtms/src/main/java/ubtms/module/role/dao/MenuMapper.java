@@ -14,11 +14,17 @@ public interface MenuMapper {
 
     int insert(Menu record);
 
+    int insertAll(List<Menu> menus);
+
     int insertSelective(Menu record);
 
     List<Menu> selectByExample(MenuExample example);
 
     Menu selectByPrimaryKey(Integer id);
+
+    Menu selectByRoleId(Integer id);
+
+    List<Menu> select(Menu menu);
 
     int updateByExampleSelective(@Param("record") Menu record, @Param("example") MenuExample example);
 

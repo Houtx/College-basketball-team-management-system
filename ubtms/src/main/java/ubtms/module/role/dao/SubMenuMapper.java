@@ -16,6 +16,8 @@ public interface SubMenuMapper {
 
     int insertSelective(SubMenu record);
 
+    List<SubMenu> select(SubMenu subMenu);
+
     List<SubMenu> selectByExample(SubMenuExample example);
 
     SubMenu selectByPrimaryKey(Integer id);

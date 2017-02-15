@@ -28,4 +28,11 @@ public class RoleMapperTest {
         System.out.println(role);
     }
 
+    @Test
+    public void insert() throws Exception {
+        int a =  roleMapper.insert(new Role("球队领队",14,new Byte("1")));
+        //log.info("success");
+       // System.out.println(role);
+    }
+
 }

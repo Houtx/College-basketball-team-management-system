@@ -13,6 +13,7 @@
         SELECT * FROM school
         WHERE sch_name = #{schName}
     </select>
+
     <select id="select" resultType="School">
         SELECT * FROM school
         <where>
@@ -27,6 +28,7 @@
             </if>
         </where>
     </select>
+
     <select id="selectWithLimit" resultType="School">
         SELECT * FROM school
         <where>

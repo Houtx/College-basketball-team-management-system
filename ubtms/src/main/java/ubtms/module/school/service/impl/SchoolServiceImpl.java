@@ -3,6 +3,9 @@ package ubtms.module.school.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ubtms.basic.entity.LimitObjet;
+import ubtms.module.role.dao.RoleMapper;
+import ubtms.module.role.entity.Role;
+import ubtms.module.role.service.RoleService;
 import ubtms.module.school.dao.SchoolMapper;
 import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
@@ -16,19 +19,26 @@ import java.util.List;
 public class SchoolServiceImpl implements SchoolService {
     @Autowired
     SchoolMapper schoolMapper;
+    @Autowired
+    RoleService roleService;
 
     @Override
     public int svaeSchool(School school) {
-        short state=1;
+        short state = 1;
         school.setState(state);
         schoolMapper.insertSchool(school);
+        int schoolId = selectOne(school).getSchId();
+        //自动为学校分配角色
+        roleService.saveCoachRole(schoolId);
+        roleService.saveLeaderRole(schoolId);
+        roleService.savePlayerRole(schoolId);
         return 1;
     }
 
     @Override
     public boolean validateSchool(String schoolName) {
-        School oldSchool =  selectOne(new School(schoolName));
-        if (oldSchool!=null){
+        School oldSchool = selectOne(new School(schoolName));
+        if (oldSchool != null) {
             return false;
         }
         return true;
@@ -36,8 +46,8 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public School selectOne(School school) {
-        List<School> schoolList  =  schoolMapper.select(school);
-        return schoolList.size()!=0 ? schoolList.get(0) : null;
+        List<School> schoolList = schoolMapper.select(school);
+        return schoolList.size() > 0 ? schoolList.get(0) : null;
     }
 
     @Override
@@ -67,9 +77,9 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public int updateSchoolById(List<School> schools) {
-        int sum=0;
+        int sum = 0;
         for (School school : schools) {
-            sum+=this.updateSchoolById(school);
+            sum += this.updateSchoolById(school);
         }
         return sum;
     }

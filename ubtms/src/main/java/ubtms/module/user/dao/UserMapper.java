@@ -2,10 +2,14 @@ package ubtms.module.user.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import ubtms.basic.entity.LimitObjet;
 import ubtms.module.user.entity.User;
 import ubtms.module.user.entity.UserExample;
 
 public interface UserMapper {
+    List<User> selectWithRelative(LimitObjet<User> user);
+    int countWithRelative(User user);
+
     int countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
