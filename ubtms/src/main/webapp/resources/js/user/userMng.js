@@ -8,10 +8,10 @@
             return 'user/userGetAction';
         },
         add: function () {
-            return 'user/userAddPage';
+            return 'user/userAddPage?type=0';
         },
         detailAndEdit: function () {
-            return '/user/userViewAndEditAction';
+            return '/user/userAddPage?type=1';
         },
         delete: function () {
             return "/user/userDelAction";
@@ -77,8 +77,14 @@ var TableInit = function () {
                 title: '姓名',
             }, {
                 align: 'center',
-                field: 'sex',
                 title: '性别',
+                formatter: function (value, row, index) {
+                    if (row.sex == 0) {
+                        return "男";
+                    }else{
+                        return "女";
+                    }
+                },
             }, {
                 align: 'center',
                 field: 'role.school.schName',
@@ -101,8 +107,8 @@ var TableInit = function () {
                 title: '操作',
                 formatter: function (value, row, index, params) {
                     var editState = $('#userEditP').val();
-                    var detail = "<a href=" + userMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
-                    var edit = "<a href=" + userMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
+                    var detail = "<a href=" + userMng.URL.detailAndEdit() + "?userId=" + row.id + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
+                    var edit = "<a href=" + userMng.URL.detailAndEdit() + "?userId=" + row.id + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
                     if (editState == 1) {
                         return detail + edit;
                     } else {
@@ -149,7 +155,7 @@ var ButtonInit = function () {
                 select.push(selectSchool);
             }
 
-            Ewin.confirm({message: "确认要删除选择的学校吗？"}).on(function (e) {
+            Ewin.confirm({message: "确认要删除选择的人员吗？"}).on(function (e) {
                 if (!e) {
                     return;
                 }
@@ -181,13 +187,13 @@ var ButtonInit = function () {
             }
             var select = new Array();
             for (var i = 0; i < arrselections.length; i++) {
-                var selectSchool = new Object();
-                selectSchool.schId = arrselections[i].schId;
-                selectSchool.state = 0;
-                select.push(selectSchool);
+                var selectUser = new Object();
+                selectUser.id = arrselections[i].id;
+                selectUser.state = 0;
+                select.push(selectUser);
             }
 
-            Ewin.confirm({message: "确认要禁用选择的学校吗？"}).on(function (e) {
+            Ewin.confirm({message: "确认要禁用选择的人员吗？"}).on(function (e) {
                 if (!e) {
                     return;
                 }
@@ -219,10 +225,10 @@ var ButtonInit = function () {
             }
             var select = new Array();
             for (var i = 0; i < arrselections.length; i++) {
-                var selectSchool = new Object();
-                selectSchool.schId = arrselections[i].schId;
-                selectSchool.state = 1;
-                select.push(selectSchool);
+                var selectUser = new Object();
+                selectUser.id = arrselections[i].id;
+                selectUser.state = 1;
+                select.push(selectUser);
             }
             $.ajax({
                 type: "post",

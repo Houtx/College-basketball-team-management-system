@@ -154,7 +154,6 @@ var ButtonInit = function () {
                     contentType: "application/json;charset=utf-8",
                     data: JSON.stringify(select),
                     success: function (data, status) {
-                        debugger;
                         if (data.success) {
                             toastr.success('删除成功');
                             $("#tb_schools").bootstrapTable('refresh');
@@ -180,7 +179,7 @@ var ButtonInit = function () {
                 selectSchool.state = 0;
                 select.push(selectSchool);
             }
-
+            debugger;
             Ewin.confirm({message: "确认要禁用选择的学校吗？"}).on(function (e) {
                 if (!e) {
                     return;

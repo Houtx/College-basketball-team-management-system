@@ -1,5 +1,6 @@
 package ubtms.module.role.service;
 
+import ubtms.module.role.entity.Menu;
 import ubtms.module.role.entity.SubMenu;
 import ubtms.module.role.entity.SubMenu;
 
@@ -13,4 +14,5 @@ public interface SubMenuService {
     int saveAll(List<SubMenu> subMenus);
     SubMenu selectOne(SubMenu subMenu);
     List<SubMenu> select(SubMenu subMenu);
+    int updateByPrimaryKeySelective(SubMenu subMenu);
 }

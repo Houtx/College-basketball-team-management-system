@@ -3,6 +3,7 @@ package ubtms.module.role.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ubtms.module.role.dao.PermissionMapper;
+import ubtms.module.role.entity.Menu;
 import ubtms.module.role.entity.Permission;
 import ubtms.module.role.service.PermissionService;
 
@@ -28,5 +29,10 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public int save(Permission permission) {
         return permissionMapper.insert(permission);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(Permission permission) {
+        return permissionMapper.updateByPrimaryKeySelective(permission);
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ubtms.module.role.dao.MenuMapper;
 import ubtms.module.role.entity.Menu;
+import ubtms.module.role.entity.MenuExample;
 import ubtms.module.role.service.MenuService;
 import ubtms.module.school.entity.School;
 
@@ -40,4 +41,11 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> select(Menu menu) {
         return menuMapper.select(menu);
     }
+
+    @Override
+    public int updateByPrimaryKeySelective(Menu menu) {
+        return menuMapper.updateByPrimaryKeySelective(menu);
+    }
+
+
 }

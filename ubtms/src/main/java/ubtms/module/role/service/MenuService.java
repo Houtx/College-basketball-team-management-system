@@ -1,6 +1,7 @@
 package ubtms.module.role.service;
 
 import ubtms.module.role.entity.Menu;
+import ubtms.module.role.entity.MenuExample;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface MenuService {
     int saveAll(List<Menu> menus);
     Menu selectOne(Menu menu);
     List<Menu> select(Menu menu);
+    int updateByPrimaryKeySelective(Menu menu);
 }

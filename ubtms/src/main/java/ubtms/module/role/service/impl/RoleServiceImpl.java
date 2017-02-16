@@ -3,11 +3,9 @@ package ubtms.module.role.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ubtms.module.role.dao.RoleMapper;
-import ubtms.module.role.entity.Menu;
-import ubtms.module.role.entity.Role;
-import ubtms.module.role.entity.RoleExample;
-import ubtms.module.role.entity.SubMenu;
+import ubtms.module.role.entity.*;
 import ubtms.module.role.service.MenuService;
+import ubtms.module.role.service.PermissionService;
 import ubtms.module.role.service.RoleService;
 import ubtms.module.role.service.SubMenuService;
 import ubtms.module.school.service.SchoolService;
@@ -26,6 +24,8 @@ public class RoleServiceImpl implements RoleService {
     private MenuService menuService;
     @Autowired
     private SubMenuService subMenuService;
+    @Autowired
+    private PermissionService permissionService;
     @Autowired
     private SchoolService schoolService;
 
@@ -147,5 +147,21 @@ public class RoleServiceImpl implements RoleService {
     public int countByExample(RoleExample roleExample) {
         return roleMapper.countByExample(roleExample);
 
+    }
+
+    @Override
+    public int updatePermissionCascade(List<Menu> menus) {
+        for (Menu menu:menus){
+            menuService.updateByPrimaryKeySelective(menu);
+            List<SubMenu> subMenus = menu.getSubMenus();
+            for (SubMenu subMenu : subMenus) {
+                subMenuService.updateByPrimaryKeySelective(subMenu);
+                List<Permission> permissions = subMenu.getPermissions();
+                for (Permission permission : permissions) {
+                    permissionService.updateByPrimaryKeySelective(permission);
+                }
+            }
+        }
+        return 1;
     }
 }

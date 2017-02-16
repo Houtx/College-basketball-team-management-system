@@ -1,5 +1,6 @@
 package ubtms.module.role.service;
 
+import ubtms.module.role.entity.Menu;
 import ubtms.module.role.entity.Role;
 import ubtms.module.role.entity.RoleExample;
 
@@ -17,4 +18,5 @@ public interface RoleService {
     List<Role> select(Role role);
     Role selectByPrimaryKey(Integer id);
     int countByExample(RoleExample roleExample);
+    int updatePermissionCascade(List<Menu> menus);
 }

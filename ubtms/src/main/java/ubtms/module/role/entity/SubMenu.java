@@ -14,6 +14,7 @@ public class SubMenu {
     private Integer sort;
 
     private Menu menu;
+
     private Byte state;
 
     private List<Permission> permissions;

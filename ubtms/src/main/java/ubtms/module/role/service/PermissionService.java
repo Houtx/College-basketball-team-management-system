@@ -12,4 +12,5 @@ import java.util.List;
 public interface PermissionService {
     int saveAll(List<Permission> permissions);
     int save(Permission permission);
+    int updateByPrimaryKeySelective(Permission permission);
 }

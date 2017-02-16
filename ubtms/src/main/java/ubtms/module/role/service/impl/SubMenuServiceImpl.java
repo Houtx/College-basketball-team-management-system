@@ -60,5 +60,9 @@ public class SubMenuServiceImpl implements SubMenuService {
         return subMenuMapper.select(subMenu);
     }
 
+    @Override
+    public int updateByPrimaryKeySelective(SubMenu subMenu) {
+        return subMenuMapper.updateByPrimaryKeySelective(subMenu);
+    }
 
 }

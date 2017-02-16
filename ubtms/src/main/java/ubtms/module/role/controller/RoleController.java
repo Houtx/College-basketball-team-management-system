@@ -4,7 +4,9 @@ package ubtms.module.role.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ubtms.basic.dto.MngResult;
 import ubtms.basic.entity.LimitObjet;
@@ -90,9 +92,6 @@ public class RoleController {
             e.printStackTrace();
             return new MngResult<List<Role>>(false,"系统异常");
         }
-
-
-
     }
 
 
@@ -103,6 +102,12 @@ public class RoleController {
         return "/role/permissionMng";
     }
 
+    @RequestMapping(value = "/savePermissionsAction")
+    @ResponseBody
+    public Map<String, Object> savePermissionsAction(@RequestBody List<Menu> menus) {
+        roleService.updatePermissionCascade(menus);
+        return null;
+    }
 
     @RequestMapping("/getPermissionsAction")
     @ResponseBody

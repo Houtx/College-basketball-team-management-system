@@ -18,6 +18,7 @@ public class Permission {
     private Integer sort;
 
     private SubMenu subMenu;
+
     public Permission() {
     }
 

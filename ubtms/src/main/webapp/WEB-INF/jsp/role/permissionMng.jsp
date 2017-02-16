@@ -26,7 +26,7 @@
     <input type="hidden" id="roleId" value="${roleId}">
     <input type="hidden" id="type" value="${type}">
     <div id="treeview-checkable"></div>
-    <input type="button" class="btn btn-primary" onclick="submit()" value="确定" />
+    <input type="button" class="btn btn-primary" onclick="permissionMng.savePerssion()" value="确定" />
     <input type="button" class="btn btn-primary" value="返回" />
 </div>
 
