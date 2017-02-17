@@ -56,6 +56,11 @@ public class User {
         this.password = password;
     }
 
+    public User(Integer id, Byte state) {
+        this.id = id;
+        this.state = state;
+    }
+
     public Integer getId() {
         return id;
     }

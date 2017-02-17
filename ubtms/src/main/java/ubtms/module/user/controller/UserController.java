@@ -3,7 +3,9 @@ package ubtms.module.user.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import ubtms.basic.dto.MngResult;
@@ -140,4 +142,17 @@ public class UserController {
     }
 
 
+    @RequestMapping(value = "/userStateChangeAction", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> changeUserState(@RequestBody List<User> users) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            userService.updateByPrimaryKey(users);
+            map.put("success", true);
+        } catch (Exception e) {
+            map.put("success", false);
+            e.printStackTrace();
+        }
+        return map;
+    }
 }

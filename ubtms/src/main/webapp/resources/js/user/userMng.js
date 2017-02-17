@@ -65,16 +65,19 @@ var TableInit = function () {
             columns: [{
                 title: null,
                 checkbox: true,
+                width: '4%'
             }, {
                 align: 'center',
                 title: '序号',
                 formatter: function (value, row, index) {
                     return index + 1 + oTableInit.curPageNum;
                 },
+                width: '4%'
             }, {
                 align: 'center',
                 field: 'realName',
                 title: '姓名',
+                width: '20%'
             }, {
                 align: 'center',
                 title: '性别',
@@ -85,14 +88,17 @@ var TableInit = function () {
                         return "女";
                     }
                 },
+                width: '4%'
             }, {
                 align: 'center',
                 field: 'role.school.schName',
                 title: '校名',
+                width: '25%'
             }, {
                 align: 'center',
                 field: 'role.roleName',
                 title: '角色',
+                width: '10%'
             }, {
                 align: 'center',
                 title: '状态',
@@ -102,7 +108,9 @@ var TableInit = function () {
                     else
                         return "禁用";
                 },
+                width: '8%'
             }, {
+                width: '25%',
                 align: 'center',
                 title: '操作',
                 formatter: function (value, row, index, params) {

@@ -19,6 +19,7 @@ import ubtms.module.school.service.SchoolService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,13 +55,14 @@ public class RoleController {
     
     @RequestMapping("/roleGetAction")
     @ResponseBody
-    public MngResult<List<Role>> getSchools(int limit, int offset, String roleName, String state,String schoolName) {
+    public MngResult<List<Role>> getRoles(int limit, int offset, String roleName, String state,String schoolName,HttpServletRequest request) {
         RoleExample roleExample = new RoleExample();
         roleExample.setLimit(limit);
         roleExample.setOffset(offset);
         try {
-            roleName = new String(roleName.getBytes("ISO-8859-1"), "UTF-8");
-            schoolName = new String(schoolName.getBytes("ISO-8859-1"), "UTF-8");
+            request.setCharacterEncoding("utf-8");
+            //roleName = new String(roleName.getBytes("ISO-8859-1"), "UTF-8");
+           // schoolName = new String(schoolName.getBytes("ISO-8859-1"), "UTF-8");
 
             School school = schoolService.selectOne(new School(schoolName));
             if (!schoolName.isEmpty() && school==null) {
@@ -93,6 +95,21 @@ public class RoleController {
             return new MngResult<List<Role>>(false,"系统异常");
         }
     }
+
+    @RequestMapping(value = "/roleStateChangeAction", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> changeRoleState(@RequestBody List<Role> roles) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            roleService.updateByPrimaryKey(roles);
+            map.put("success", true);
+        } catch (Exception e) {
+            map.put("success", false);
+            e.printStackTrace();
+        }
+        return map;
+    }
+
 
 
     @RequestMapping("/permissionMngPage")

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
-
+<!--
+	作者：jinzhanye@foxmail.com
+	时间：2017-02-17
+	描述：
+	http://www.builive.com/demo/edit-grid.php#edit-grid/cell.php
+-->
 	<head>
 		<meta charset="utf-8">
 		<title>表格单元格编辑</title>
@@ -38,6 +43,7 @@
 	<script type="text/javascript">
 		BUI.use(['bui/grid', 'bui/data'], function(Grid, Data) {
 			var Store = Data.Store,
+			    enumObj = {"1" : "控卫","2" : "分卫","3" : "小前锋","4":"大前锋","5":"中锋"},
 				columns = [{
 						title: '姓名',
 						dataIndex: 'name',
@@ -45,7 +51,19 @@
 							xtype: 'text',
 							validator: validFn
 						}
-					}, //editor中的定义等用于 BUI.Form.Field.Text的定义
+					}, {
+						title: '位置',
+						dataIndex: 'duty',
+						editor: {
+							id: 'mySelect',
+							xtype: 'select',
+							items: enumObj,
+							rules: {
+								required: true
+							},
+						},
+						renderer: Grid.Format.enumRenderer(enumObj)
+					},
 
 					{
 						title: '得分',
@@ -72,10 +90,10 @@
 					}, {
 						title: '命中',
 						dataIndex: 'c',
-						
+
 						editor: {
 							xtype: 'number',
-														min: '0',
+							min: '0',
 
 							rules: {
 								required: true
@@ -87,7 +105,7 @@
 						dataIndex: 'd',
 						editor: {
 							xtype: 'number',
-														min: '0',
+							min: '0',
 
 							rules: {
 								required: true
@@ -99,7 +117,7 @@
 						dataIndex: 'e',
 						editor: {
 							xtype: 'number',
-														min: '0',
+							min: '0',
 
 							rules: {
 								required: true
@@ -110,7 +128,7 @@
 						dataIndex: 'f',
 						editor: {
 							xtype: 'number',
-														min: '0',
+							min: '0',
 
 							rules: {
 								required: true
@@ -122,7 +140,7 @@
 						dataIndex: 'g',
 						editor: {
 							xtype: 'number',
-														min: '0',
+							min: '0',
 
 							rules: {
 								required: true
@@ -134,7 +152,7 @@
 						dataIndex: 'h',
 						editor: {
 							xtype: 'number',
-														min: '0',
+							min: '0',
 
 							rules: {
 								required: true
@@ -146,10 +164,10 @@
 						dataIndex: 'i',
 						editor: {
 							xtype: 'number',
-														min: '0',
+							min: '0',
 
 							rules: {
-								
+
 								required: true
 							}
 						}
@@ -157,10 +175,10 @@
 					{
 						title: '失误',
 						dataIndex: 'j',
-						
+
 						editor: {
 							xtype: 'number',
-														min: '0',
+							min: '0',
 
 							rules: {
 								required: true
@@ -171,6 +189,7 @@
 				],
 				data = [{
 					name: "威少",
+					duty:"1",
 					a: 123,
 					b: 11,
 					c: 10,
@@ -195,11 +214,6 @@
 					j: 1
 				}];
 
-			function valid(value) {
-				if(value === '1') {
-					return '不能选择1';
-				}
-			}
 
 			var editing = new Grid.Plugins.CellEditing({
 					triggerSelected: false //触发编辑的时候不选中行

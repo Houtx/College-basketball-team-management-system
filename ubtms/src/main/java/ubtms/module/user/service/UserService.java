@@ -16,5 +16,5 @@ public interface UserService {
     int countWithRelative(User user);
     List<User> selectByExample(UserExample userExample);
     int countByExample(UserExample userExample);
-
+    int updateByPrimaryKey(List<User> users);
 }

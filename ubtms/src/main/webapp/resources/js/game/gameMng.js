@@ -1,17 +1,23 @@
-﻿var roleMng = {
+﻿var gameMng = {
     serachClick: function () {
-        $("#tb_roles").bootstrapTable('refresh');
+        $("#tb_games").bootstrapTable('refresh');
     },
 
     URL: {
         getRoles: function () {
-            return '/role/roleGetAction';
+            return 'game/gameGetAction';
+        },
+        add: function () {
+            return 'game/gameAddPage';
         },
         detailAndEdit: function () {
-            return '/role/schoolViewAndEditAction';
+            return '/game/gameViewAndEditAction';
+        },
+        delete: function () {
+            return "/game/gameDelAction";
         },
         changeState: function () {
-            return "/role/roleStateChangeAction";
+            return "/game/gameStateChangeAction";
         }
     },
 
@@ -25,32 +31,15 @@
     }
 }
 
-var myLayer = {
-    url: "/role/permissionMngPage",
-    urlWithParma: null,
-    open: function (id, type) {
-        //debugger;
-        myLayer.urlWithParma = myLayer.url + "?id=" + id + "&type=" + type;
-        layer.open({
-            type: 2,
-            title: '权限管理',
-            shadeClose: true,
-            shade: false,
-            maxmin: true, //开启最大化最小化按钮
-            area: ['840px', '500px'],
-            content: myLayer.urlWithParma
-        });
-    },
-}
 
 var TableInit = function () {
-    ////debugger;
+    //debugger;
     var oTableInit = new Object();
     oTableInit.curPageNum = 0;
     //初始化Table
     oTableInit.Init = function () {
-        $('#tb_roles').bootstrapTable({
-            url: roleMng.URL.getRoles(),         //请求后台的URL（*）
+        $('#tb_games').bootstrapTable({
+            url: gameMng.URL.getRoles(),         //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
@@ -86,33 +75,40 @@ var TableInit = function () {
                 width: '4%'
             }, {
                 align: 'center',
-                field: 'roleName',
-                title: '角色',
-                width: '20%'
+                field: 'startTime',
+                title: '时间',
+                width: '52%'
             }, {
                 align: 'center',
                 title: '状态',
                 formatter: function (value, row, index) {
-                    if (row.state == 1)
-                        return "正常";
-                    else
-                        return "禁用";
+                   //判断系统时间与startTime
+                   return "未开始";
                 },
                 width: '20%'
-            }, {
+            },  {
                 align: 'center',
-                title: '学校',
+                title: '客队',
                 formatter: function (value, row, index) {
-                    return row.school.schName;
+                   //判断系统时间与startTime
+                   return "未开始";
                 },
-                width: '32%'
-            }, {
+                width: '20%'
+            },{
                 align: 'center',
-                title: '权限管理',
+                title: '比分',
+                formatter: function (value, row, index) {
+                   //判断系统时间与startTime
+                   return "未开始";
+                },
+                width: '20%'
+            },{
+                align: 'center',
+                title: '操作',
                 formatter: function (value, row, index, params) {
-                    var editState = $('#roleEditP').val();
-                    var detail = "<a href='javascript:void(0)' onclick='myLayer.open(" + row.id + ",0)'><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
-                    var edit = "<a href='javascript:void(0)' onclick='myLayer.open(" + row.id + ",1)' style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
+                    var editState = $('#gameEditP').val();
+                    var detail = "<a href=" + gameMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
+                    var edit = "<a href=" + gameMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
                     if (editState == 1) {
                         return detail + edit;
                     } else {
@@ -127,23 +123,12 @@ var TableInit = function () {
     //得到查询的参数
     oTableInit.queryParams = function (params) {
         oTableInit.curPageNum = params.offset;
-        var roleVal = $('#searchRoleVal').val();
-        var roleName = "";
-        if (roleVal == "2") {
-            roleName = "球队领队";
-        } else if (roleVal == "1") {
-            roleName = "教练";
-        } else if (roleVal == "0") {
-            roleName = "球员";
-        } else {
-            roleName = ""
-        }
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
-            roleName: roleName,
-            state: $('#searchRoleSate').val(),
-            schoolName: $('#searchSchoolName').val()
+            startTime: $('#searchGameName').val(),
+            rival: gameState
+            state:state//开始 结束
         };
         return temp;
     };
@@ -152,80 +137,56 @@ var TableInit = function () {
 
 var ButtonInit = function () {
     var oInit = new Object();
+    var postdata = {};
+
     oInit.Init = function () {
-        $("#btn_disable").click(function () {
-            var arrselections = $("#tb_roles").bootstrapTable('getSelections');
+        $("#btn_add").click(function () {
+            window.document.location = gameMng.URL.add();
+        });
+
+        $("#btn_delete").click(function () {
+            var arrselections = $("#tb_games").bootstrapTable('getSelections');
             if (arrselections.length <= 0) {
                 toastr.warning('请选择至少一条数据');
                 return;
             }
             var select = new Array();
             for (var i = 0; i < arrselections.length; i++) {
-                var selectRole = new Object();
-                selectRole.id = arrselections[i].id;
-                selectRole.state = 0;
-                select.push(selectRole);
+                var selectGame = new Object();
+                selectGame.schId = arrselections[i].schId;
+                select.push(selectGame);
             }
-            Ewin.confirm({message: "确认要禁用选择的角色吗？"}).on(function (e) {
+
+            Ewin.confirm({message: "确认要删除选择的赛程吗？"}).on(function (e) {
                 if (!e) {
                     return;
                 }
                 $.ajax({
                     type: "post",
-                    url: roleMng.URL.changeState(),
+                    url: gameMng.URL.delete(),
                     dataType: "json",
                     contentType: "application/json;charset=utf-8",
                     data: JSON.stringify(select),
                     success: function (data, status) {
                         if (data.success) {
-                            toastr.success('禁用成功');
-                            $("#tb_roles").bootstrapTable('refresh');
+                            toastr.success('删除成功');
+                            $("#tb_games").bootstrapTable('refresh');
                         } else {
-                            toastr.error('禁用失败');
+                            toastr.error(data.msg);
                         }
                     }
+
                 });
             });
         });
 
-
-        $("#btn_enable").click(function () {
-            var arrselections = $("#tb_roles").bootstrapTable('getSelections');
-            if (arrselections.length <= 0) {
-                toastr.warning('请选择至少一条数据');
-                return;
-            }
-            var select = new Array();
-            for (var i = 0; i < arrselections.length; i++) {
-                var selectRole = new Object();
-                selectRole.id = arrselections[i].id;
-                selectRole.state = 1;
-                select.push(selectRole);
-            }
-            $.ajax({
-                type: "post",
-                url: roleMng.URL.changeState(),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                data: JSON.stringify(select),
-                success: function (data, status) {
-                    if (data.success) {
-                        toastr.success('启用成功');
-                        $("#tb_roles").bootstrapTable('refresh');
-                    } else {
-                        toastr.error('启用失败');
-                    }
-                }
-            });
-        });
     };
-
     return oInit;
 };
 
 
 $(function () {
-    roleMng.init();
+    gameMng.init();
     //初始化消息框位置
     myToastr.init();
     //初始化模态框位置

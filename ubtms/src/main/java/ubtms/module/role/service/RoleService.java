@@ -19,4 +19,5 @@ public interface RoleService {
     Role selectByPrimaryKey(Integer id);
     int countByExample(RoleExample roleExample);
     int updatePermissionCascade(List<Menu> menus);
+    int updateByPrimaryKey(List<Role> roles);
 }

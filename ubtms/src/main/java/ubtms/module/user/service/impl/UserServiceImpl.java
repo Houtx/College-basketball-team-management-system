@@ -25,7 +25,15 @@ public class UserServiceImpl implements UserService {
         System.out.println();
         return 0;
     }
-
+    
+    @Override
+    public int updateByPrimaryKey(List<User> users){
+    	for(User user:users){
+    		userMapper.updateByPrimaryKeySelective(user);
+    	}	
+    	return users.size();
+    }
+    
     @Override
     public User select(User user) {
         return userMapper.select(user);

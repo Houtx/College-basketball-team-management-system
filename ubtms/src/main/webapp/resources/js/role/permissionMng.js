@@ -1,6 +1,7 @@
 var bsTree = {
 	treeData: null,
-	setTreeData:function() {
+
+	setTreeData: function() {
 		var menus = bsTree.treeData;
 		var tree = new Array();
 		for(var i = 0; i < menus.length; i++) {
@@ -33,6 +34,7 @@ var bsTree = {
 					var permission = subMenu.permissions[k];
 					var permissionNode = new Object();
 					permissionNode.myId = permission.id;
+					permissionNode.type = permission.type;
 					switch(permission.type) {
 						case 1:
 							permissionNode.text = "增";
@@ -59,7 +61,7 @@ var bsTree = {
 			}
 			tree.push(menuNode);
 		}
-		bsTree.treeData=tree;
+		bsTree.treeData = tree;
 	},
 	changeData: function(nodeArray) {
 		var newMenus = new Array();
@@ -163,6 +165,18 @@ var bsTree = {
 			showCheckbox: true,
 			levels: 2,
 			onNodeChecked: function(event, node) { //选中节点
+				if(typeof(node.type) != "undefined" && node.type != "1") {
+					var siblings = $('#treeview-checkable').treeview('getSiblings', node.nodeId);
+					for(sibing in siblings) {
+						if(sibling.type == "1") {
+							$('#treeview-checkable').treeview('checkNode', [sibling.nodeId, {
+								silent: true
+							}]);
+							break;
+						}
+					}
+				}
+
 				var selectNodes = bsTree.getNodeIdArr(node); //获取所有子节点
 				if(selectNodes) { //子节点不为空，则选中所有子节点
 					$('#treeview-checkable').treeview('checkNode', [selectNodes, {
@@ -173,6 +187,13 @@ var bsTree = {
 				bsTree.setParentChecked(node);
 			},
 			onNodeUnchecked: function(event, node) { //取消选中节点
+				if(typeof(node.type) != "undefined" && node.type == "1") {
+					var siblings = $('#treeview-checkable').treeview('getSiblings', node.nodeId);
+					$('#treeview-checkable').treeview('uncheckNode', [siblings, {
+						silent: true
+					}]);
+				}
+
 				var selectNodes = bsTree.getNodeIdArr(node); //获取所有子节点
 				if(selectNodes) { //子节点不为空，则取消选中所有子节点
 					$('#treeview-checkable').treeview('uncheckNode', [selectNodes, {
@@ -186,14 +207,14 @@ var bsTree = {
 	}
 }
 
-var permissionMng={
-	url:{
-		getPermissions:'role/getPermissionsAction',
-		savePermissions:'role/savePermissionsAction'
+var permissionMng = {
+	url: {
+		getPermissions: 'role/getPermissionsAction',
+		savePermissions: 'role/savePermissionsAction'
 	},
 
-	savePerssion:function () {
-		var menus =  bsTree.getPostData();
+	savePerssion: function() {
+		var menus = bsTree.getPostData();
 		debugger;
 		$.ajax({
 			type: "post",
@@ -201,7 +222,7 @@ var permissionMng={
 			dataType: "json",
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify(menus),
-			success: function (data, status) {
+			success: function(data, status) {
 				debugger;
 			}
 
@@ -212,7 +233,7 @@ var permissionMng={
 		// 	if(res.success){
 		// 		alert("保存成功");
 		// 	}else{
-        //
+		//
 		// 	}
 		// },'json');
 	}
@@ -220,11 +241,13 @@ var permissionMng={
 
 $(function() {
 	//ajax返回时调用
-	$.post(permissionMng.url.getPermissions,{roleId:$('#roleId').val()},function (res) {
-		if(res.success){
+	$.post(permissionMng.url.getPermissions, {
+		roleId: $('#roleId').val()
+	}, function(res) {
+		if(res.success) {
 			bsTree.init(res.data);
-		}else{
+		} else {
 
 		}
-	},'json');
+	}, 'json');
 });

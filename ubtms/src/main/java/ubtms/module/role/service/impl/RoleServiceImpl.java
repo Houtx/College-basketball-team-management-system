@@ -9,6 +9,7 @@ import ubtms.module.role.service.PermissionService;
 import ubtms.module.role.service.RoleService;
 import ubtms.module.role.service.SubMenuService;
 import ubtms.module.school.service.SchoolService;
+import ubtms.module.user.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,16 @@ public class RoleServiceImpl implements RoleService {
     private PermissionService permissionService;
     @Autowired
     private SchoolService schoolService;
-
+    @Autowired
+    private UserService userService;
+    
+    @Override
+    public int updateByPrimaryKey(List<Role> roles){
+    	for(Role role:roles){
+    		roleMapper.updateByPrimaryKeySelective(role);
+    	}
+    	return roles.size();
+    }
 
 
     @Override
