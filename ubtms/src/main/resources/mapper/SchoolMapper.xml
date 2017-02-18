@@ -14,6 +14,10 @@
         WHERE sch_name = #{schName}
     </select>
 
+    <select id="selectSchNameFuzzy" resultType="String">
+        SELECT sch_name FROM school WHERE sch_name LIKE "%"#{schName}"%"
+    </select>
+
     <select id="select" resultType="School">
         SELECT * FROM school
         <where>

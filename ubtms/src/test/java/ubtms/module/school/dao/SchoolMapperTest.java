@@ -71,6 +71,10 @@ public class SchoolMapperTest {
     }
 
     @Test
+    public void selectSchNameFuzzy(){
+        System.out.println(schoolMapper.selectSchNameFuzzy("师"));
+    }
+    @Test
     public void selectOne(){
        List<School> school =  schoolMapper.select(new School(33));
     }

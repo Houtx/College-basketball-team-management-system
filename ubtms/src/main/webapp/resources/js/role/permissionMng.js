@@ -165,11 +165,12 @@ var bsTree = {
 			showCheckbox: true,
 			levels: 2,
 			onNodeChecked: function(event, node) { //选中节点
-				if(typeof(node.type) != "undefined" && node.type != "1") {
+				debugger;
+				if(typeof(node.type) != "undefined" && node.type != "3") {
 					var siblings = $('#treeview-checkable').treeview('getSiblings', node.nodeId);
-					for(sibing in siblings) {
-						if(sibling.type == "1") {
-							$('#treeview-checkable').treeview('checkNode', [sibling.nodeId, {
+					for(i in siblings) {
+						if(siblings[i].type == "3") {
+							$('#treeview-checkable').treeview('checkNode', [siblings[i].nodeId, {
 								silent: true
 							}]);
 							break;
@@ -187,7 +188,7 @@ var bsTree = {
 				bsTree.setParentChecked(node);
 			},
 			onNodeUnchecked: function(event, node) { //取消选中节点
-				if(typeof(node.type) != "undefined" && node.type == "1") {
+				if(typeof(node.type) != "undefined" && node.type == "3") {
 					var siblings = $('#treeview-checkable').treeview('getSiblings', node.nodeId);
 					$('#treeview-checkable').treeview('uncheckNode', [siblings, {
 						silent: true

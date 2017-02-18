@@ -17,4 +17,7 @@ public interface UserService {
     List<User> selectByExample(UserExample userExample);
     int countByExample(UserExample userExample);
     int updateByPrimaryKey(List<User> users);
+    boolean isUserAccountExist(String account);
+    int saveUser(String headPic,String sex,String userType,String userName,String schoolName,String account,String password,String grade,String height,String weight,String shirtNum,String duty);
+
 }

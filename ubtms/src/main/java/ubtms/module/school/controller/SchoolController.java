@@ -30,8 +30,6 @@ import java.util.*;
 public class SchoolController {
     @Autowired
     private SchoolService schoolService;
-//    @Autowired
-//    private School school;
 
     @RequestMapping("/schoolMngPage")
     public String schoolMngPage(HttpServletRequest request) {
@@ -70,12 +68,33 @@ public class SchoolController {
     }
 
     @ResponseBody
-    @RequestMapping("/schoolValidateAction")
-    public boolean validateSchool(HttpServletRequest request) {
+    @RequestMapping("/schoolValidateAction1")
+    public boolean validateSchool1(HttpServletRequest request) {
         try {
             String school = request.getParameter("schoolName");
             school = new String(school.getBytes("ISO-8859-1"), "UTF-8");
-            return schoolService.validateSchool(school);
+            if (schoolService.isSchoolExist(school)){
+                return false;
+            }else {
+                return true;
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/schoolValidateAction2")
+    public boolean validateSchool2(HttpServletRequest request) {
+        try {
+            String school = request.getParameter("schoolName");
+            school = new String(school.getBytes("ISO-8859-1"), "UTF-8");
+            if (schoolService.isSchoolExist(school)){
+                return true;
+            }else {
+                return false;
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return false;
@@ -95,11 +114,11 @@ public class SchoolController {
         String schoolLogoName = school.getSchLogo();
         if (schoolLogoName != null) {
             //获取服务器url物理路径
-            String basePath="/resources/images/common";
-            String urlFilePathName= request.getSession().getServletContext().getRealPath(basePath);
+            String basePath = "/resources/images/common";
+            String urlFilePathName = request.getSession().getServletContext().getRealPath(basePath);
 
             InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICPATH);
-            FileUtil.putPicToTomcat(school.getSchLogo(),picurlProperties,urlFilePathName);
+            FileUtil.putPicToTomcat(school.getSchLogo(), picurlProperties, urlFilePathName);
         }
         model.addAttribute("schoolDetail", school);
         model.addAttribute("type", request.getParameter("type"));
@@ -110,7 +129,7 @@ public class SchoolController {
     @RequestMapping(value = "/schoolDelAction", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> delSchool(@RequestBody List<School> schools) {
-        Map<String, Object> map =new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
         try {
             schoolService.deleteSchool(schools);
             map.put("success", true);
@@ -191,4 +210,17 @@ public class SchoolController {
         request.getSession().setAttribute("schoolImg", file);
     }
 
+    @ResponseBody
+    @RequestMapping("/querySchoolAction")
+    public List<String>  querySchoolByName(HttpServletRequest request) {
+        try {
+            String schName = request.getParameter("query");
+            schName = new String(schName.getBytes("ISO-8859-1"), "UTF-8");
+            List<String> schNames = schoolService.selectSchNameFuzzy(schName);
+            return schNames;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

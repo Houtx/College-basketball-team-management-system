@@ -20,6 +20,30 @@ var myToastr = {
     }
 };
 
+var schoolNameUtil={
+    validateMsg:"该学校未注册",
+    url:{
+        tips:"school/querySchoolAction",
+        validate:"school/schoolValidateAction2"
+    },
+    init:function (id) {
+        $.fn.typeahead.Constructor.prototype.blur = function() {
+            var that = this;
+            setTimeout(function () { that.hide() }, 250);
+        };
+
+        $('#'+id).typeahead({
+            source: function (query, process) {
+                $('#'+id).html("");
+                var url = schoolNameUtil.url.tips+"?query="+query;
+                $.get(url, function (data) {
+                    process(data);
+                });
+            }
+        });
+    }
+};
+
 var myDialog = {
     init: function () {
         window.Ewin = function () {

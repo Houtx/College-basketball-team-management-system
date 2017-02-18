@@ -8,10 +8,10 @@
             return 'user/userGetAction';
         },
         add: function () {
-            return 'user/userAddPage?type=0';
+            return 'user/userAddAndEditPage?opType=2';
         },
         detailAndEdit: function () {
-            return '/user/userAddPage?type=1';
+            return '/user/userAddAndEditPage';
         },
         delete: function () {
             return "/user/userDelAction";
@@ -115,8 +115,8 @@ var TableInit = function () {
                 title: '操作',
                 formatter: function (value, row, index, params) {
                     var editState = $('#userEditP').val();
-                    var detail = "<a href=" + userMng.URL.detailAndEdit() + "?userId=" + row.id + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
-                    var edit = "<a href=" + userMng.URL.detailAndEdit() + "?userId=" + row.id + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
+                    var detail = "<a href=" + userMng.URL.detailAndEdit() + "?userId=" + row.id + "&opType=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
+                    var edit = "<a href=" + userMng.URL.detailAndEdit() + "?userId=" + row.id + "&opType=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
                     if (editState == 1) {
                         return detail + edit;
                     } else {

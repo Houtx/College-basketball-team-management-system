@@ -3,6 +3,11 @@ package ubtms.module.user.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ubtms.basic.entity.LimitObjet;
+import ubtms.module.role.entity.Role;
+import ubtms.module.role.entity.RoleExample;
+import ubtms.module.role.service.RoleService;
+import ubtms.module.school.entity.School;
+import ubtms.module.school.service.SchoolService;
 import ubtms.module.user.dao.UserMapper;
 import ubtms.module.user.entity.User;
 import ubtms.module.user.entity.UserExample;
@@ -18,6 +23,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private SchoolService schoolService;
 
     @Override
     public int selectById(Integer id) {
@@ -33,7 +42,29 @@ public class UserServiceImpl implements UserService {
     	}	
     	return users.size();
     }
-    
+
+    @Override
+    public boolean isUserAccountExist(String account) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andPhoneEqualTo(account);
+        List<User> users = userMapper.selectByExample(userExample);
+        if (users.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int saveUser(String headPic,String sex, String userType, String userName, String schoolName, String account, String password, String grade, String height, String weight, String shirtNum, String duty) {
+       Integer schId = schoolService.selectOne(new School(schoolName)).getSchId();
+        RoleExample roleExample = new RoleExample();
+        roleExample.createCriteria().andSchoolIdEqualTo(schId).andRoleNameEqualTo(userType);
+        Integer roleId = roleService.selectByExample(roleExample).get(0).getId();
+        User user = new User(account,password,userName,Byte.valueOf(sex),new Byte("1"),Float.valueOf(height),Float.valueOf(weight),grade,Byte.valueOf(shirtNum),Byte.valueOf(duty),roleId,headPic);
+        userMapper.insert(user);
+        return 0;
+    }
+
     @Override
     public User select(User user) {
         return userMapper.select(user);

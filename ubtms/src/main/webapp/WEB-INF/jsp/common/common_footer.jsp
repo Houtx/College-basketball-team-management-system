@@ -6,4 +6,8 @@
 <script src="resources/lib/layer/layer.js"></script>
 <script src="resources/js/common/common.js"></script>
 <script src="resources/js/common/validator.js"></script>
+<script src="resources/lib/bootstrap3-typeahead/bootstrap3-typeahead.min.js"></script>
+
+
+
 

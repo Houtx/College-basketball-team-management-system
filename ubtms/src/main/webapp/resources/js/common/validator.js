@@ -18,5 +18,7 @@ var myValidator={
         }
         $('#file-error').css('visibility','hidden');
         return true;
-    }
+    },
+
+
 }

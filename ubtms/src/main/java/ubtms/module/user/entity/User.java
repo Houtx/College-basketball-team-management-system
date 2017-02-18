@@ -5,24 +5,24 @@ import ubtms.module.role.entity.Role;
 public class User {
     private Integer id;
     /**
-    * 11Î»ÊÖ»úºÅÂë
+    * 11ä½æ‰‹æœºå·ç 
     */
     private String phone;
 
     /**
-    * ÃÜÂëÏŞÖÆ6-16Î»
+    * å¯†ç é™åˆ¶6-16ä½
     */
     private String password;
 
     private String realName;
 
     /**
-    * 0Å®ĞÔ 1ÄĞĞÔ
+    * 0å¥³æ€§ 1ç”·æ€§
     */
     private Byte sex;
 
     /**
-    * 1ÆôÓÃ 0½ûÓÃ
+    * 1å¯ç”¨ 0ç¦ç”¨
     */
     private Byte state;
 
@@ -33,12 +33,12 @@ public class User {
     private String grade;
 
     /**
-    * ÇòÒÂºÅÂë
+    * çƒè¡£å·ç 
     */
     private Byte shirtNum;
 
     /**
-    * 1-5±íÊ¾1µ½5ºÅÎ»
+    * 1-5è¡¨ç¤º1åˆ°5å·ä½
     */
     private Byte duty;
 
@@ -49,6 +49,21 @@ public class User {
     private Role role;
 
     public User() {
+    }
+
+    public User(String phone, String password, String realName, Byte sex, Byte state, Float height, Float weight, String grade, Byte shirtNum, Byte duty, Integer roleId, String headPic) {
+        this.phone = phone;
+        this.password = password;
+        this.realName = realName;
+        this.sex = sex;
+        this.state = state;
+        this.height = height;
+        this.weight = weight;
+        this.grade = grade;
+        this.shirtNum = shirtNum;
+        this.duty = duty;
+        this.roleId = roleId;
+        this.headPic = headPic;
     }
 
     public User(String phone, String password) {

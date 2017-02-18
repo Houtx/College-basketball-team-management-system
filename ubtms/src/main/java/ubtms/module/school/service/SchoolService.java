@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface SchoolService {
     int svaeSchool(School school);
-    boolean validateSchool(String schoolName);
+    boolean isSchoolExist(String schoolName);
     School selectOne(School school);
     School selectOne(Integer schId);
     List<School> selectCollection(School school);
@@ -21,4 +21,5 @@ public interface SchoolService {
     int getSchoolNum();
     int getSchoolNum(School school);
     int deleteSchool(List<School> schools);
+    List<String> selectSchNameFuzzy(String schName);
 }

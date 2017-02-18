@@ -3,8 +3,8 @@ package ubtms.module.school.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ubtms.basic.entity.LimitObjet;
-import ubtms.module.role.dao.RoleMapper;
 import ubtms.module.role.entity.Role;
+import ubtms.module.role.entity.RoleExample;
 import ubtms.module.role.service.RoleService;
 import ubtms.module.school.dao.SchoolMapper;
 import ubtms.module.school.entity.School;
@@ -36,12 +36,12 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public boolean validateSchool(String schoolName) {
+    public boolean isSchoolExist(String schoolName) {
         School oldSchool = selectOne(new School(schoolName));
         if (oldSchool != null) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -72,16 +72,23 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public int updateSchoolById(School school) {
-        return schoolMapper.updateSchoolById(school);
+        schoolMapper.updateSchoolById(school);
+        RoleExample roleExample = new RoleExample();
+        roleExample.createCriteria().andSchoolIdEqualTo(school.getSchId());
+        List<Role> roles = roleService.selectByExample(roleExample);
+        for (Role role : roles) {
+            role.setState(Byte.valueOf(String.valueOf(school.getState())));
+        }
+        roleService.updateByPrimaryKey(roles);
+        return 1;
     }
 
     @Override
     public int updateSchoolById(List<School> schools) {
-        int sum = 0;
         for (School school : schools) {
-            sum += this.updateSchoolById(school);
+            this.updateSchoolById(school);
         }
-        return sum;
+        return schools.size();
     }
 
     @Override
@@ -97,5 +104,10 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public int deleteSchool(List<School> schools) {
         return schoolMapper.deleteSchool(schools);
+    }
+
+    @Override
+    public List<String> selectSchNameFuzzy(String schName) {
+        return schoolMapper.selectSchNameFuzzy(schName);
     }
 }

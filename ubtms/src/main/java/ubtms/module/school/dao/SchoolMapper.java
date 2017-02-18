@@ -20,4 +20,5 @@ public interface SchoolMapper {
     int updateSchoolById(School school);
     int countSchool(School school);
     int deleteSchool(List<School> schools);
+    List<String> selectSchNameFuzzy(String schName);
 }

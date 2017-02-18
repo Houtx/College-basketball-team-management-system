@@ -3,10 +3,7 @@ package ubtms.module.user.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ubtms.basic.dto.MngResult;
 import ubtms.basic.entity.LimitObjet;
@@ -80,15 +77,34 @@ public class UserController {
     }
     
     
-    @RequestMapping("/userAddPage")
-    public String userAddPage() {
+    @RequestMapping("/userAddAndEditPage")
+    public String userAddPage(HttpServletRequest request,Model model) {
+        String opType =  request.getParameter("opType");
+        model.addAttribute("opType", opType);
         return "user/userAddAndEdit";
     }
 
-    @ResponseBody
-    @RequestMapping("/imgUpload")
-    public void uploadImg(HttpServletRequest request, HttpServletResponse response, MultipartFile image_file) {
 
+    @RequestMapping("/userAddAction")
+    @ResponseBody
+    public void  userSave(HttpServletRequest request){
+        String sex= request.getParameter("sex");
+        String userType= request.getParameter("userType");
+        String userName= request.getParameter("name");
+        String schoolName = request.getParameter("schoolName");
+        String account = request.getParameter("account");
+        String password = request.getParameter("password");
+        String grade = request.getParameter("grade");
+        String height = request.getParameter("height");
+        String weight = request.getParameter("weight");
+        String shirtNum = request.getParameter("shirtNum");
+        String duty = request.getParameter("duty");
+        userService.saveUser(null,sex,userType,userName,schoolName,account,password,grade,height,weight,shirtNum,duty);
+    }
+
+    @RequestMapping("/imgUpload")
+    public void uploadImg(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        request.getSession().setAttribute("userImg", file);
     }
 
     @RequestMapping("/userGetAction")
@@ -154,5 +170,22 @@ public class UserController {
             e.printStackTrace();
         }
         return map;
+    }
+
+
+    @RequestMapping(value = "/userValidateAction")
+    @ResponseBody
+    public boolean userAccountValidate(HttpServletRequest request) {
+        try {
+            String account = request.getParameter("account");
+            if (userService.isUserAccountExist(account)){
+                return false;
+            }else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
