@@ -28,12 +28,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private SchoolService schoolService;
 
-    @Override
-    public int selectById(Integer id) {
-        User user = userMapper.selectByPrimaryKey(id);
-        System.out.println();
-        return 0;
-    }
+
     
     @Override
     public int updateByPrimaryKey(List<User> users){
@@ -60,16 +55,43 @@ public class UserServiceImpl implements UserService {
         RoleExample roleExample = new RoleExample();
         roleExample.createCriteria().andSchoolIdEqualTo(schId).andRoleNameEqualTo(userType);
         Integer roleId = roleService.selectByExample(roleExample).get(0).getId();
-        User user = new User(account,password,userName,Byte.valueOf(sex),new Byte("1"),Float.valueOf(height),Float.valueOf(weight),grade,Byte.valueOf(shirtNum),Byte.valueOf(duty),roleId,headPic);
+        Byte dutyB = null;
+        if (duty != null) {
+            dutyB = Byte.valueOf(duty);
+        }
+        Byte shirtNumB = null;
+        if (!shirtNum.isEmpty()) {
+            shirtNumB = new Byte(shirtNum);
+        }
+        Float heightF = null;
+        if (!height.isEmpty()) {
+            heightF = Float.valueOf(height);
+        }
+        Float weightF = null;
+        if (!weight.isEmpty()) {
+            weightF = Float.valueOf(weight);
+        }
+
+        User user = new User(account,password,userName,Byte.valueOf(sex),new Byte("1"),heightF,weightF,grade,shirtNumB,dutyB,roleId,headPic);
         userMapper.insert(user);
         return 0;
     }
 
     @Override
-    public User select(User user) {
+    public User selectOne(User user) {
+        List<User> users = select(user);
+        if (users.size() > 0) {
+            return users.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public List<User> select(User user) {
         return userMapper.select(user);
     }
 
+    //根据schoolId或人员姓名查出人员
     @Override
     public List<User> selectWithRelative(LimitObjet<User> user) {
         return userMapper.selectWithRelative(user);

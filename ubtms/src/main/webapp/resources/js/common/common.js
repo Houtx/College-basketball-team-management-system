@@ -20,6 +20,17 @@ var myToastr = {
     }
 };
 
+var pic={
+    initPic: function (id) {
+        var headPic = $('#'+id).val();
+        if (headPic != "") {
+            $('#imgDiv').css("background", "url(resources/images/common/" + headPic + ")");
+            $('#imgDiv').css("background-size", "100% 100%");
+        }
+
+    }
+}
+
 var schoolNameUtil={
     validateMsg:"该学校未注册",
     url:{

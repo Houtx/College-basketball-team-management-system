@@ -23,14 +23,12 @@
     2 详情    0
     3 编辑    1
 -->
-<input id="opType" type="hidden" value="${opType}"/>
-<input id="userType" type="hidden" value="${userType}"/>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 myNav">
             <div class="navContent">
-                <i class="Hui-iconfont">&#xe62d;</i>&nbsp;人员管理&nbsp;&nbsp;>&nbsp;&nbsp;添加人员
+                <i class="Hui-iconfont">&#xe62d;</i><span id="title">&nbsp;人员管理&nbsp;&nbsp;>&nbsp;&nbsp;添加人员</span>
             </div>
         </div>
     </div>
@@ -53,6 +51,13 @@
             <iframe name="ajaxUpload" style="display:none"></iframe>
 
             <form class="form-horizontal myForm" role="form" id="userForm" method="post" enctype="multipart/form-rows">
+                <input id="opType" type="hidden" value="${opType}"/>
+                <input id="roleId" type="hidden" value="${userDetail.roleId}"/>
+                <input id="userId" name="id" type="hidden" value="${userDetail.id}"/>
+                <input id="sexMark"  type="hidden" value="${userDetail.sex}"/>
+                <input id="dutyMark"  type="hidden" value="${userDetail.duty}"/>
+                <input id="userEditP" type="hidden" value="${userEditP}"/>
+                <input id="headPic"  type="hidden" name="headPic" value="${userDetail.headPic}"/>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">性别</label>
                     <div class="col-sm-10">
@@ -91,20 +96,20 @@
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label"><span class="requiredMsg">*</span>姓名</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input value="${userDetail.realName}" type="text" class="form-control" id="name" name="name">
                         <span class="help-block errorMsg" id="name-error">&nbsp;</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="account" class="col-sm-2 control-label"><span class="requiredMsg">*</span>手机号</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="account" name="account">
+                        <input value="${userDetail.phone}" type="text" class="form-control" id="account" name="account">
                         <span class="help-block errorMsg" id="account-error">&nbsp;</span>
 
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div id="passwordDiv" class="form-group">
                     <label for="password" class="col-sm-2 control-label"><span class="requiredMsg">*</span>密码</label>
                     <div class="col-sm-10">
                         <input type="text" style="ime-mode:disabled" class="form-control" id="password" name="password">
@@ -118,14 +123,14 @@
                     <div id="gradeDiv" class="form-group">
                         <label for="grade" class="col-sm-2 control-label">年级</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="grade" name="grade">
+                            <input value="${userDetail.grade}" type="text" class="form-control" id="grade" name="grade">
                             <span class="help-block errorMsg" id="grade-error">&nbsp;</span>
                         </div>
                     </div>
                     <div id="heightDiv" class="form-group">
                         <label for="height" class="col-sm-2 control-label">身高(cm)</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" id="height" name="height">
+                            <input value="${userDetail.height}" type="number" class="form-control" id="height" name="height">
                             <span class="help-block errorMsg" id="height-error">&nbsp;</span>
 
                         </div>
@@ -134,7 +139,7 @@
                     <div id="weightDiv" class="form-group">
                         <label for="weight" class="col-sm-2 control-label">体重(kg)</label>
                         <div class="col-sm-10">
-                            <input  type="number" class="form-control" id="weight" name="weight">
+                            <input value="value="${userDetail.weight}"" type="number" class="form-control" id="weight" name="weight">
                             <span class="help-block errorMsg" id="weight-error">&nbsp;</span>
 
                         </div>
@@ -143,7 +148,7 @@
                     <div id="shirtNumDiv" class="form-group">
                         <label for="shirtNum" class="col-sm-2 control-label">球衣号码</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" id="shirtNum" name="shirtNum">
+                            <input value="${userDetail.shirtNum}" type="number" class="form-control" id="shirtNum" name="shirtNum">
                             <span class="help-block errorMsg" id="shirtNum-error">&nbsp;</span>
 
                         </div>
@@ -176,7 +181,7 @@
                 <div id="gradeDiv" class="form-group">
                     <label for="grade" class="col-sm-2 control-label">年级</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="grade" name="grade">
+                        <input value="${userDetail.grade}" type="text" class="form-control" id="grade" name="grade">
                         <span class="help-block errorMsg" id="grade-error">&nbsp;</span>
 
                     </div>
@@ -184,7 +189,7 @@
                 <div id="heightDiv" class="form-group">
                     <label for="height" class="col-sm-2 control-label">身高(cm)</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="height" name="height">
+                        <input value="${userDetail.height}" type="text" class="form-control" id="height" name="height">
                         <span class="help-block errorMsg" id="height-error">&nbsp;</span>
 
                     </div>
@@ -193,7 +198,7 @@
                 <div id="weightDiv" class="form-group">
                     <label for="weight" class="col-sm-2 control-label">体重(kg)</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="weight" name="weight">
+                        <input value="${userDetail.weight}" type="text" class="form-control" id="weight" name="weight">
                         <span class="help-block errorMsg" id="weight-error">&nbsp;</span>
 
                     </div>
@@ -202,7 +207,7 @@
                 <div id="shirtNumDiv" class="form-group">
                     <label for="shirtNum" class="col-sm-2 control-label">球衣号码</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="shirtNum" name="shirtNum">
+                        <input value="${userDetail.shirtNum}" type="text" class="form-control" id="shirtNum" name="shirtNum">
                         <span class="help-block errorMsg" id="shirtNum-error">&nbsp;</span>
 
                     </div>
@@ -212,7 +217,7 @@
                     <label class="col-sm-2 control-label">位置</label>
                     <div class="col-sm-10">
                         <label class="radio-inline">
-                            <input type="radio" name="duty" id="CGRadio" value="1"> 控卫
+                            <input checked="true" type="radio" name="duty" id="CGRadio" value="1"> 控卫
                         </label>
                         <label class="radio-inline">
                             <input type="radio" name="duty" id="SGRadio" value="2"> 分卫
@@ -239,15 +244,13 @@
                 <div class="col-sm-10">
                     <div style=" margin-left: auto; margin-right: auto;">
                         <div style=" margin-left: auto; margin-right: auto;">
-                            <input id="btnEdit" name="btnEdit" type="button" onclick="userDetail.userAdd.submitForm()"
+                            <input id="btnEdit" name="btnEdit" type="button" onclick="userDetail.userAdd.editBtnClick()"
                                    style="display:none;width: 100px;" class="btn btn-primary" value="编辑"/>
                             <input id="btnSave" name="btnSave" type="button"
                                    onclick="userDetail.userAdd.submitForm()" style="width: 100px;"
                                    class="btn btn-primary" value="保存"/>
-                            <input type="button" onclick=" schoolDetail.schoolAdd.back()" style="width: 100px;"
+                            <input type="button" onclick=" userDetail.userAdd.back()" style="width: 100px;"
                                    class="btn btn-primary" value="返回"/>
-                            <input type="button" onclick=" schoolDetail.schoolAdd.back()" style="width: 100px;"
-                                   class="btn btn-primary" value="修改密码"/>
                         </div>
                     </div>
                 </div>

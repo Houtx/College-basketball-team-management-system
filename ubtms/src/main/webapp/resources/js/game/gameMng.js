@@ -7,21 +7,22 @@
         getRoles: function () {
             return 'game/gameGetAction';
         },
-        add: function () {
-            return 'game/gameAddPage';
+        edit: function () {
+            return 'game/gameAddAndEditPage?opType=1';
+        },        add: function () {
+            return 'game/gameAddAndEditPage?opType=2';
         },
-        detailAndEdit: function () {
-            return '/game/gameViewAndEditAction';
+        detail: function () {
+            return '/game/gameDetailPage';
         },
         delete: function () {
             return "/game/gameDelAction";
         },
-        changeState: function () {
-            return "/game/gameStateChangeAction";
-        }
+
     },
 
     init: function () {
+        debugger;
         //1.初始化Table
         var oTable = new TableInit();
         oTable.Init();
@@ -106,14 +107,15 @@ var TableInit = function () {
                 align: 'center',
                 title: '操作',
                 formatter: function (value, row, index, params) {
-                    var editState = $('#gameEditP').val();
-                    var detail = "<a href=" + gameMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
-                    var edit = "<a href=" + gameMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
-                    if (editState == 1) {
-                        return detail + edit;
-                    } else {
-                        return detail;
-                    }
+                    // var editState = $('#gameEditP').val();
+                    // var detail = "<a href=" + gameMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
+                    // var edit = "<a href=" + gameMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
+                    // if (editState == 1) {
+                    //     return detail + edit;
+                    // } else {
+                    //     return detail;
+                    // }
+                    return "aa";
                 },
                 width: '20%'
             },]
@@ -123,12 +125,13 @@ var TableInit = function () {
     //得到查询的参数
     oTableInit.queryParams = function (params) {
         oTableInit.curPageNum = params.offset;
+        debugger;
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
-            startTime: $('#searchGameName').val(),
-            rival: gameState
-            state:state//开始 结束
+            startTime: $('#searchSchoolName').val(),
+            rival: $('#searchRival').val(),
+            state:$('#state').val()//开始 结束
         };
         return temp;
     };
@@ -137,7 +140,6 @@ var TableInit = function () {
 
 var ButtonInit = function () {
     var oInit = new Object();
-    var postdata = {};
 
     oInit.Init = function () {
         $("#btn_add").click(function () {

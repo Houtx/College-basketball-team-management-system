@@ -25,27 +25,23 @@ var userDetail = {
 
     userAdd: {
         init: function () {
-            debugger;
-            //userDetail.userAdd.initPic();
+            pic.initPic('headPic');
             userDetail.userAdd.setFormValidator();
             var opType = $('#opType').val();
-            if (opType == "0") {
-                userDetail.userAdd.handleDetail();
-            } else if (opType == "1") {
-                userDetail.userAdd.handleEdit();
-            }
             myToastr.init();
             schoolNameUtil.init('schoolName');
-        },
 
-        initPic: function () {
-            var schLogo = $('#schLogo').val();
-            if (schLogo != "") {
-                $('#imgDiv').css("background", "url(resources/images/common/" + schLogo + ")");
-                $('#imgDiv').css("background-size", "100% 100%");
+            if(opType!="2"){
+                $('#password').val('aaa');
+                $('#passwordDiv').hide();
+                if (opType == "0") {
+                    userDetail.userAdd.handleDetail();
+                } else if (opType == "1") {
+                    userDetail.userAdd.handleEdit();
+                }
             }
-
         },
+
         setFormValidator: function () {
             $("#userForm").validate({
                 focusCleanup: false,
@@ -164,8 +160,7 @@ var userDetail = {
                 //做一个标识图片修改了
                 url = url + "?pic=1";
             }
-
-            //$('#btnSave').attr('disabled', true);
+            $('#btnSave').attr('disabled', true);
             $.post(url, $('#userForm').serialize(), function (result) {
                 if (result.success) {
                     if (opType == "1") {
@@ -175,16 +170,19 @@ var userDetail = {
                     }
                     userDetail.userAdd.successBack();
                 } else {
-                    toastr.error('添加失败');
+                    toastr.error('添加失败:'+result.msg);
                     $('#btnSave').attr('disabled', false);
                 }
             }, 'json');
         },
 
         handleDetail: function () {
+            debugger;
             $('#title').html("&nbsp;人员管理&nbsp;&nbsp;>&nbsp;&nbsp;人员详情");
             $('#btnSave').hide();
-
+            $("input[name='sex']").attr("disabled",true);
+            $("input[name='duty']").attr("disabled",true);
+            $("input[name='userType']").attr("disabled",true);
             $('#file').attr('disabled', true);
             $('#account').attr('disabled', true);
             $('#schoolName').attr('disabled', true);
@@ -201,35 +199,36 @@ var userDetail = {
         },
 
         handleEdit: function () {
-            $('#title').html("&nbsp;人员管理&nbsp;&nbsp;>&nbsp;&nbsp;修改人员");
-
+            $('#title').html("&nbsp;人员管理&nbsp;&nbsp;>&nbsp;&nbsp;修改人员")
+            $("input[name='userType']").attr("disabled",true);
             $('#userName').attr('disabled', true);
+            $('#schoolName').attr('disabled', true);
             $('#account').attr('disabled', true);
         },
 
-        handleEditBtn: function () {
-            $('#type').val("1");
+        editBtnClick: function () {
+            $('#opType').val("1");
             $('#title').html("&nbsp;人员管理&nbsp;&nbsp;>&nbsp;&nbsp;修改人员");
             $('#btnSave').show();
             $('#btnEdit').hide();
-
+            $("input[name='sex']").attr("disabled",false);
+            $("input[name='duty']").attr("disabled",false);
             $('#file').attr('disabled', false);
-            $('#account').attr('disabled', false);
-            $('#schoolName').attr('disabled', false);
-            $('#name').attr('disabled', false);
             $('#grade').attr('disabled', false);
             $('#height').attr('disabled', false);
             $('#weight').attr('disabled', false);
             $('#shirtNum').attr('disabled', false);
         },
         handleUserTypeChange: function () {
-            var val = $("input[name='userType']:checked").val();
             debugger;
+            var val = $("input[name='userType']:checked").val();
             if (val == "球员") {
                 $('#gradeDiv').show();
                 $('#heightDiv').show();
                 $('#weightDiv').show();
                 $('#shirtNumDiv').show();
+
+                $("input[name='duty'][value='1']").attr("checked",true);
                 $('#dutyDiv').show();
             } else {
                 $('#gradeDiv').hide();
@@ -237,6 +236,16 @@ var userDetail = {
                 $('#weightDiv').hide();
                 $('#shirtNumDiv').hide();
                 $('#dutyDiv').hide();
+
+                $('#grade').val("");
+                $('#height').val("");
+                $('#weight').val("");
+                $('#shirtNum').val("");
+                $("input[name='duty'][value='1']").attr("checked",false);
+                $("input[name='duty'][value='2']").attr("checked",false);
+                $("input[name='duty'][value='3']").attr("checked",false);
+                $("input[name='duty'][value='4']").attr("checked",false);
+                $("input[name='duty'][value='5']").attr("checked",false);
             }
         },
     }

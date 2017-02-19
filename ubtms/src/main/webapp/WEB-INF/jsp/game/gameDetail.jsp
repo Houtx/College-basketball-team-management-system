@@ -90,5 +90,6 @@
 	<%@ include file="../common/common_footer.jsp" %>
 	<%@ include file="../common/detail_footer.jsp" %>
 	<script src="resources/js/game/gameDetail.js"></script>
+	<script src="resources/js/game/grid.js"></script>
 
 </html>

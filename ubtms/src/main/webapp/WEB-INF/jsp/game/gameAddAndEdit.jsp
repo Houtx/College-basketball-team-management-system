@@ -13,9 +13,12 @@
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 	<head>
-		<title>人员添加</title>
+		<title>赛事添加</title>
 		<%@ include file="../common/common_head.jsp" %>
 		<%@ include file="../common/detail_head.jsp" %>
+		<%--<link href="resources/lib/bui/dpl.css" rel="stylesheet">--%>
+		<%--<link href="resources/lib/bui/bui.css" rel="stylesheet">--%>
+
 	</head>
 
 	<body>
@@ -32,46 +35,44 @@
 				<div class="col-xs-8 col-md-6 myColCenterBlock">
 
 					<form class="form-horizontal myForm" role="form" id="gameForm" method="post" enctype="multipart/form-rows">
+						<input type="hidden" id="schId" name="schId" value="${gameDetail.schId}" />
+						<input id="gameEditP" type="hidden" value="${gameEditP}" />
 						<div class="form-group">
-							<label for="gameName" class="col-sm-2 control-label"><span class="requiredMsg">*</span>客队</label>
+							<label for="rival" class="col-sm-2 control-label"><span class="requiredMsg">*</span>对手</label>
 							<div class="col-sm-10">
-								<input type="hidden" id="schId" name="schId" value="${gameDetail.schId}" />
-								<input type="hidden" id="schLogo" name="schLogo" value="${gameDetail.schLogo}" />
-								<input id="gameEditP" type="hidden" value="${gameEditP}" />
-								<input id="type" type="hidden" value="${type}" />
-
-								<input type="text" class="form-control" id="gameName" name="gameName" value="${gameDetail.schName}" />
-								<span class="help-block errorMsg" id="gameName-error">&nbsp;</span>
+								<input type="text" class="form-control" id="rival" name="rival" value="${gameDetail.rival}" />
+								<span class="help-block errorMsg" id="rival-error">&nbsp;</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="gameName" class="col-sm-2 control-label"><span class="requiredMsg">*</span>开场时间</label>
+							<label for="startTime" class="col-sm-2 control-label"><span class="requiredMsg">*</span>开场时间</label>
 							<div class="col-sm-10">
-								<input type="hidden" id="schId" name="schId" value="${gameDetail.schId}" />
-								<input type="hidden" id="schLogo" name="schLogo" value="${gameDetail.schLogo}" />
-								<input id="gameEditP" type="hidden" value="${gameEditP}" />
-								<input id="type" type="hidden" value="${type}" />
-
-								<input type="text" class="form-control" id="gameName" name="gameName" value="${gameDetail.schName}" />
-								<span class="help-block errorMsg" id="gameName-error">&nbsp;</span>
+								<input type="text" class="form-control" id="startTime" name="startTime" value="${gameDetail.startTime}" />
+								<span class="help-block errorMsg" id="startTime-error">&nbsp;</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="gameName" class="col-sm-2 control-label"><span class="requiredMsg">*</span>地点</label>
+							<label for="place" class="col-sm-2 control-label"><span class="requiredMsg">*</span>地点</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="gameName" name="gameName" value="${gameDetail.schName}" />
-								<span class="help-block errorMsg" id="gameName-error">&nbsp;</span>
+								<input type="text" class="form-control" id="place" name="place" value="${gameDetail.place}" />
+								<span class="help-block errorMsg" id="place-error">&nbsp;</span>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="remark" class="col-sm-2 control-label">备注</label>
 							<div class="col-sm-10">
-								<textarea maxlength="200" name="remark" id="remark" class="form-control" rows="6">${gameDetail.introduction}</textarea>
+								<textarea maxlength="200" name="remark" id="remark" class="form-control" rows="6">${gameDetail.remark}</textarea>
 							</div>
-							<span class="help-block errorMsg" id="introduction-error">&nbsp;</span>
+							<span class="help-block errorMsg" id="remark-error">&nbsp;</span>
+						</div>
+
+						<div id="grid">
+
 						</div>
 					</form>
-					
+
+
+
 					
 					<!--
                     	这个地方加入可编辑的table
@@ -94,6 +95,11 @@
 	</body>
 	<%@ include file="../common/common_footer.jsp" %>
 	<%@ include file="../common/detail_footer.jsp" %>
+	<script src="http://g.alicdn.com/bui/bui/1.1.21/seed-min.js"></script>
+<%--
+	<script src="resources/lib/bui/seed-min.js"></script>
+--%>
+	<script src="resources/js/game/grid.js"></script>
 	<script src="resources/js/game/gameDetail.js"></script>
 
 </html>

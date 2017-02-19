@@ -31,8 +31,8 @@ public class UserServiceImplTest {
        // user.setId(1);
         user.setPhone("admin");
         user.setPassword("123456");
-        User user2 = userMapper.select(user);
-        System.out.println(user2);
+       // User user2 = userMapper.selectOne(user);
+        //System.out.println(user2);
     }
 
 }

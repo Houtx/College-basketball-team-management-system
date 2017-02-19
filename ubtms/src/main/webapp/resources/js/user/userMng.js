@@ -91,12 +91,12 @@ var TableInit = function () {
                 width: '4%'
             }, {
                 align: 'center',
-                field: 'role.school.schName',
-                title: '校名',
-                width: '25%'
+                // field: 'role.school.schName',
+                title: '学校',
+                width: '30%'
             }, {
                 align: 'center',
-                field: 'role.roleName',
+                field: 'roleId',
                 title: '角色',
                 width: '10%'
             }, {
@@ -110,7 +110,7 @@ var TableInit = function () {
                 },
                 width: '8%'
             }, {
-                width: '25%',
+                width: '20%',
                 align: 'center',
                 title: '操作',
                 formatter: function (value, row, index, params) {

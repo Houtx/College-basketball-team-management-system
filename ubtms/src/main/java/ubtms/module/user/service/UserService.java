@@ -10,8 +10,8 @@ import java.util.List;
  * Created by jinzhany on 2016/12/8.
  */
 public interface UserService {
-    int selectById(Integer id);
-    User select(User user);
+    User selectOne(User user);
+    List<User> select(User user);
     List<User> selectWithRelative(LimitObjet<User> user);
     int countWithRelative(User user);
     List<User> selectByExample(UserExample userExample);

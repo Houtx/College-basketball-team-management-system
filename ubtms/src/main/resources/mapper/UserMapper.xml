@@ -103,6 +103,7 @@
       order by ${orderByClause}
     </if>
   </select>
+
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="ubtms.module.user.entity.UserExample" >
     select
     <if test="distinct" >
@@ -126,7 +127,7 @@
     </if>
   </select>
 
-  <select id="select" resultMap="ResultMapWithBLOBs">
+  <select id="select" resultType="ubtms.module.user.entity.User">
     select * from user
     <where>
       <if test="id!= null">

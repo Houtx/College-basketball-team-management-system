@@ -1,43 +1,44 @@
 //存放主要交互逻辑的js代码
 // javascript 模块化(package.类.方法)
-var schoolDetail = {
+
+var gameDetail = {
     URL: {
         parent:function () {
-            return "school/schoolMngPage";
+            return "game/gameMngPage";
         },
         add: function() {
-            return 'school/schoolAddAction/';
+            return 'game/gameAddAction/';
         },
         validateName:function(){
-            return "/school/schoolValidateAction";
+            return "/game/gameValidateAction";
         },
         edit:function () {
-            return "school/schoolEditAction";
+            return "game/gameEditAction";
         }
     },
 
     validator: {
         validateAll: function() {
-            this.validateSchoolName();
+            this.validateGameName();
             return true;
         },
 
-        validateSchoolName: function(schoolName) {
-            console.log("validateSchoolName");
+        validateGameName: function(gameName) {
+            console.log("validateGameName");
         },
 
     },
 
-    schoolAdd: {
+    gameAdd: {
         init: function() {
-            schoolDetail.schoolAdd.initPic();
-            schoolDetail.schoolAdd.setFormValidator();
-            var schoolType = $('#type').val();
-            if(schoolType=="0"){
-                schoolDetail.schoolAdd.handleDetail();
-            }else if(schoolType=="1"){
-                schoolDetail.schoolAdd.handleEdit();
-            }
+            grid.init();
+            //gameDetail.gameAdd.setFormValidator();
+            var gameType = $('#type').val();
+            // if(gameType=="0"){
+            //     gameDetail.gameAdd.handleDetail();
+            // }else if(gameType=="1"){
+            //     gameDetail.gameAdd.handleEdit();
+            // }
             myToastr.init();
         },
 
@@ -50,13 +51,13 @@ var schoolDetail = {
 
         },
         setFormValidator:function () {
-            $("#schoolForm").validate({
+            $("#gameForm").validate({
                 focusCleanup:false,
                 rules: {
-                    schoolName: {
+                    gameName: {
                         required: true,
                         remote: {
-                            url: schoolDetail.URL.validateName(),     //后台处理程序
+                            url: gameDetail.URL.validateName(),     //后台处理程序
                             type: "get",               //数据发送方式
                             dataType: "json",           //接受数据格式
                             contentType: "application/json;charset=UTF-8",
@@ -64,7 +65,7 @@ var schoolDetail = {
                     },
                 },
                 messages: {
-                    schoolName: {required:"请输入校名",remote:"该学校已被注册"},
+                    gameName: {required:"请输入校名",remote:"该学校已被注册"},
                 },
                 errorPlacement: function(error, element) {
                     if(error[0].innerHTML != " ") {
@@ -105,13 +106,13 @@ var schoolDetail = {
             $("#headImgForm").submit();
         },
         back:function () {
-            window.document.location=schoolDetail.URL.parent();
+            window.document.location=gameDetail.URL.parent();
         },
         successBack:function () {
-            setTimeout("schoolDetail.schoolAdd.back()",1200);
+            setTimeout("gameDetail.gameAdd.back()",1200);
         },
         submitForm: function() {
-            var result =  $("#schoolForm").valid();
+            var result =  $("#gameForm").valid();
             var fileError = $('#file-error').css('visibility');
 
             if(!result || fileError!='hidden'){
@@ -120,12 +121,12 @@ var schoolDetail = {
             var fileName = $("#file").val();
 
             var url;
-            var schoolType = $('#type').val();
+            var gameType = $('#type').val();
             //判断是否修改学校
-            if(schoolType=="1"){
-                url=schoolDetail.URL.edit();
+            if(gameType=="1"){
+                url=gameDetail.URL.edit();
             }else {
-                url=schoolDetail.URL.add();
+                url=gameDetail.URL.add();
             }
 
             //判断是否修改图片
@@ -137,14 +138,14 @@ var schoolDetail = {
             }
 
             $('#btnSave').attr('disabled',true);
-            $.post(url, $('#schoolForm').serialize(), function(result) {
+            $.post(url, $('#gameForm').serialize(), function(result) {
                 if (result.success) {
-                    if(schoolType=="1"){
+                    if(gameType=="1"){
                         toastr.success('修改成功');
                     }else{
                         toastr.success('添加成功');
                     }
-                    schoolDetail.schoolAdd.successBack();
+                    gameDetail.gameAdd.successBack();
                 } else {
                     toastr.error('添加失败');
                     $('#btnSave').attr('disabled',false);
@@ -156,9 +157,9 @@ var schoolDetail = {
             $('#title').html("&nbsp;学校管理&nbsp;&nbsp;>&nbsp;&nbsp;学校详情");
             $('#btnSave').hide();
             $('#file').attr('disabled',true);
-            $('#schoolName').attr('disabled',true);
+            $('#gameName').attr('disabled',true);
             $('#introduction').attr('disabled',true);
-            var editState = $('#schoolEditP').val();
+            var editState = $('#gameEditP').val();
             // editState=0;
             // debugger;
             if(editState==1){
@@ -168,7 +169,7 @@ var schoolDetail = {
 
         handleEdit:function () {
             $('#title').html("&nbsp;学校管理&nbsp;&nbsp;>&nbsp;&nbsp;修改学校");
-            $('#schoolName').attr('disabled',true);
+            $('#gameName').attr('disabled',true);
         },
 
         handleEditBtn:function () {
@@ -183,5 +184,5 @@ var schoolDetail = {
 }
 
 $(function () {
-    schoolDetail.schoolAdd.init();
+    gameDetail.gameAdd.init();
 });

@@ -36,17 +36,25 @@
             <div class="panel-body">
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:15px">
-                        <label class="control-label col-sm-1" for="searchGameName">校名</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="searchGameName" />
+                        <label class="control-label col-sm-1" for="searchSchoolName">校名</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="searchSchoolName" />
+                        </div>
+                        <label class="control-label col-sm-1" for="searchRival">对手</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="searchRival" />
+                        </div>
+                        <label class="control-label col-sm-1" for="startTime">日期</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="startTime" />
                         </div>
 
-                        <label class="control-label col-sm-1" for="searchGameName">日期</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="searchGameDate" />
+                        <label class="control-label col-sm-1" for="state">状态</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="state" />
                         </div>
-                        
-                        <div class="col-sm-4" style="text-align:left;">
+
+                        <div class="col-sm-3" style="text-align:left;">
                             <input type="button" style="margin-left:50px"  class="btn btn-primary" onclick="gameMng.serachClick()" value="查询"/>
                         </div>
                     </div>
@@ -65,14 +73,6 @@
                 <c:if test="${gameDelP==1}">
                     <button id="btn_delete" type="button" class="btn btn-default">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-                    </button>
-                </c:if>
-                <c:if test="${gameEditP==1}">
-                    <button id="btn_disable" type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>禁用
-                    </button>
-                    <button id="btn_enable" type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>启用
                     </button>
                 </c:if>
             </div>

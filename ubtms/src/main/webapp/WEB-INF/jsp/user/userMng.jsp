@@ -37,13 +37,18 @@
             <div class="panel-body">
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:15px">
-                        <label class="control-label col-sm-1" for="searchSchoolName">校名</label>
-                        <div class="col-sm-3">
+                        <label class="control-label col-sm-1" for="searchUserName">校名</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="searchUserName" />
+                        </div>
+
+                        <label class="control-label col-sm-1" for="searchSchoolName">姓名</label>
+                        <div class="col-sm-2">
                             <input type="text" class="form-control" id="searchSchoolName" />
                         </div>
                         <label class="control-label col-sm-1" for="searchSchoolSate">状态</label>
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <select id="searchSchoolSate" class="form-control">
                                 <option value="2">全部</option>
                                 <option value="1">正常</option>
@@ -51,7 +56,7 @@
                             </select>
                         </div>
 
-                        <div class="col-sm-4" style="text-align:left;">
+                        <div class="col-sm-3" style="text-align:left;">
                             <input type="button" style="margin-left:50px"  class="btn btn-primary" onclick="userMng.serachClick()" value="查询"/>
                         </div>
                     </div>

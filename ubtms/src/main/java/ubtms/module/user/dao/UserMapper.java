@@ -26,7 +26,7 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Integer id);
 
-    User select(User user);
+    List<User> select(User user);
 
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 

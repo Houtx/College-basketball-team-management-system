@@ -1,48 +1,10 @@
-<!DOCTYPE html>
-<html>
-<!--
-	作者：jinzhanye@foxmail.com
-	时间：2017-02-17
-	描述：
-	http://www.builive.com/demo/edit-grid.php#edit-grid/cell.php
--->
-<head>
-    <meta charset="utf-8">
-    <title>表格单元格编辑</title>
-    <!-- 此文件为了显示Demo样式，项目中不需要引入 -->
-    <link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/dpl.css" rel="stylesheet">
-    <link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/bui.css" rel="stylesheet">
-
-    <script type="text/javascript">
-    </script>
-</head>
-
-<body>
-<div class="demo-content">
-    <div class="row">
-        <div class="span16">
-            <div id="grid">
-
-            </div>
-        </div>
-    </div>
-    <p class="row">
-    <form class="span8 offset3" id="J_Form" action="" method="post">
-        <input type="hidden" name="gridValue">
-        <input id="btnSave" value="提交" class="button button-primary">
-    </form>
-    </p>
-</div>
-</body>
-<!-- 使用seajs方式 -->
-
-<script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
-<script src="http://g.alicdn.com/bui/bui/1.1.21/seed-min.js"></script>
-
-<!-- script start -->
-<script type="text/javascript">
-    BUI.use(['bui/grid', 'bui/data'], function (Grid, Data) {
-        var Store = Data.Store,
+/**
+ * Created by jinzhany on 2017/2/19.
+ */
+var grid={
+    init:function () {
+        BUI.use(['bui/grid', 'bui/data'], function (Grid, Data) {
+            var Store = Data.Store,
                 enumObj = {"1": "控卫", "2": "分卫", "3": "小前锋", "4": "大前锋", "5": "中锋"},
                 columns = [{
                     title: '姓名',
@@ -215,7 +177,7 @@
                 }];
 
 
-        var editing = new Grid.Plugins.CellEditing({
+            var editing = new Grid.Plugins.CellEditing({
                     triggerSelected: false //触发编辑的时候不选中行
                 }),
 
@@ -248,43 +210,40 @@
                     store: store
                 });
 
-        grid.render();
+            grid.render();
 
-        function validFn(value, obj) {
-            var records = store.getResult(),
+            function validFn(value, obj) {
+                var records = store.getResult(),
                     rst = '';
-            BUI.each(records, function (record) {
-                if (record.a == value && obj != record) {
-                    rst = '文本不能重复';
-                    return false;
+                BUI.each(records, function (record) {
+                    if (record.a == value && obj != record) {
+                        rst = '文本不能重复';
+                        return false;
+                    }
+                });
+                return rst;
+            }
+
+            //添加记录
+            function addFunction() {
+                var newData = {
+                    b: 0
+                };
+                store.addAt(newData, 0);
+                editing.edit(newData, 'a'); //添加记录后，直接编辑
+            }
+
+            //删除选中的记录
+            function delFunction() {
+                var selections = grid.getSelection();
+                store.remove(selections);
+            }
+            $('#btnSave').on('click', function () {
+                debugger;
+                if (editing.isValid()) { //判断是否通过验证，如果在表单中，那么阻止表单提交
+                    var records = store.getResult();
                 }
             });
-            return rst;
-        }
-
-        //添加记录
-        function addFunction() {
-            var newData = {
-                b: 0
-            };
-            store.addAt(newData, 0);
-            editing.edit(newData, 'a'); //添加记录后，直接编辑
-        }
-
-        //删除选中的记录
-        function delFunction() {
-            var selections = grid.getSelection();
-            store.remove(selections);
-        }
-
-        $('#btnSave').on('click', function () {
-            debugger;
-            if (editing.isValid()) { //判断是否通过验证，如果在表单中，那么阻止表单提交
-                var records = store.getResult();
-            }
-        });
-    });
-</script>
-<!-- script end -->
-
-</html>
+        });        
+    }
+}
