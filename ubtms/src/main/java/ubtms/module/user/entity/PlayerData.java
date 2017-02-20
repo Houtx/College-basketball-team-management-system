@@ -3,43 +3,56 @@ package ubtms.module.user.entity;
 public class PlayerData {
     private Integer id;
 
-    private Byte score;
+    private Integer score;
 
     /**
-    * ³öÊÖ
+    * å‡ºæ‰‹
     */
     private Integer shot;
 
     /**
-    * ÃüÖĞÇòÊı
+    * å‘½ä¸­çƒæ•°
     */
-    private Byte fieldGoal;
+    private Integer fieldGoal;
 
-    private Byte threePointShot;
+    private Integer threePointShot;
 
     /**
-    * Èı·ÖÇòÃüÖĞ¸öÊı
+    * ä¸‰åˆ†çƒå‘½ä¸­ä¸ªæ•°
     */
-    private Byte threePointShotGoal;
+    private Integer threePointShotGoal;
 
     /**
-    * Àº°å
+    * ç¯®æ¿
     */
-    private Byte backboard;
+    private Integer backboard;
 
-    private Byte assist;
+    private Integer assist;
 
     /**
-    * ÇÀ¶Ï
+    * æŠ¢æ–­
     */
-    private Byte steal;
+    private Integer steal;
 
-    private Byte blockshot;
+    private Integer blockshot;
 
     /**
-    * Ê§Îó
+    * å¤±è¯¯
     */
-    private Byte turnover;
+    private Integer turnover;
+
+    public PlayerData(Integer score, Integer shot, Integer fieldGoal, Integer threePointShot, Integer threePointShotGoal, Integer backboard, Integer assist, Integer steal, Integer blockshot, Integer turnover) {
+        this.score = score;
+        this.shot = shot;
+        this.fieldGoal = fieldGoal;
+        this.threePointShot = threePointShot;
+        this.threePointShotGoal = threePointShotGoal;
+        this.backboard = backboard;
+        this.assist = assist;
+        this.steal = steal;
+        this.blockshot = blockshot;
+        this.turnover = turnover;
+    }
 
     public Integer getId() {
         return id;
@@ -49,11 +62,11 @@ public class PlayerData {
         this.id = id;
     }
 
-    public Byte getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(Byte score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 
@@ -65,67 +78,67 @@ public class PlayerData {
         this.shot = shot;
     }
 
-    public Byte getFieldGoal() {
+    public Integer getFieldGoal() {
         return fieldGoal;
     }
 
-    public void setFieldGoal(Byte fieldGoal) {
+    public void setFieldGoal(Integer fieldGoal) {
         this.fieldGoal = fieldGoal;
     }
 
-    public Byte getThreePointShot() {
+    public Integer getThreePointShot() {
         return threePointShot;
     }
 
-    public void setThreePointShot(Byte threePointShot) {
+    public void setThreePointShot(Integer threePointShot) {
         this.threePointShot = threePointShot;
     }
 
-    public Byte getThreePointShotGoal() {
+    public Integer getThreePointShotGoal() {
         return threePointShotGoal;
     }
 
-    public void setThreePointShotGoal(Byte threePointShotGoal) {
+    public void setThreePointShotGoal(Integer threePointShotGoal) {
         this.threePointShotGoal = threePointShotGoal;
     }
 
-    public Byte getBackboard() {
+    public Integer getBackboard() {
         return backboard;
     }
 
-    public void setBackboard(Byte backboard) {
+    public void setBackboard(Integer backboard) {
         this.backboard = backboard;
     }
 
-    public Byte getAssist() {
+    public Integer getAssist() {
         return assist;
     }
 
-    public void setAssist(Byte assist) {
+    public void setAssist(Integer assist) {
         this.assist = assist;
     }
 
-    public Byte getSteal() {
+    public Integer getSteal() {
         return steal;
     }
 
-    public void setSteal(Byte steal) {
+    public void setSteal(Integer steal) {
         this.steal = steal;
     }
 
-    public Byte getBlockshot() {
+    public Integer getBlockshot() {
         return blockshot;
     }
 
-    public void setBlockshot(Byte blockshot) {
+    public void setBlockshot(Integer blockshot) {
         this.blockshot = blockshot;
     }
 
-    public Byte getTurnover() {
+    public Integer getTurnover() {
         return turnover;
     }
 
-    public void setTurnover(Byte turnover) {
+    public void setTurnover(Integer turnover) {
         this.turnover = turnover;
     }
 }

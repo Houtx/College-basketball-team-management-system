@@ -3,16 +3,16 @@
 <mapper namespace="ubtms.module.user.dao.PlayerDataMapper" >
   <resultMap id="BaseResultMap" type="ubtms.module.user.entity.PlayerData" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="score" property="score" jdbcType="TINYINT" />
+    <result column="score" property="score" jdbcType="INTEGER" />
     <result column="shot" property="shot" jdbcType="INTEGER" />
-    <result column="field_goal" property="fieldGoal" jdbcType="TINYINT" />
-    <result column="three_point_shot" property="threePointShot" jdbcType="TINYINT" />
-    <result column="three_point_shot_goal" property="threePointShotGoal" jdbcType="TINYINT" />
-    <result column="backboard" property="backboard" jdbcType="TINYINT" />
-    <result column="assist" property="assist" jdbcType="TINYINT" />
-    <result column="steal" property="steal" jdbcType="TINYINT" />
-    <result column="blockshot" property="blockshot" jdbcType="TINYINT" />
-    <result column="turnover" property="turnover" jdbcType="TINYINT" />
+    <result column="field_goal" property="fieldGoal" jdbcType="INTEGER" />
+    <result column="three_point_shot" property="threePointShot" jdbcType="INTEGER" />
+    <result column="three_point_shot_goal" property="threePointShotGoal" jdbcType="INTEGER" />
+    <result column="backboard" property="backboard" jdbcType="INTEGER" />
+    <result column="assist" property="assist" jdbcType="INTEGER" />
+    <result column="steal" property="steal" jdbcType="INTEGER" />
+    <result column="blockshot" property="blockshot" jdbcType="INTEGER" />
+    <result column="turnover" property="turnover" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -119,10 +119,10 @@
       field_goal, three_point_shot, three_point_shot_goal, 
       backboard, assist, steal, 
       blockshot, turnover)
-    values (#{id,jdbcType=INTEGER}, #{score,jdbcType=TINYINT}, #{shot,jdbcType=INTEGER}, 
-      #{fieldGoal,jdbcType=TINYINT}, #{threePointShot,jdbcType=TINYINT}, #{threePointShotGoal,jdbcType=TINYINT}, 
-      #{backboard,jdbcType=TINYINT}, #{assist,jdbcType=TINYINT}, #{steal,jdbcType=TINYINT}, 
-      #{blockshot,jdbcType=TINYINT}, #{turnover,jdbcType=TINYINT})
+    values (#{id,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{shot,jdbcType=INTEGER}, 
+      #{fieldGoal,jdbcType=INTEGER}, #{threePointShot,jdbcType=INTEGER}, #{threePointShotGoal,jdbcType=INTEGER}, 
+      #{backboard,jdbcType=INTEGER}, #{assist,jdbcType=INTEGER}, #{steal,jdbcType=INTEGER}, 
+      #{blockshot,jdbcType=INTEGER}, #{turnover,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="ubtms.module.user.entity.PlayerData" >
     insert into player_data
@@ -166,34 +166,34 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="score != null" >
-        #{score,jdbcType=TINYINT},
+        #{score,jdbcType=INTEGER},
       </if>
       <if test="shot != null" >
         #{shot,jdbcType=INTEGER},
       </if>
       <if test="fieldGoal != null" >
-        #{fieldGoal,jdbcType=TINYINT},
+        #{fieldGoal,jdbcType=INTEGER},
       </if>
       <if test="threePointShot != null" >
-        #{threePointShot,jdbcType=TINYINT},
+        #{threePointShot,jdbcType=INTEGER},
       </if>
       <if test="threePointShotGoal != null" >
-        #{threePointShotGoal,jdbcType=TINYINT},
+        #{threePointShotGoal,jdbcType=INTEGER},
       </if>
       <if test="backboard != null" >
-        #{backboard,jdbcType=TINYINT},
+        #{backboard,jdbcType=INTEGER},
       </if>
       <if test="assist != null" >
-        #{assist,jdbcType=TINYINT},
+        #{assist,jdbcType=INTEGER},
       </if>
       <if test="steal != null" >
-        #{steal,jdbcType=TINYINT},
+        #{steal,jdbcType=INTEGER},
       </if>
       <if test="blockshot != null" >
-        #{blockshot,jdbcType=TINYINT},
+        #{blockshot,jdbcType=INTEGER},
       </if>
       <if test="turnover != null" >
-        #{turnover,jdbcType=TINYINT},
+        #{turnover,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -210,34 +210,34 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.score != null" >
-        score = #{record.score,jdbcType=TINYINT},
+        score = #{record.score,jdbcType=INTEGER},
       </if>
       <if test="record.shot != null" >
         shot = #{record.shot,jdbcType=INTEGER},
       </if>
       <if test="record.fieldGoal != null" >
-        field_goal = #{record.fieldGoal,jdbcType=TINYINT},
+        field_goal = #{record.fieldGoal,jdbcType=INTEGER},
       </if>
       <if test="record.threePointShot != null" >
-        three_point_shot = #{record.threePointShot,jdbcType=TINYINT},
+        three_point_shot = #{record.threePointShot,jdbcType=INTEGER},
       </if>
       <if test="record.threePointShotGoal != null" >
-        three_point_shot_goal = #{record.threePointShotGoal,jdbcType=TINYINT},
+        three_point_shot_goal = #{record.threePointShotGoal,jdbcType=INTEGER},
       </if>
       <if test="record.backboard != null" >
-        backboard = #{record.backboard,jdbcType=TINYINT},
+        backboard = #{record.backboard,jdbcType=INTEGER},
       </if>
       <if test="record.assist != null" >
-        assist = #{record.assist,jdbcType=TINYINT},
+        assist = #{record.assist,jdbcType=INTEGER},
       </if>
       <if test="record.steal != null" >
-        steal = #{record.steal,jdbcType=TINYINT},
+        steal = #{record.steal,jdbcType=INTEGER},
       </if>
       <if test="record.blockshot != null" >
-        blockshot = #{record.blockshot,jdbcType=TINYINT},
+        blockshot = #{record.blockshot,jdbcType=INTEGER},
       </if>
       <if test="record.turnover != null" >
-        turnover = #{record.turnover,jdbcType=TINYINT},
+        turnover = #{record.turnover,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -247,16 +247,16 @@
   <update id="updateByExample" parameterType="map" >
     update player_data
     set id = #{record.id,jdbcType=INTEGER},
-      score = #{record.score,jdbcType=TINYINT},
+      score = #{record.score,jdbcType=INTEGER},
       shot = #{record.shot,jdbcType=INTEGER},
-      field_goal = #{record.fieldGoal,jdbcType=TINYINT},
-      three_point_shot = #{record.threePointShot,jdbcType=TINYINT},
-      three_point_shot_goal = #{record.threePointShotGoal,jdbcType=TINYINT},
-      backboard = #{record.backboard,jdbcType=TINYINT},
-      assist = #{record.assist,jdbcType=TINYINT},
-      steal = #{record.steal,jdbcType=TINYINT},
-      blockshot = #{record.blockshot,jdbcType=TINYINT},
-      turnover = #{record.turnover,jdbcType=TINYINT}
+      field_goal = #{record.fieldGoal,jdbcType=INTEGER},
+      three_point_shot = #{record.threePointShot,jdbcType=INTEGER},
+      three_point_shot_goal = #{record.threePointShotGoal,jdbcType=INTEGER},
+      backboard = #{record.backboard,jdbcType=INTEGER},
+      assist = #{record.assist,jdbcType=INTEGER},
+      steal = #{record.steal,jdbcType=INTEGER},
+      blockshot = #{record.blockshot,jdbcType=INTEGER},
+      turnover = #{record.turnover,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -265,50 +265,50 @@
     update player_data
     <set >
       <if test="score != null" >
-        score = #{score,jdbcType=TINYINT},
+        score = #{score,jdbcType=INTEGER},
       </if>
       <if test="shot != null" >
         shot = #{shot,jdbcType=INTEGER},
       </if>
       <if test="fieldGoal != null" >
-        field_goal = #{fieldGoal,jdbcType=TINYINT},
+        field_goal = #{fieldGoal,jdbcType=INTEGER},
       </if>
       <if test="threePointShot != null" >
-        three_point_shot = #{threePointShot,jdbcType=TINYINT},
+        three_point_shot = #{threePointShot,jdbcType=INTEGER},
       </if>
       <if test="threePointShotGoal != null" >
-        three_point_shot_goal = #{threePointShotGoal,jdbcType=TINYINT},
+        three_point_shot_goal = #{threePointShotGoal,jdbcType=INTEGER},
       </if>
       <if test="backboard != null" >
-        backboard = #{backboard,jdbcType=TINYINT},
+        backboard = #{backboard,jdbcType=INTEGER},
       </if>
       <if test="assist != null" >
-        assist = #{assist,jdbcType=TINYINT},
+        assist = #{assist,jdbcType=INTEGER},
       </if>
       <if test="steal != null" >
-        steal = #{steal,jdbcType=TINYINT},
+        steal = #{steal,jdbcType=INTEGER},
       </if>
       <if test="blockshot != null" >
-        blockshot = #{blockshot,jdbcType=TINYINT},
+        blockshot = #{blockshot,jdbcType=INTEGER},
       </if>
       <if test="turnover != null" >
-        turnover = #{turnover,jdbcType=TINYINT},
+        turnover = #{turnover,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="ubtms.module.user.entity.PlayerData" >
     update player_data
-    set score = #{score,jdbcType=TINYINT},
+    set score = #{score,jdbcType=INTEGER},
       shot = #{shot,jdbcType=INTEGER},
-      field_goal = #{fieldGoal,jdbcType=TINYINT},
-      three_point_shot = #{threePointShot,jdbcType=TINYINT},
-      three_point_shot_goal = #{threePointShotGoal,jdbcType=TINYINT},
-      backboard = #{backboard,jdbcType=TINYINT},
-      assist = #{assist,jdbcType=TINYINT},
-      steal = #{steal,jdbcType=TINYINT},
-      blockshot = #{blockshot,jdbcType=TINYINT},
-      turnover = #{turnover,jdbcType=TINYINT}
+      field_goal = #{fieldGoal,jdbcType=INTEGER},
+      three_point_shot = #{threePointShot,jdbcType=INTEGER},
+      three_point_shot_goal = #{threePointShotGoal,jdbcType=INTEGER},
+      backboard = #{backboard,jdbcType=INTEGER},
+      assist = #{assist,jdbcType=INTEGER},
+      steal = #{steal,jdbcType=INTEGER},
+      blockshot = #{blockshot,jdbcType=INTEGER},
+      turnover = #{turnover,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

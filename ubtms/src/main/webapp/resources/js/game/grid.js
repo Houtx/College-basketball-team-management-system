@@ -1,8 +1,18 @@
 /**
  * Created by jinzhany on 2017/2/19.
  */
-var grid={
-    init:function () {
+
+
+$(function () {
+    grid.init();
+});
+
+var grid = {
+    url: {
+        add: "game/addAndEditDataAction?opType=2",
+        edit: "game/addAndEditDataAction?opType=1",
+    },
+    init: function () {
         BUI.use(['bui/grid', 'bui/data'], function (Grid, Data) {
             var Store = Data.Store,
                 enumObj = {"1": "控卫", "2": "分卫", "3": "小前锋", "4": "大前锋", "5": "中锋"},
@@ -238,12 +248,27 @@ var grid={
                 var selections = grid.getSelection();
                 store.remove(selections);
             }
+
             $('#btnSave').on('click', function () {
-                debugger;
                 if (editing.isValid()) { //判断是否通过验证，如果在表单中，那么阻止表单提交
                     var records = store.getResult();
+                    $.ajax({
+                        type: "post",
+                        url: grid.url.edit,
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(records),
+                        success: function (data, status) {
+                            if (data.success) {
+                                toastr.success('保存成功');
+                            } else {
+                                toastr.error();
+                            }
+                        }
+
+                    });
                 }
             });
-        });        
+        });
     }
 }

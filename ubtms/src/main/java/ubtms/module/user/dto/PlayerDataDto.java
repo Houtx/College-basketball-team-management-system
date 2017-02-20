@@ -1,8 +1,8 @@
-package com.analysis.sparkapp.module;
+package ubtms.module.user.dto;
 
 import ubtms.module.user.entity.PlayerData;
 
-public class PlayDateDto extends PlayerData {
+public class PlayerDataDto extends PlayerData {
     private Integer playerId;
 
     private String playerName;
@@ -43,8 +43,20 @@ public class PlayDateDto extends PlayerData {
         this.duty = duty;
     }
 
-    public static void main(String[] args) {
-        PlayDateDto playDateDto = new PlayDateDto();
+    public PlayerDataDto(){
 
+    }
+    public PlayerDataDto(PlayerData playerData) {
+        this.setId(playerData.getId());
+        this.setScore(playerData.getScore());
+        this.setShot(playerData.getShot());
+        this.setFieldGoal(playerData.getFieldGoal());
+        this.setThreePointShot(playerData.getThreePointShot());
+        this.setThreePointShotGoal(playerData.getThreePointShotGoal());
+        this.setBackboard(playerData.getBackboard());
+        this.setBlockshot(playerData.getBlockshot());
+        this.setAssist(playerData.getAssist());
+        this.setSteal(playerData.getSteal());
+        this.setTurnover(playerData.getTurnover());
     }
 }

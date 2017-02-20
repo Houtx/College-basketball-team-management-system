@@ -16,9 +16,6 @@
 		<title>赛事添加</title>
 		<%@ include file="../common/common_head.jsp" %>
 		<%@ include file="../common/detail_head.jsp" %>
-		<%--<link href="resources/lib/bui/dpl.css" rel="stylesheet">--%>
-		<%--<link href="resources/lib/bui/bui.css" rel="stylesheet">--%>
-
 	</head>
 
 	<body>
@@ -37,6 +34,13 @@
 					<form class="form-horizontal myForm" role="form" id="gameForm" method="post" enctype="multipart/form-rows">
 						<input type="hidden" id="schId" name="schId" value="${gameDetail.schId}" />
 						<input id="gameEditP" type="hidden" value="${gameEditP}" />
+						<div class="form-group">
+							<label for="schoolName" class="col-sm-2 control-label"><span class="requiredMsg">*</span>学校</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="schoolName" name="schoolName" data-provide="typeahead">
+								<span class="help-block errorMsg" id="schoolName-error">&nbsp;</span>
+							</div>
+						</div>
 						<div class="form-group">
 							<label for="rival" class="col-sm-2 control-label"><span class="requiredMsg">*</span>对手</label>
 							<div class="col-sm-10">
@@ -71,9 +75,6 @@
 						</div>
 					</form>
 
-
-
-					
 					<!--
                     	这个地方加入可编辑的table
                     	gameDetail只用来显示数据，这个页面用来添加和编辑
@@ -95,11 +96,6 @@
 	</body>
 	<%@ include file="../common/common_footer.jsp" %>
 	<%@ include file="../common/detail_footer.jsp" %>
-	<script src="http://g.alicdn.com/bui/bui/1.1.21/seed-min.js"></script>
-<%--
-	<script src="resources/lib/bui/seed-min.js"></script>
---%>
-	<script src="resources/js/game/grid.js"></script>
 	<script src="resources/js/game/gameDetail.js"></script>
 
 </html>

@@ -31,6 +31,7 @@ var gameDetail = {
 
     gameAdd: {
         init: function() {
+            schoolNameUtil.init('schoolName');
             grid.init();
             //gameDetail.gameAdd.setFormValidator();
             var gameType = $('#type').val();

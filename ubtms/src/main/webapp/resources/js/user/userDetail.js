@@ -30,7 +30,6 @@ var userDetail = {
             var opType = $('#opType').val();
             myToastr.init();
             schoolNameUtil.init('schoolName');
-
             if(opType!="2"){
                 $('#password').val('aaa');
                 $('#passwordDiv').hide();

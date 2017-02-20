@@ -8,9 +8,9 @@
             return 'game/gameGetAction';
         },
         edit: function () {
-            return 'game/gameAddAndEditPage?opType=1';
+            return 'game/gameMsgAddAndEditPage?opType=1';
         },        add: function () {
-            return 'game/gameAddAndEditPage?opType=2';
+            return 'game/gameMsgAddAndEditPage?opType=2';
         },
         detail: function () {
             return '/game/gameDetailPage';

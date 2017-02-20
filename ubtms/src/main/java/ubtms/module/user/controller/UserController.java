@@ -37,16 +37,11 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
-//    @Autowired
-//    private User user;
     @Autowired
     private RoleService roleService;
-//    @Autowired
-//    private Role role;
+
     @Autowired
     private SchoolService schoolService;
-//    @Autowired
-//    private School school;
 
     @RequestMapping("/mainPage")
     public String mainPage(HttpServletRequest request, Model model){
@@ -115,7 +110,6 @@ public class UserController {
                 InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICPATH);
                 picName = FileUtil.saveFile(file, picurlProperties);
             }
-
             String sex= request.getParameter("sex");
             String userType= request.getParameter("userType");
             String userName= request.getParameter("name");
@@ -228,4 +222,9 @@ public class UserController {
             return false;
         }
     }
+
+
+
+
+
 }

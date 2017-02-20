@@ -8,14 +8,14 @@ import ubtms.module.role.entity.RoleExample;
 import ubtms.module.role.service.RoleService;
 import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
+import ubtms.module.user.dao.PlayerDataMapper;
 import ubtms.module.user.dao.UserMapper;
+import ubtms.module.user.dto.PlayerDataDto;
+import ubtms.module.user.entity.PlayerData;
 import ubtms.module.user.entity.User;
 import ubtms.module.user.entity.UserExample;
 import ubtms.module.user.service.UserService;
-import ubtms.module.user.dao.UserMapper;
-
 import java.util.List;
-
 /**
  * Created by jinzhany on 2016/12/8.
  */
@@ -23,6 +23,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private PlayerDataMapper playerDataMapper;
     @Autowired
     private RoleService roleService;
     @Autowired
@@ -78,6 +80,40 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int savePlayData(PlayerData playerData) {
+        return playerDataMapper.insert(playerData);
+    }
+
+    @Override
+    public int updateMySchoolPlayerData(List<PlayerData> playerDatas) {
+        for (PlayerData playerData : playerDatas) {
+            playerDataMapper.updateByPrimaryKey(playerData);
+        }
+        return playerDatas.size();
+    }
+
+    @Override
+    public int updateRivalPlayerData(Integer gameId, List<PlayerDataDto> playerDataDtos) {
+        //Rival_player_data删除
+        for (PlayerData playerData : playerDataDtos) {
+            playerDataMapper.insert(playerData);
+            //查询最后一条记录的id
+            //构建Rival_player_data数据
+        }
+        return playerDataDtos.size();
+    }
+
+    @Override
+    public List<PlayerDataDto> getMySchoolPlayerData(Integer gameId, Integer schoolId) {
+        return playerDataMapper.selectMySchoolPlayerData(gameId, schoolId);
+    }
+
+    @Override
+    public List<PlayerDataDto> getRivalPlayerData(Integer gameId) {
+        return playerDataMapper.selectRivalPlayerData(gameId);
+    }
+
+    @Override
     public User selectOne(User user) {
         List<User> users = select(user);
         if (users.size() > 0) {
@@ -96,6 +132,17 @@ public class UserServiceImpl implements UserService {
     public List<User> selectWithRelative(LimitObjet<User> user) {
         return userMapper.selectWithRelative(user);
     }
+
+    @Override
+    public List<User> selectBySchoolId(Integer schoolId) {
+        return null;
+    }
+
+    @Override
+    public List<User> selectBySchoolName(String schoolName) {
+        return null;
+    }
+
 
     @Override
     public int countWithRelative(User user) {

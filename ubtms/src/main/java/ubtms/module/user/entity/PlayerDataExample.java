@@ -194,52 +194,52 @@ public class PlayerDataExample {
             return (Criteria) this;
         }
 
-        public Criteria andScoreEqualTo(Byte value) {
+        public Criteria andScoreEqualTo(Integer value) {
             addCriterion("score =", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotEqualTo(Byte value) {
+        public Criteria andScoreNotEqualTo(Integer value) {
             addCriterion("score <>", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreGreaterThan(Byte value) {
+        public Criteria andScoreGreaterThan(Integer value) {
             addCriterion("score >", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreGreaterThanOrEqualTo(Byte value) {
+        public Criteria andScoreGreaterThanOrEqualTo(Integer value) {
             addCriterion("score >=", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreLessThan(Byte value) {
+        public Criteria andScoreLessThan(Integer value) {
             addCriterion("score <", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreLessThanOrEqualTo(Byte value) {
+        public Criteria andScoreLessThanOrEqualTo(Integer value) {
             addCriterion("score <=", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreIn(List<Byte> values) {
+        public Criteria andScoreIn(List<Integer> values) {
             addCriterion("score in", values, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotIn(List<Byte> values) {
+        public Criteria andScoreNotIn(List<Integer> values) {
             addCriterion("score not in", values, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreBetween(Byte value1, Byte value2) {
+        public Criteria andScoreBetween(Integer value1, Integer value2) {
             addCriterion("score between", value1, value2, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotBetween(Byte value1, Byte value2) {
+        public Criteria andScoreNotBetween(Integer value1, Integer value2) {
             addCriterion("score not between", value1, value2, "score");
             return (Criteria) this;
         }
@@ -314,52 +314,52 @@ public class PlayerDataExample {
             return (Criteria) this;
         }
 
-        public Criteria andFieldGoalEqualTo(Byte value) {
+        public Criteria andFieldGoalEqualTo(Integer value) {
             addCriterion("field_goal =", value, "fieldGoal");
             return (Criteria) this;
         }
 
-        public Criteria andFieldGoalNotEqualTo(Byte value) {
+        public Criteria andFieldGoalNotEqualTo(Integer value) {
             addCriterion("field_goal <>", value, "fieldGoal");
             return (Criteria) this;
         }
 
-        public Criteria andFieldGoalGreaterThan(Byte value) {
+        public Criteria andFieldGoalGreaterThan(Integer value) {
             addCriterion("field_goal >", value, "fieldGoal");
             return (Criteria) this;
         }
 
-        public Criteria andFieldGoalGreaterThanOrEqualTo(Byte value) {
+        public Criteria andFieldGoalGreaterThanOrEqualTo(Integer value) {
             addCriterion("field_goal >=", value, "fieldGoal");
             return (Criteria) this;
         }
 
-        public Criteria andFieldGoalLessThan(Byte value) {
+        public Criteria andFieldGoalLessThan(Integer value) {
             addCriterion("field_goal <", value, "fieldGoal");
             return (Criteria) this;
         }
 
-        public Criteria andFieldGoalLessThanOrEqualTo(Byte value) {
+        public Criteria andFieldGoalLessThanOrEqualTo(Integer value) {
             addCriterion("field_goal <=", value, "fieldGoal");
             return (Criteria) this;
         }
 
-        public Criteria andFieldGoalIn(List<Byte> values) {
+        public Criteria andFieldGoalIn(List<Integer> values) {
             addCriterion("field_goal in", values, "fieldGoal");
             return (Criteria) this;
         }
 
-        public Criteria andFieldGoalNotIn(List<Byte> values) {
+        public Criteria andFieldGoalNotIn(List<Integer> values) {
             addCriterion("field_goal not in", values, "fieldGoal");
             return (Criteria) this;
         }
 
-        public Criteria andFieldGoalBetween(Byte value1, Byte value2) {
+        public Criteria andFieldGoalBetween(Integer value1, Integer value2) {
             addCriterion("field_goal between", value1, value2, "fieldGoal");
             return (Criteria) this;
         }
 
-        public Criteria andFieldGoalNotBetween(Byte value1, Byte value2) {
+        public Criteria andFieldGoalNotBetween(Integer value1, Integer value2) {
             addCriterion("field_goal not between", value1, value2, "fieldGoal");
             return (Criteria) this;
         }
@@ -374,52 +374,52 @@ public class PlayerDataExample {
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotEqualTo(Byte value) {
+        public Criteria andThreePointShotEqualTo(Integer value) {
             addCriterion("three_point_shot =", value, "threePointShot");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotNotEqualTo(Byte value) {
+        public Criteria andThreePointShotNotEqualTo(Integer value) {
             addCriterion("three_point_shot <>", value, "threePointShot");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGreaterThan(Byte value) {
+        public Criteria andThreePointShotGreaterThan(Integer value) {
             addCriterion("three_point_shot >", value, "threePointShot");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGreaterThanOrEqualTo(Byte value) {
+        public Criteria andThreePointShotGreaterThanOrEqualTo(Integer value) {
             addCriterion("three_point_shot >=", value, "threePointShot");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotLessThan(Byte value) {
+        public Criteria andThreePointShotLessThan(Integer value) {
             addCriterion("three_point_shot <", value, "threePointShot");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotLessThanOrEqualTo(Byte value) {
+        public Criteria andThreePointShotLessThanOrEqualTo(Integer value) {
             addCriterion("three_point_shot <=", value, "threePointShot");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotIn(List<Byte> values) {
+        public Criteria andThreePointShotIn(List<Integer> values) {
             addCriterion("three_point_shot in", values, "threePointShot");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotNotIn(List<Byte> values) {
+        public Criteria andThreePointShotNotIn(List<Integer> values) {
             addCriterion("three_point_shot not in", values, "threePointShot");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotBetween(Byte value1, Byte value2) {
+        public Criteria andThreePointShotBetween(Integer value1, Integer value2) {
             addCriterion("three_point_shot between", value1, value2, "threePointShot");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotNotBetween(Byte value1, Byte value2) {
+        public Criteria andThreePointShotNotBetween(Integer value1, Integer value2) {
             addCriterion("three_point_shot not between", value1, value2, "threePointShot");
             return (Criteria) this;
         }
@@ -434,52 +434,52 @@ public class PlayerDataExample {
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGoalEqualTo(Byte value) {
+        public Criteria andThreePointShotGoalEqualTo(Integer value) {
             addCriterion("three_point_shot_goal =", value, "threePointShotGoal");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGoalNotEqualTo(Byte value) {
+        public Criteria andThreePointShotGoalNotEqualTo(Integer value) {
             addCriterion("three_point_shot_goal <>", value, "threePointShotGoal");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGoalGreaterThan(Byte value) {
+        public Criteria andThreePointShotGoalGreaterThan(Integer value) {
             addCriterion("three_point_shot_goal >", value, "threePointShotGoal");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGoalGreaterThanOrEqualTo(Byte value) {
+        public Criteria andThreePointShotGoalGreaterThanOrEqualTo(Integer value) {
             addCriterion("three_point_shot_goal >=", value, "threePointShotGoal");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGoalLessThan(Byte value) {
+        public Criteria andThreePointShotGoalLessThan(Integer value) {
             addCriterion("three_point_shot_goal <", value, "threePointShotGoal");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGoalLessThanOrEqualTo(Byte value) {
+        public Criteria andThreePointShotGoalLessThanOrEqualTo(Integer value) {
             addCriterion("three_point_shot_goal <=", value, "threePointShotGoal");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGoalIn(List<Byte> values) {
+        public Criteria andThreePointShotGoalIn(List<Integer> values) {
             addCriterion("three_point_shot_goal in", values, "threePointShotGoal");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGoalNotIn(List<Byte> values) {
+        public Criteria andThreePointShotGoalNotIn(List<Integer> values) {
             addCriterion("three_point_shot_goal not in", values, "threePointShotGoal");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGoalBetween(Byte value1, Byte value2) {
+        public Criteria andThreePointShotGoalBetween(Integer value1, Integer value2) {
             addCriterion("three_point_shot_goal between", value1, value2, "threePointShotGoal");
             return (Criteria) this;
         }
 
-        public Criteria andThreePointShotGoalNotBetween(Byte value1, Byte value2) {
+        public Criteria andThreePointShotGoalNotBetween(Integer value1, Integer value2) {
             addCriterion("three_point_shot_goal not between", value1, value2, "threePointShotGoal");
             return (Criteria) this;
         }
@@ -494,52 +494,52 @@ public class PlayerDataExample {
             return (Criteria) this;
         }
 
-        public Criteria andBackboardEqualTo(Byte value) {
+        public Criteria andBackboardEqualTo(Integer value) {
             addCriterion("backboard =", value, "backboard");
             return (Criteria) this;
         }
 
-        public Criteria andBackboardNotEqualTo(Byte value) {
+        public Criteria andBackboardNotEqualTo(Integer value) {
             addCriterion("backboard <>", value, "backboard");
             return (Criteria) this;
         }
 
-        public Criteria andBackboardGreaterThan(Byte value) {
+        public Criteria andBackboardGreaterThan(Integer value) {
             addCriterion("backboard >", value, "backboard");
             return (Criteria) this;
         }
 
-        public Criteria andBackboardGreaterThanOrEqualTo(Byte value) {
+        public Criteria andBackboardGreaterThanOrEqualTo(Integer value) {
             addCriterion("backboard >=", value, "backboard");
             return (Criteria) this;
         }
 
-        public Criteria andBackboardLessThan(Byte value) {
+        public Criteria andBackboardLessThan(Integer value) {
             addCriterion("backboard <", value, "backboard");
             return (Criteria) this;
         }
 
-        public Criteria andBackboardLessThanOrEqualTo(Byte value) {
+        public Criteria andBackboardLessThanOrEqualTo(Integer value) {
             addCriterion("backboard <=", value, "backboard");
             return (Criteria) this;
         }
 
-        public Criteria andBackboardIn(List<Byte> values) {
+        public Criteria andBackboardIn(List<Integer> values) {
             addCriterion("backboard in", values, "backboard");
             return (Criteria) this;
         }
 
-        public Criteria andBackboardNotIn(List<Byte> values) {
+        public Criteria andBackboardNotIn(List<Integer> values) {
             addCriterion("backboard not in", values, "backboard");
             return (Criteria) this;
         }
 
-        public Criteria andBackboardBetween(Byte value1, Byte value2) {
+        public Criteria andBackboardBetween(Integer value1, Integer value2) {
             addCriterion("backboard between", value1, value2, "backboard");
             return (Criteria) this;
         }
 
-        public Criteria andBackboardNotBetween(Byte value1, Byte value2) {
+        public Criteria andBackboardNotBetween(Integer value1, Integer value2) {
             addCriterion("backboard not between", value1, value2, "backboard");
             return (Criteria) this;
         }
@@ -554,52 +554,52 @@ public class PlayerDataExample {
             return (Criteria) this;
         }
 
-        public Criteria andAssistEqualTo(Byte value) {
+        public Criteria andAssistEqualTo(Integer value) {
             addCriterion("assist =", value, "assist");
             return (Criteria) this;
         }
 
-        public Criteria andAssistNotEqualTo(Byte value) {
+        public Criteria andAssistNotEqualTo(Integer value) {
             addCriterion("assist <>", value, "assist");
             return (Criteria) this;
         }
 
-        public Criteria andAssistGreaterThan(Byte value) {
+        public Criteria andAssistGreaterThan(Integer value) {
             addCriterion("assist >", value, "assist");
             return (Criteria) this;
         }
 
-        public Criteria andAssistGreaterThanOrEqualTo(Byte value) {
+        public Criteria andAssistGreaterThanOrEqualTo(Integer value) {
             addCriterion("assist >=", value, "assist");
             return (Criteria) this;
         }
 
-        public Criteria andAssistLessThan(Byte value) {
+        public Criteria andAssistLessThan(Integer value) {
             addCriterion("assist <", value, "assist");
             return (Criteria) this;
         }
 
-        public Criteria andAssistLessThanOrEqualTo(Byte value) {
+        public Criteria andAssistLessThanOrEqualTo(Integer value) {
             addCriterion("assist <=", value, "assist");
             return (Criteria) this;
         }
 
-        public Criteria andAssistIn(List<Byte> values) {
+        public Criteria andAssistIn(List<Integer> values) {
             addCriterion("assist in", values, "assist");
             return (Criteria) this;
         }
 
-        public Criteria andAssistNotIn(List<Byte> values) {
+        public Criteria andAssistNotIn(List<Integer> values) {
             addCriterion("assist not in", values, "assist");
             return (Criteria) this;
         }
 
-        public Criteria andAssistBetween(Byte value1, Byte value2) {
+        public Criteria andAssistBetween(Integer value1, Integer value2) {
             addCriterion("assist between", value1, value2, "assist");
             return (Criteria) this;
         }
 
-        public Criteria andAssistNotBetween(Byte value1, Byte value2) {
+        public Criteria andAssistNotBetween(Integer value1, Integer value2) {
             addCriterion("assist not between", value1, value2, "assist");
             return (Criteria) this;
         }
@@ -614,52 +614,52 @@ public class PlayerDataExample {
             return (Criteria) this;
         }
 
-        public Criteria andStealEqualTo(Byte value) {
+        public Criteria andStealEqualTo(Integer value) {
             addCriterion("steal =", value, "steal");
             return (Criteria) this;
         }
 
-        public Criteria andStealNotEqualTo(Byte value) {
+        public Criteria andStealNotEqualTo(Integer value) {
             addCriterion("steal <>", value, "steal");
             return (Criteria) this;
         }
 
-        public Criteria andStealGreaterThan(Byte value) {
+        public Criteria andStealGreaterThan(Integer value) {
             addCriterion("steal >", value, "steal");
             return (Criteria) this;
         }
 
-        public Criteria andStealGreaterThanOrEqualTo(Byte value) {
+        public Criteria andStealGreaterThanOrEqualTo(Integer value) {
             addCriterion("steal >=", value, "steal");
             return (Criteria) this;
         }
 
-        public Criteria andStealLessThan(Byte value) {
+        public Criteria andStealLessThan(Integer value) {
             addCriterion("steal <", value, "steal");
             return (Criteria) this;
         }
 
-        public Criteria andStealLessThanOrEqualTo(Byte value) {
+        public Criteria andStealLessThanOrEqualTo(Integer value) {
             addCriterion("steal <=", value, "steal");
             return (Criteria) this;
         }
 
-        public Criteria andStealIn(List<Byte> values) {
+        public Criteria andStealIn(List<Integer> values) {
             addCriterion("steal in", values, "steal");
             return (Criteria) this;
         }
 
-        public Criteria andStealNotIn(List<Byte> values) {
+        public Criteria andStealNotIn(List<Integer> values) {
             addCriterion("steal not in", values, "steal");
             return (Criteria) this;
         }
 
-        public Criteria andStealBetween(Byte value1, Byte value2) {
+        public Criteria andStealBetween(Integer value1, Integer value2) {
             addCriterion("steal between", value1, value2, "steal");
             return (Criteria) this;
         }
 
-        public Criteria andStealNotBetween(Byte value1, Byte value2) {
+        public Criteria andStealNotBetween(Integer value1, Integer value2) {
             addCriterion("steal not between", value1, value2, "steal");
             return (Criteria) this;
         }
@@ -674,52 +674,52 @@ public class PlayerDataExample {
             return (Criteria) this;
         }
 
-        public Criteria andBlockshotEqualTo(Byte value) {
+        public Criteria andBlockshotEqualTo(Integer value) {
             addCriterion("blockshot =", value, "blockshot");
             return (Criteria) this;
         }
 
-        public Criteria andBlockshotNotEqualTo(Byte value) {
+        public Criteria andBlockshotNotEqualTo(Integer value) {
             addCriterion("blockshot <>", value, "blockshot");
             return (Criteria) this;
         }
 
-        public Criteria andBlockshotGreaterThan(Byte value) {
+        public Criteria andBlockshotGreaterThan(Integer value) {
             addCriterion("blockshot >", value, "blockshot");
             return (Criteria) this;
         }
 
-        public Criteria andBlockshotGreaterThanOrEqualTo(Byte value) {
+        public Criteria andBlockshotGreaterThanOrEqualTo(Integer value) {
             addCriterion("blockshot >=", value, "blockshot");
             return (Criteria) this;
         }
 
-        public Criteria andBlockshotLessThan(Byte value) {
+        public Criteria andBlockshotLessThan(Integer value) {
             addCriterion("blockshot <", value, "blockshot");
             return (Criteria) this;
         }
 
-        public Criteria andBlockshotLessThanOrEqualTo(Byte value) {
+        public Criteria andBlockshotLessThanOrEqualTo(Integer value) {
             addCriterion("blockshot <=", value, "blockshot");
             return (Criteria) this;
         }
 
-        public Criteria andBlockshotIn(List<Byte> values) {
+        public Criteria andBlockshotIn(List<Integer> values) {
             addCriterion("blockshot in", values, "blockshot");
             return (Criteria) this;
         }
 
-        public Criteria andBlockshotNotIn(List<Byte> values) {
+        public Criteria andBlockshotNotIn(List<Integer> values) {
             addCriterion("blockshot not in", values, "blockshot");
             return (Criteria) this;
         }
 
-        public Criteria andBlockshotBetween(Byte value1, Byte value2) {
+        public Criteria andBlockshotBetween(Integer value1, Integer value2) {
             addCriterion("blockshot between", value1, value2, "blockshot");
             return (Criteria) this;
         }
 
-        public Criteria andBlockshotNotBetween(Byte value1, Byte value2) {
+        public Criteria andBlockshotNotBetween(Integer value1, Integer value2) {
             addCriterion("blockshot not between", value1, value2, "blockshot");
             return (Criteria) this;
         }
@@ -734,52 +734,52 @@ public class PlayerDataExample {
             return (Criteria) this;
         }
 
-        public Criteria andTurnoverEqualTo(Byte value) {
+        public Criteria andTurnoverEqualTo(Integer value) {
             addCriterion("turnover =", value, "turnover");
             return (Criteria) this;
         }
 
-        public Criteria andTurnoverNotEqualTo(Byte value) {
+        public Criteria andTurnoverNotEqualTo(Integer value) {
             addCriterion("turnover <>", value, "turnover");
             return (Criteria) this;
         }
 
-        public Criteria andTurnoverGreaterThan(Byte value) {
+        public Criteria andTurnoverGreaterThan(Integer value) {
             addCriterion("turnover >", value, "turnover");
             return (Criteria) this;
         }
 
-        public Criteria andTurnoverGreaterThanOrEqualTo(Byte value) {
+        public Criteria andTurnoverGreaterThanOrEqualTo(Integer value) {
             addCriterion("turnover >=", value, "turnover");
             return (Criteria) this;
         }
 
-        public Criteria andTurnoverLessThan(Byte value) {
+        public Criteria andTurnoverLessThan(Integer value) {
             addCriterion("turnover <", value, "turnover");
             return (Criteria) this;
         }
 
-        public Criteria andTurnoverLessThanOrEqualTo(Byte value) {
+        public Criteria andTurnoverLessThanOrEqualTo(Integer value) {
             addCriterion("turnover <=", value, "turnover");
             return (Criteria) this;
         }
 
-        public Criteria andTurnoverIn(List<Byte> values) {
+        public Criteria andTurnoverIn(List<Integer> values) {
             addCriterion("turnover in", values, "turnover");
             return (Criteria) this;
         }
 
-        public Criteria andTurnoverNotIn(List<Byte> values) {
+        public Criteria andTurnoverNotIn(List<Integer> values) {
             addCriterion("turnover not in", values, "turnover");
             return (Criteria) this;
         }
 
-        public Criteria andTurnoverBetween(Byte value1, Byte value2) {
+        public Criteria andTurnoverBetween(Integer value1, Integer value2) {
             addCriterion("turnover between", value1, value2, "turnover");
             return (Criteria) this;
         }
 
-        public Criteria andTurnoverNotBetween(Byte value1, Byte value2) {
+        public Criteria andTurnoverNotBetween(Integer value1, Integer value2) {
             addCriterion("turnover not between", value1, value2, "turnover");
             return (Criteria) this;
         }

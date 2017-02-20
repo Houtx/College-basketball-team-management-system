@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-02-07 19:03:27
+Date: 2017-02-20 20:22:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -125,15 +125,15 @@ CREATE TABLE `menu` (
   `role_id` int(11) DEFAULT NULL,
   `state` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `role_id` (`role_id`),
-  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+  KEY `menu_ibfk_1` (`role_id`),
+  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
 INSERT INTO `menu` VALUES ('1', '&#xe62d;', '人员管理', '3', '1', '1');
-INSERT INTO `menu` VALUES ('2', '', '球队管理', '1', '1', '1');
+INSERT INTO `menu` VALUES ('2', '&#xe62d;', '球队管理', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for permission
@@ -142,13 +142,13 @@ DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
-  `type` tinyint(4) DEFAULT NULL COMMENT '1增 2删 3改 4查 5禁用',
+  `type` tinyint(4) DEFAULT NULL COMMENT '1增 2删 3改 4查 禁用即修改',
   `state` tinyint(4) DEFAULT NULL COMMENT '1启用状态 0禁用状态',
   `sort` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
-  CONSTRAINT `permission_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `sub_menu` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  CONSTRAINT `permission_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `sub_menu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of permission
@@ -165,7 +165,10 @@ INSERT INTO `permission` VALUES ('9', '3', '1', '1', null);
 INSERT INTO `permission` VALUES ('10', '3', '2', '1', null);
 INSERT INTO `permission` VALUES ('11', '3', '3', '1', null);
 INSERT INTO `permission` VALUES ('12', '3', '4', '1', null);
-INSERT INTO `permission` VALUES ('13', '1', '5', '1', null);
+INSERT INTO `permission` VALUES ('13', '4', '1', '1', null);
+INSERT INTO `permission` VALUES ('14', '4', '2', '1', null);
+INSERT INTO `permission` VALUES ('15', '4', '3', '1', null);
+INSERT INTO `permission` VALUES ('16', '4', '4', '1', null);
 
 -- ----------------------------
 -- Table structure for player_data
@@ -173,16 +176,16 @@ INSERT INTO `permission` VALUES ('13', '1', '5', '1', null);
 DROP TABLE IF EXISTS `player_data`;
 CREATE TABLE `player_data` (
   `id` int(11) NOT NULL,
-  `score` tinyint(4) DEFAULT NULL,
+  `score` int(11) DEFAULT NULL,
   `shot` int(11) DEFAULT NULL COMMENT '出手',
-  `field_goal` tinyint(4) DEFAULT NULL COMMENT '命中球数',
-  `three_point_shot` tinyint(4) DEFAULT NULL,
-  `three_point_shot_goal` tinyint(4) DEFAULT NULL COMMENT '三分球命中个数',
-  `backboard` tinyint(4) DEFAULT NULL COMMENT '篮板',
-  `assist` tinyint(4) DEFAULT NULL,
-  `steal` tinyint(4) DEFAULT NULL COMMENT '抢断',
-  `blockshot` tinyint(4) DEFAULT NULL,
-  `turnover` tinyint(4) DEFAULT NULL COMMENT '失误',
+  `field_goal` int(11) DEFAULT NULL COMMENT '命中球数',
+  `three_point_shot` int(11) DEFAULT NULL,
+  `three_point_shot_goal` int(11) DEFAULT NULL COMMENT '三分球命中个数',
+  `backboard` int(11) DEFAULT NULL COMMENT '篮板',
+  `assist` int(11) DEFAULT NULL,
+  `steal` int(11) DEFAULT NULL COMMENT '抢断',
+  `blockshot` int(11) DEFAULT NULL,
+  `turnover` int(11) DEFAULT NULL COMMENT '失误',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -243,15 +246,24 @@ CREATE TABLE `role` (
   `school_id` int(11) NOT NULL,
   `state` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `school_id` (`school_id`),
-  CONSTRAINT `role_ibfk_2` FOREIGN KEY (`school_id`) REFERENCES `school` (`sch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  KEY `role_ibfk_2` (`school_id`),
+  CONSTRAINT `role_ibfk_2` FOREIGN KEY (`school_id`) REFERENCES `school` (`sch_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('1', '系统管理员', '1', '1');
-INSERT INTO `role` VALUES ('2', '副系统管理员', '1', '1');
+INSERT INTO `role` VALUES ('1', '超级系统管理员', '1', '1');
+INSERT INTO `role` VALUES ('2', '系统管理员', '1', '1');
+INSERT INTO `role` VALUES ('3', '教练', '2', '1');
+INSERT INTO `role` VALUES ('4', '球员', '2', '1');
+INSERT INTO `role` VALUES ('5', '球队领队', '2', '1');
+INSERT INTO `role` VALUES ('6', 'xxx', '1', '0');
+INSERT INTO `role` VALUES ('7', 'dvik', '1', '1');
+INSERT INTO `role` VALUES ('8', 'cxbn', '1', '1');
+INSERT INTO `role` VALUES ('9', 'dsssd', '1', '1');
+INSERT INTO `role` VALUES ('10', '22', '1', '1');
+INSERT INTO `role` VALUES ('11', 'gnvgm', '1', '1');
 
 -- ----------------------------
 -- Table structure for school
@@ -262,29 +274,30 @@ CREATE TABLE `school` (
   `sch_name` varchar(60) NOT NULL,
   `sch_logo` text,
   `state` tinyint(4) DEFAULT NULL COMMENT '0启用 1禁用',
-  ` introduction` varchar(400) DEFAULT NULL,
+  `introduction` varchar(400) DEFAULT NULL,
   PRIMARY KEY (`sch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of school
 -- ----------------------------
-INSERT INTO `school` VALUES ('1', '系统', null, '1', null);
-INSERT INTO `school` VALUES ('2', '北理珠', null, '1', null);
-INSERT INTO `school` VALUES ('3', '北师珠1', null, '1', null);
-INSERT INTO `school` VALUES ('4', '北师珠2', null, '1', null);
-INSERT INTO `school` VALUES ('5', '北师珠3', null, '1', null);
-INSERT INTO `school` VALUES ('6', '北师珠4', null, '1', null);
-INSERT INTO `school` VALUES ('7', '北师珠5', null, '1', null);
-INSERT INTO `school` VALUES ('8', '北师珠6', null, '1', null);
-INSERT INTO `school` VALUES ('9', '北师珠7', null, '1', null);
-INSERT INTO `school` VALUES ('10', '北师珠8', null, '1', null);
-INSERT INTO `school` VALUES ('11', '北师珠9', null, '1', null);
-INSERT INTO `school` VALUES ('12', '北师珠10', null, '1', null);
-INSERT INTO `school` VALUES ('13', '北师珠11', null, '1', null);
-INSERT INTO `school` VALUES ('14', '北师珠12', null, '1', null);
-INSERT INTO `school` VALUES ('15', '北师珠13', null, '1', null);
-INSERT INTO `school` VALUES ('16', '北师珠14', null, '1', null);
+INSERT INTO `school` VALUES ('1', '系统', '1486812729623.jpg', '1', '在在');
+INSERT INTO `school` VALUES ('2', '北理珠', '1486813342607.jpg', '0', 'fsdgfsdgdfg');
+INSERT INTO `school` VALUES ('15', '北师珠13', null, '0', null);
+INSERT INTO `school` VALUES ('21', 'sdfsdf', '1486641897458.jpg', '0', 'sdfsdfsdf');
+INSERT INTO `school` VALUES ('23', 'ssssssssssssss', null, null, 'sdf');
+INSERT INTO `school` VALUES ('24', 'sdfsdfsssssssss', null, '1', 'sadf');
+INSERT INTO `school` VALUES ('25', '测试state1', null, '1', '');
+INSERT INTO `school` VALUES ('26', 'fhfgh', null, '1', 'fdghd');
+INSERT INTO `school` VALUES ('27', '测试', null, '1', '');
+INSERT INTO `school` VALUES ('28', '测试3', '1486778992212.jpg', '1', '');
+INSERT INTO `school` VALUES ('29', '地', null, '1', '');
+INSERT INTO `school` VALUES ('30', 'ddfvdxvdv', '1486793243506.jpg', '1', 'dfvdfvdvdfv');
+INSERT INTO `school` VALUES ('31', '你大爷啊', '1486793853620.jpg', '1', '嗯嗯，不是你大爷');
+INSERT INTO `school` VALUES ('32', '鑫', '1486797901804.jpg', '1', '绂');
+INSERT INTO `school` VALUES ('33', '测试机', '1486799729824.jpg', '1', 'asdfsdafsdfdsf');
+INSERT INTO `school` VALUES ('34', '你妹啊', '1486806946180.jpg', '1', '呵呵');
+INSERT INTO `school` VALUES ('39', 'dsfsdfdf', '1486877336940.jpg', '1', 'sdfsdfdd');
 
 -- ----------------------------
 -- Table structure for school_player_data
@@ -321,15 +334,16 @@ CREATE TABLE `sub_menu` (
   `state` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
-  CONSTRAINT `sub_menu_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `menu` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  CONSTRAINT `sub_menu_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `menu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sub_menu
 -- ----------------------------
-INSERT INTO `sub_menu` VALUES ('1', '1', '/school/schoolMngPage', '学校管理', '1', '1');
-INSERT INTO `sub_menu` VALUES ('2', '1', '/school/roleMng', '角色管理', '2', '1');
-INSERT INTO `sub_menu` VALUES ('3', '1', '/school/userMng', '人员管理', '3', '1');
+INSERT INTO `sub_menu` VALUES ('1', '1', '/school/schoolMngPage', '学校管理', '2', '1');
+INSERT INTO `sub_menu` VALUES ('2', '1', '/role/roleMngPage', '角色管理', '3', '1');
+INSERT INTO `sub_menu` VALUES ('3', '1', '/user/userMngPage', '人员管理', '1', '1');
+INSERT INTO `sub_menu` VALUES ('4', '2', '/game/gameMngPage', '赛程管理', '1', '1');
 
 -- ----------------------------
 -- Table structure for training
@@ -388,11 +402,21 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `role_id` (`role_id`),
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', 'bbq', '123', '哈哈哈', null, null, '1', null, null, null, null, null, '1');
-INSERT INTO `user` VALUES ('3', 'admin', '123456', '系统管理员1', null, null, '1', null, null, null, null, null, '1');
+INSERT INTO `user` VALUES ('2', '13160672601', '123', '哈哈哈', '1', null, '1', null, null, null, null, null, '1');
+INSERT INTO `user` VALUES ('3', 'admin', '123456', '系统管理员1', '0', null, '1', null, null, null, null, null, '1');
+INSERT INTO `user` VALUES ('4', '13160672604', 'sdfsdasfasd', '教练', '1', null, '1', null, null, null, null, null, '3');
+INSERT INTO `user` VALUES ('5', '13160672621', '123456', '球员', '1', '1487480787259.jpg', '1', '111', '222', '112323', '11', '3', '4');
+INSERT INTO `user` VALUES ('6', '13152587415', '58745138587', '领队', '1', '1487480787259.jpg', '1', null, null, '', null, null, '5');
+INSERT INTO `user` VALUES ('8', '13254156748', '5416354135', '叶', '1', '1487480816379.jpg', '1', null, null, '', null, null, '5');
+INSERT INTO `user` VALUES ('9', '13254156748', '5416354135', '叶', '1', '1487480963277.jpg', '1', '541', '3541', '大三', '11', '1', '4');
+INSERT INTO `user` VALUES ('10', '13152158745', 'sadfsdaf', '肖', '1', '', '1', '111', '11', 'sadf', '111', '1', '4');
+INSERT INTO `user` VALUES ('11', '13160672584', 'asddasdf', '叶', '0', '', '1', '1212', '333', '212', '111', '1', '4');
+INSERT INTO `user` VALUES ('12', '13160672222', 'asddasdf', '叶', '0', '', '1', '1212', '333', '212', '111', '1', '4');
+INSERT INTO `user` VALUES ('13', '13160672221', 'asddasdf', '叶', '0', '', '1', '1212', '333', '212', '111', '1', '4');
+INSERT INTO `user` VALUES ('14', '13162587158', '3213213', '135', '1', '1487481474906.jpg', '1', '213', '321', '131', '11', '1', '4');
 SET FOREIGN_KEY_CHECKS=1;
