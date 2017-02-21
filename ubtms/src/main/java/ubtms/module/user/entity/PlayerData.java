@@ -41,6 +41,9 @@ public class PlayerData {
     */
     private Integer turnover;
 
+    public PlayerData() {
+    }
+
     public PlayerData(Integer score, Integer shot, Integer fieldGoal, Integer threePointShot, Integer threePointShotGoal, Integer backboard, Integer assist, Integer steal, Integer blockshot, Integer turnover) {
         this.score = score;
         this.shot = shot;

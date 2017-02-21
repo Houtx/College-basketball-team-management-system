@@ -5,8 +5,11 @@ import org.apache.ibatis.annotations.Param;
 import ubtms.basic.entity.LimitObjet;
 import ubtms.module.user.entity.User;
 import ubtms.module.user.entity.UserExample;
+import ubtms.module.user.entity.UserQuery;
 
 public interface UserMapper {
+    List<User> selectByUserQuery(UserQuery userQuery);
+
     List<User> selectWithRelative(LimitObjet<User> user);
     int countWithRelative(User user);
 

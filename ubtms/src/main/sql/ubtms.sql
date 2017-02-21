@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ubtms
-Source Server Version : 50716
-Source Host           : localhost:3306
-Source Database       : ubtms
+Source Server         : axb
+Source Server Version : 50628
+Source Host           : 172.16.10.187:3306
+Source Database       : yjz
 
 Target Server Type    : MYSQL
-Target Server Version : 50716
+Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2017-02-20 20:22:05
+Date: 2017-02-21 17:53:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -107,11 +107,12 @@ CREATE TABLE `game` (
   PRIMARY KEY (`id`),
   KEY `school_id` (`school_id`),
   CONSTRAINT `game_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `school` (`sch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game
 -- ----------------------------
+INSERT INTO `game` VALUES ('1', '2017-02-16 11:17:26', '北师', '北理', '无', '2');
 
 -- ----------------------------
 -- Table structure for menu
@@ -175,7 +176,7 @@ INSERT INTO `permission` VALUES ('16', '4', '4', '1', null);
 -- ----------------------------
 DROP TABLE IF EXISTS `player_data`;
 CREATE TABLE `player_data` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `score` int(11) DEFAULT NULL,
   `shot` int(11) DEFAULT NULL COMMENT '出手',
   `field_goal` int(11) DEFAULT NULL COMMENT '命中球数',
@@ -187,11 +188,47 @@ CREATE TABLE `player_data` (
   `blockshot` int(11) DEFAULT NULL,
   `turnover` int(11) DEFAULT NULL COMMENT '失误',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of player_data
 -- ----------------------------
+INSERT INTO `player_data` VALUES ('1', '12', '12', '12', '12', '76', '534', '5', '3', '5', '78');
+INSERT INTO `player_data` VALUES ('2', '1', '2', '3', '1', '7', '9', '0', '0', '2', '8');
+INSERT INTO `player_data` VALUES ('7', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('8', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('9', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('10', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('11', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('12', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('13', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('14', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('15', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('16', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('17', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('18', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('19', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('20', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('21', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('22', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('23', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('24', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('25', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('26', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('27', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('28', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('29', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('30', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('31', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('32', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('33', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('34', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('35', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('36', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('37', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('38', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('39', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('40', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for reply
@@ -219,18 +256,18 @@ CREATE TABLE `reply` (
 -- ----------------------------
 DROP TABLE IF EXISTS `rival_player_data`;
 CREATE TABLE `rival_player_data` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `player_name` varchar(12) NOT NULL,
   `school_name` varchar(60) DEFAULT NULL,
   `duty` tinyint(4) DEFAULT NULL,
   `game_id` int(11) NOT NULL,
   `data_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `data_id` (`data_id`),
   KEY `game_id` (`game_id`),
-  CONSTRAINT `rival_player_data_ibfk_1` FOREIGN KEY (`data_id`) REFERENCES `player_data` (`id`),
-  CONSTRAINT `rival_player_data_ibfk_2` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `rival_player_data_ibfk_3` (`data_id`),
+  CONSTRAINT `rival_player_data_ibfk_2` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rival_player_data_ibfk_3` FOREIGN KEY (`data_id`) REFERENCES `player_data` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rival_player_data
@@ -304,22 +341,24 @@ INSERT INTO `school` VALUES ('39', 'dsfsdfdf', '1486877336940.jpg', '1', 'sdfsdf
 -- ----------------------------
 DROP TABLE IF EXISTS `school_player_data`;
 CREATE TABLE `school_player_data` (
-  `id` int(11) NOT NULL,
-  `player_id` int(11) DEFAULT NULL,
-  `game_id` int(11) DEFAULT NULL COMMENT '出手',
-  `data_id` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `player_id` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL COMMENT '出手',
+  `data_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `game_id` (`game_id`),
   KEY `player_id` (`player_id`),
   KEY `data_id` (`data_id`),
-  CONSTRAINT `school_player_data_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
+  CONSTRAINT `school_player_data_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `school_player_data_ibfk_2` FOREIGN KEY (`player_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `school_player_data_ibfk_3` FOREIGN KEY (`data_id`) REFERENCES `player_data` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `school_player_data_ibfk_3` FOREIGN KEY (`data_id`) REFERENCES `player_data` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of school_player_data
 -- ----------------------------
+INSERT INTO `school_player_data` VALUES ('1', '5', '1', '1');
+INSERT INTO `school_player_data` VALUES ('2', '8', '1', '2');
 
 -- ----------------------------
 -- Table structure for sub_menu
@@ -411,12 +450,11 @@ INSERT INTO `user` VALUES ('2', '13160672601', '123', '哈哈哈', '1', null, '1
 INSERT INTO `user` VALUES ('3', 'admin', '123456', '系统管理员1', '0', null, '1', null, null, null, null, null, '1');
 INSERT INTO `user` VALUES ('4', '13160672604', 'sdfsdasfasd', '教练', '1', null, '1', null, null, null, null, null, '3');
 INSERT INTO `user` VALUES ('5', '13160672621', '123456', '球员', '1', '1487480787259.jpg', '1', '111', '222', '112323', '11', '3', '4');
-INSERT INTO `user` VALUES ('6', '13152587415', '58745138587', '领队', '1', '1487480787259.jpg', '1', null, null, '', null, null, '5');
-INSERT INTO `user` VALUES ('8', '13254156748', '5416354135', '叶', '1', '1487480816379.jpg', '1', null, null, '', null, null, '5');
-INSERT INTO `user` VALUES ('9', '13254156748', '5416354135', '叶', '1', '1487480963277.jpg', '1', '541', '3541', '大三', '11', '1', '4');
+INSERT INTO `user` VALUES ('6', '13152587415', '58745138587', '领队', '1', '1487480787259.jpg', '1', null, null, '', '2', '5', '5');
+INSERT INTO `user` VALUES ('8', '13254156748', '5416354135', '叶一', '1', '1487480816379.jpg', '1', null, null, '', '2', '1', '4');
+INSERT INTO `user` VALUES ('9', '13254156748', '5416354135', '叶二', '1', '1487480963277.jpg', '1', '541', '3541', '大三', '11', '1', '4');
 INSERT INTO `user` VALUES ('10', '13152158745', 'sadfsdaf', '肖', '1', '', '1', '111', '11', 'sadf', '111', '1', '4');
 INSERT INTO `user` VALUES ('11', '13160672584', 'asddasdf', '叶', '0', '', '1', '1212', '333', '212', '111', '1', '4');
 INSERT INTO `user` VALUES ('12', '13160672222', 'asddasdf', '叶', '0', '', '1', '1212', '333', '212', '111', '1', '4');
 INSERT INTO `user` VALUES ('13', '13160672221', 'asddasdf', '叶', '0', '', '1', '1212', '333', '212', '111', '1', '4');
 INSERT INTO `user` VALUES ('14', '13162587158', '3213213', '135', '1', '1487481474906.jpg', '1', '213', '321', '131', '11', '1', '4');
-SET FOREIGN_KEY_CHECKS=1;

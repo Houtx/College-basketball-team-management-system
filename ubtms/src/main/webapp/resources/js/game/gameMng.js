@@ -4,13 +4,17 @@
     },
 
     URL: {
-        getRoles: function () {
+        getGames: function () {
             return 'game/gameGetAction';
         },
-        edit: function () {
+        editGameMsg: function () {
             return 'game/gameMsgAddAndEditPage?opType=1';
-        },        add: function () {
+        },
+        addGameMsg: function () {
             return 'game/gameMsgAddAndEditPage?opType=2';
+        },
+        editGameData:function () {
+            return 'game/gameDataEditPage';
         },
         detail: function () {
             return '/game/gameDetailPage';
@@ -40,7 +44,7 @@ var TableInit = function () {
     //初始化Table
     oTableInit.Init = function () {
         $('#tb_games').bootstrapTable({
-            url: gameMng.URL.getRoles(),         //请求后台的URL（*）
+            url: gameMng.URL.getGames(),         //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
@@ -66,58 +70,48 @@ var TableInit = function () {
             columns: [{
                 title: null,
                 checkbox: true,
-                width: '4%'
             }, {
                 align: 'center',
                 title: '序号',
                 formatter: function (value, row, index) {
                     return index + 1 + oTableInit.curPageNum;
                 },
-                width: '4%'
+                width:'10px'
             }, {
                 align: 'center',
                 field: 'startTime',
                 title: '时间',
-                width: '52%'
             }, {
                 align: 'center',
                 title: '状态',
-                formatter: function (value, row, index) {
-                   //判断系统时间与startTime
-                   return "未开始";
-                },
-                width: '20%'
-            },  {
+                field:'state',
+            },{
                 align: 'center',
-                title: '客队',
-                formatter: function (value, row, index) {
-                   //判断系统时间与startTime
-                   return "未开始";
-                },
-                width: '20%'
+                title: '学校',
+                field:'mySchoolName',
             },{
                 align: 'center',
                 title: '比分',
-                formatter: function (value, row, index) {
-                   //判断系统时间与startTime
-                   return "未开始";
-                },
-                width: '20%'
+                field:'vsscore',
+            },{
+                align: 'center',
+                title: '客队',
+                field:'game.rival',
             },{
                 align: 'center',
                 title: '操作',
                 formatter: function (value, row, index, params) {
-                    // var editState = $('#gameEditP').val();
-                    // var detail = "<a href=" + gameMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
-                    // var edit = "<a href=" + gameMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
-                    // if (editState == 1) {
-                    //     return detail + edit;
-                    // } else {
-                    //     return detail;
-                    // }
-                    return "aa";
+                    var editState = $('#gameEditP').val();
+                    var detail = "<a href=" + gameMng.URL.detail() + "?gameId=" + row.id + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;详情</a>";
+                    var editGame = "<a href=" + gameMng.URL.editGameMsg() + "?gameId=" + row.id + " style='margin-left: 25px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑赛事</a>";
+                    var editData = "<a href='javascript:void(0)' onclick='DataEditLayer.open(" + row.id + ")' style='margin-left: 25px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑数据</a>";
+                    if (editState == 1) {
+                        return detail + editGame +editData;
+                    } else {
+                        return detail;
+                    }
                 },
-                width: '20%'
+                width:'300px'
             },]
         });
     };
@@ -143,7 +137,7 @@ var ButtonInit = function () {
 
     oInit.Init = function () {
         $("#btn_add").click(function () {
-            window.document.location = gameMng.URL.add();
+            window.document.location = gameMng.URL.addGameMsg();
         });
 
         $("#btn_delete").click(function () {
@@ -186,6 +180,23 @@ var ButtonInit = function () {
     return oInit;
 };
 
+var DataEditLayer = {
+    url: gameMng.URL.editGameData(),
+    open: function (id) {
+        //debugger;
+        DataEditLayer.url = DataEditLayer.url + "?gameId=" + id;
+        var maxOpen = layer.open({
+            type: 2,
+            title: '编辑比赛数据',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['840px', '500px'],
+            content: DataEditLayer.url
+        });
+        layer.full(maxOpen);
+    },
+}
 
 $(function () {
     gameMng.init();

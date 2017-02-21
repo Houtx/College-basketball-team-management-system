@@ -15,8 +15,8 @@
 	<head>
 		<title>赛事数据</title>
 		<%@ include file="../common/common_head.jsp" %>
-		<%--<link href="resources/lib/bui/dpl.css" rel="stylesheet">--%>
-		<%--<link href="resources/lib/bui/bui.css" rel="stylesheet">--%>
+		<link href="resources/lib/bui/dpl.css" rel="stylesheet">
+		<link href="resources/lib/bui/bui.css" rel="stylesheet">
 
 	</head>
 
@@ -25,6 +25,7 @@
 			<div id="grid"></div>
 		</div>
 		<form class="span8 offset3" id="J_Form" action="" method="post">
+			<input type="hidden" id="gameId" value="${gameId}">
 			<input id="btnSave" value="提交" class="button button-primary">
 		</form>
 	</body>

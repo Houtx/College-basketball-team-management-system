@@ -6,6 +6,7 @@ import ubtms.module.game.entity.Game;
 import ubtms.module.game.entity.GameExample;
 
 public interface GameMapper {
+    Game selectLastData();
     int countByExample(GameExample example);
 
     int deleteByExample(GameExample example);

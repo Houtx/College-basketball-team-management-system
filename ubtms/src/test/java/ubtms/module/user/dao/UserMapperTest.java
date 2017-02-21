@@ -8,8 +8,11 @@ import ubtms.basic.entity.LimitObjet;
 import ubtms.module.role.entity.Role;
 import ubtms.module.school.entity.School;
 import ubtms.module.user.entity.User;
+import ubtms.module.user.entity.UserQuery;
 
 import javax.annotation.Resource;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -21,6 +24,15 @@ import static org.junit.Assert.*;
 public class UserMapperTest {
     @Resource
     UserMapper userMapper;
+
+    @Test
+    public void selectBySchoolId(){
+        UserQuery userQuery = new UserQuery();
+        userQuery.setSchoolName("北理珠");
+        userQuery.setRoleName("球员");
+        System.out.println(userMapper.selectByUserQuery(userQuery));
+    }
+
 
     @Test
     public void selectWithRelative() throws Exception {

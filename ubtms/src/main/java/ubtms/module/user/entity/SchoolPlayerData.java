@@ -6,11 +6,20 @@ public class SchoolPlayerData {
     private Integer playerId;
 
     /**
-    * ³öÊÖ
+    * å‡ºæ‰‹
     */
     private Integer gameId;
 
     private Integer dataId;
+
+    public SchoolPlayerData() {
+    }
+
+    public SchoolPlayerData(Integer playerId, Integer gameId, Integer dataId) {
+        this.playerId = playerId;
+        this.gameId = gameId;
+        this.dataId = dataId;
+    }
 
     public Integer getId() {
         return id;

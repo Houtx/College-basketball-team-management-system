@@ -1,16 +1,20 @@
 package ubtms.module.game.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ubtms.basic.dto.MngResult;
 import ubtms.basic.util.PermissionUtil;
+import ubtms.module.game.dto.GameDto;
 import ubtms.module.game.entity.Game;
 import ubtms.module.game.entity.GameExample;
 import ubtms.module.game.service.GameService;
 import ubtms.module.role.entity.Menu;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,14 +44,10 @@ public class GameController {
 
 
     @RequestMapping("/gameMsgAddAndEditPage")
-    public String getOpPage(HttpServletRequest request) {
+    public String getOpPage(HttpServletRequest request, Model model) {
         String opType = request.getParameter("opType");
         //1编辑 2添加
-        if (opType.equals("1")) {
-
-        } else {
-
-        }
+        model.addAttribute("opType",opType);
         return "/game/gameAddAndEdit";
     }
 
@@ -65,6 +65,9 @@ public class GameController {
             String startTime = request.getParameter("startTime");
             String place = request.getParameter("place");
             String remark = request.getParameter("remark");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date date = sdf.parse(startTime);
+            game.setStartTime(date);
             game.setRival(rival);
             game.setPlace(place);
             game.setRemark(remark);
@@ -87,7 +90,7 @@ public class GameController {
         return map;
     }
 
-    @RequestMapping("/gameMsgDetailAction")
+    @RequestMapping("/gameDetailPage")
     public String getGameMsgDetail(HttpServletRequest request) {
         String id = request.getParameter("id");
         GameExample gameExample = new GameExample();
@@ -97,19 +100,23 @@ public class GameController {
         return null;
     }
 
-    @RequestMapping("/gameDataDetailAction")
-    public String getGameDataDetail(HttpServletRequest request) {
-        String id = request.getParameter("id");
 
+    @RequestMapping("gameDataEditPage")
+    public String getGameDataEditPage(HttpServletRequest request,Model model){
+        model.addAttribute("gameId", request.getParameter("gameId"));
+        return "game/gameDataEdit";
+    }
+
+    @RequestMapping("/gameDataEditAction")
+    @ResponseBody
+    public MngResult<List<GameDto>> gameDataEdit() {
 
         return null;
     }
 
-
-
     @RequestMapping("/gameGetAction")
-    public String getGames(int limit, int offset) {
-
-        return null;
+    @ResponseBody
+    public MngResult<List<GameDto>> getGames(int limit, int offset) {
+        return gameService.getGames(limit, offset);
     }
 }

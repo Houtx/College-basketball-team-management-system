@@ -3,38 +3,41 @@
 
 var gameDetail = {
     URL: {
-        parent:function () {
+        parent: function () {
             return "game/gameMngPage";
         },
-        add: function() {
-            return 'game/gameAddAction/';
+        add: function () {
+            return 'game/gameMsgAddAndEditAction?opType=2';
         },
-        validateName:function(){
+        validateName: function () {
             return "/game/gameValidateAction";
         },
-        edit:function () {
-            return "game/gameEditAction";
+        edit: function () {
+            return "game/gameMsgAddAndEditAction?opType=1";
         }
     },
 
     validator: {
-        validateAll: function() {
+        validateAll: function () {
             this.validateGameName();
             return true;
         },
 
-        validateGameName: function(gameName) {
+        validateGameName: function (gameName) {
             console.log("validateGameName");
         },
 
     },
 
     gameAdd: {
-        init: function() {
+        init: function () {
+            $('#datetimepickerDiv').datetimepicker({
+                format: 'YYYY-MM-DD hh:mm',//日期格式化，只显示日期
+            });
             schoolNameUtil.init('schoolName');
             grid.init();
             //gameDetail.gameAdd.setFormValidator();
-            var gameType = $('#type').val();
+            var gameType = $('#opType').val();
             // if(gameType=="0"){
             //     gameDetail.gameAdd.handleDetail();
             // }else if(gameType=="1"){
@@ -43,17 +46,17 @@ var gameDetail = {
             myToastr.init();
         },
 
-        initPic:function () {
+        initPic: function () {
             var schLogo = $('#schLogo').val();
             if (schLogo != "") {
-                $('#imgDiv').css("background", "url(resources/images/common/" + schLogo+ ")");
+                $('#imgDiv').css("background", "url(resources/images/common/" + schLogo + ")");
                 $('#imgDiv').css("background-size", "100% 100%");
             }
 
         },
-        setFormValidator:function () {
+        setFormValidator: function () {
             $("#gameForm").validate({
-                focusCleanup:false,
+                focusCleanup: false,
                 rules: {
                     gameName: {
                         required: true,
@@ -62,14 +65,32 @@ var gameDetail = {
                             type: "get",               //数据发送方式
                             dataType: "json",           //接受数据格式
                             contentType: "application/json;charset=UTF-8",
-                        },
+                        }
                     },
+                    rival: {
+                        required: true,
+                    },
+                    startTime: {
+                        required: true,
+                    },
+                    place:{
+                        required:true,
+                    }
                 },
                 messages: {
-                    gameName: {required:"请输入校名",remote:"该学校已被注册"},
+                    rival: {
+                        required: "请输入对手",
+                    },
+                    startTime: {
+                        required: "请选择开场时间",
+                    },
+                    place:{
+                        required:"请输入地点",
+                    },
+                    gameName: {required: "请输入校名", remote: "该赛事已被注册"},
                 },
-                errorPlacement: function(error, element) {
-                    if(error[0].innerHTML != " ") {
+                errorPlacement: function (error, element) {
+                    if (error[0].innerHTML != " ") {
                         var errorMsgId = error[0].id;
                         var errorMsg = error[0].innerHTML;
                         $('#' + errorMsgId).parent().addClass('has-error');
@@ -82,11 +103,11 @@ var gameDetail = {
                          当然，如果你没有重写success函数，通过jquery validate验证后jquery validate
                          不会删除错误信息
                          */
-                        $('#' + errorMsgId).html(errorMsg+'&nbsp;');
+                        $('#' + errorMsgId).html(errorMsg + '&nbsp;');
                         $('#' + errorMsgId).css('visibility', 'visible');
                     }
                 },
-                success: function(label) {
+                success: function (label) {
                     var errorMsgId = label[0].id;
                     $('#' + errorMsgId).parent().removeClass('has-error');
                     $('#' + errorMsgId).css('visibility', 'hidden');
@@ -94,10 +115,10 @@ var gameDetail = {
 
             });
         },
-        fileChange: function() {
+        fileChange: function () {
             //因为可以一次上传多个文件所以要写file.files[0]表示第一个文件
-            var myFile =file.files[0];
-            if(!myValidator.picValidator(myFile)){
+            var myFile = file.files[0];
+            if (!myValidator.picValidator(myFile)) {
                 return;
             }
             var url = window.URL.createObjectURL(myFile);
@@ -106,80 +127,63 @@ var gameDetail = {
             //参考文档  https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
             $("#headImgForm").submit();
         },
-        back:function () {
-            window.document.location=gameDetail.URL.parent();
+        back: function () {
+            window.document.location = gameDetail.URL.parent();
         },
-        successBack:function () {
-            setTimeout("gameDetail.gameAdd.back()",1200);
+        successBack: function () {
+            setTimeout("gameDetail.gameAdd.back()", 1200);
         },
-        submitForm: function() {
-            var result =  $("#gameForm").valid();
-            var fileError = $('#file-error').css('visibility');
+        submitForm: function () {
+            debugger;
+            var startTime = $('#startTime').val();
 
-            if(!result || fileError!='hidden'){
+            var access = $("#gameForm").valid();
+            if (!access) {
                 return;
             }
-            var fileName = $("#file").val();
-
             var url;
             var gameType = $('#type').val();
-            //判断是否修改学校
-            if(gameType=="1"){
-                url=gameDetail.URL.edit();
-            }else {
-                url=gameDetail.URL.add();
+            if (gameType == "1") {
+                url = gameDetail.URL.edit();
+            } else {
+                url = gameDetail.URL.add();
             }
-
-            //判断是否修改图片
-            if(fileName==""|| ( typeof (fileName)=='undefined')){
-                //无修改图片则无操作
-            }else{
-                //做一个标识图片修改了
-                url=url+"?pic=1";
-            }
-
-            $('#btnSave').attr('disabled',true);
-            $.post(url, $('#gameForm').serialize(), function(result) {
+            $('#btnSave').attr('disabled', true);
+            $.post(url, $('#gameForm').serialize(), function (result) {
                 if (result.success) {
-                    if(gameType=="1"){
-                        toastr.success('修改成功');
-                    }else{
-                        toastr.success('添加成功');
-                    }
+                    toastr.success(result.msg);
                     gameDetail.gameAdd.successBack();
                 } else {
                     toastr.error('添加失败');
-                    $('#btnSave').attr('disabled',false);
+                    $('#btnSave').attr('disabled', false);
                 }
             }, 'json');
         },
 
-        handleDetail:function () {
-            $('#title').html("&nbsp;学校管理&nbsp;&nbsp;>&nbsp;&nbsp;学校详情");
+        handleDetail: function () {
+            $('#title').html("&nbsp;赛事管理&nbsp;&nbsp;>&nbsp;&nbsp;赛事详情");
             $('#btnSave').hide();
-            $('#file').attr('disabled',true);
-            $('#gameName').attr('disabled',true);
-            $('#introduction').attr('disabled',true);
+            $('#file').attr('disabled', true);
+            $('#gameName').attr('disabled', true);
+            $('#introduction').attr('disabled', true);
             var editState = $('#gameEditP').val();
-            // editState=0;
-            // debugger;
-            if(editState==1){
+            if (editState == 1) {
                 $('#btnEdit').show();
             }
         },
 
-        handleEdit:function () {
-            $('#title').html("&nbsp;学校管理&nbsp;&nbsp;>&nbsp;&nbsp;修改学校");
-            $('#gameName').attr('disabled',true);
+        handleEdit: function () {
+            $('#title').html("&nbsp;赛事管理&nbsp;&nbsp;>&nbsp;&nbsp;修改赛事");
+            $('#gameName').attr('disabled', true);
         },
 
-        handleEditBtn:function () {
+        handleEditBtn: function () {
             $('#type').val("1");
-            $('#title').html("&nbsp;学校管理&nbsp;&nbsp;>&nbsp;&nbsp;修改学校");
+            $('#title').html("&nbsp;赛事管理&nbsp;&nbsp;>&nbsp;&nbsp;修改赛事");
             $('#btnSave').show();
             $('#btnEdit').hide();
-            $('#file').attr('disabled',false);
-            $('#introduction').attr('disabled',false);
+            $('#file').attr('disabled', false);
+            $('#introduction').attr('disabled', false);
         },
     }
 }
