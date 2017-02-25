@@ -8,12 +8,10 @@ import ubtms.module.role.service.RoleService;
 import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
 import ubtms.module.user.dao.PlayerDataMapper;
+import ubtms.module.user.dao.RivalPlayerDataMapper;
 import ubtms.module.user.dao.UserMapper;
 import ubtms.module.user.dto.PlayerDataDto;
-import ubtms.module.user.entity.PlayerData;
-import ubtms.module.user.entity.User;
-import ubtms.module.user.entity.UserExample;
-import ubtms.module.user.entity.UserQuery;
+import ubtms.module.user.entity.*;
 import ubtms.module.user.service.UserService;
 
 import java.util.List;
@@ -27,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private PlayerDataMapper playerDataMapper;
+    @Autowired
+    private RivalPlayerDataMapper rivalPlayerDataMapper;
     @Autowired
     private RoleService roleService;
     @Autowired
@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateMySchoolPlayerData(List<PlayerData> playerDatas) {
+    public int updateMySchoolPlayerData(List<PlayerDataDto> playerDatas) {
         for (PlayerData playerData : playerDatas) {
             playerDataMapper.updateByPrimaryKey(playerData);
         }
@@ -110,10 +110,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateRivalPlayerData(Integer gameId, List<PlayerDataDto> playerDataDtos) {
         //Rival_player_data删除
-        for (PlayerData playerData : playerDataDtos) {
+        RivalPlayerDataExample rivalPlayerDataExample = new RivalPlayerDataExample();
+        rivalPlayerDataExample.createCriteria().andGameIdEqualTo(gameId);
+        List<RivalPlayerData> rivalPlayerDataList = rivalPlayerDataMapper.selectByExample(rivalPlayerDataExample);
+
+        for (RivalPlayerData rivalPlayerData : rivalPlayerDataList) {
+            playerDataMapper.deleteByPrimaryKey(rivalPlayerData.getDataId());
+            rivalPlayerDataMapper.deleteByPrimaryKey(rivalPlayerData.getId());
+        }
+
+        for (PlayerDataDto playerDataDto : playerDataDtos) {
+            RivalPlayerData rivalPlayerData = new RivalPlayerData();
+            rivalPlayerData.setPlayerName(playerDataDto.getPlayerName());
+            rivalPlayerData.setDuty(playerDataDto.getDuty());
+            rivalPlayerData.setGameId(gameId);
+            PlayerData playerData = playerDataDto;
             playerDataMapper.insert(playerData);
-            int id = playerDataMapper.selectLastData().getId();
-            //构建Rival_player_data数据
+            int dataId = playerDataMapper.selectLastData().getId();
+            rivalPlayerData.setDataId(dataId);
+            rivalPlayerDataMapper.insert(rivalPlayerData);
         }
         return playerDataDtos.size();
     }

@@ -19,4 +19,6 @@ public interface GameService {
     int updateGameMsgById(Game game);
 
     List<Game> selectGameMsgByExample(GameExample gameExample);
+    Game getById(Integer id);
+
 }

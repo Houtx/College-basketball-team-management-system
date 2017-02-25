@@ -4,6 +4,7 @@ import ubtms.module.game.entity.Game;
 import ubtms.module.school.entity.School;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by jinzhany on 2017/2/20.
@@ -26,12 +27,14 @@ public class GameDto {
         this.mySchoolName = mySchool.getSchName();
         this.mySchoolScore = teamScore[0];
         this.rivalScore = teamScore[1];
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm");
         this.startTime = sdf.format(game.getStartTime());
-        if (teamScore[0] == 0 && teamScore[1] == 0) {
+        Date today = new Date();
+        long todayTime = today.getTime();
+        if (todayTime < game.getStartTime().getTime()) {
             this.VSScore = " - ";
             this.state = "未开始";
-        }else {
+        } else {
             this.VSScore = this.mySchoolScore + " - " + this.rivalScore;
             this.state = "已结束";
         }

@@ -101,14 +101,38 @@
         INNER JOIN game ON rival_player_data.game_id = game.id
         where game.id=#{gameId}
     </select>
+
+
+    <select id="selectRivalPlayerData" resultType="ubtms.module.user.dto.PlayerDataDto">
+        SELECT
+        player_data.id,
+        player_data.score,
+        player_data.shot,
+        player_data.field_goal,
+        player_data.three_point_shot,
+        player_data.three_point_shot_goal,
+        player_data.backboard,
+        player_data.assist,
+        player_data.steal,
+        player_data.blockshot,
+        player_data.turnover,
+        rival_player_data.player_name,
+        rival_player_data.duty
+        FROM
+        player_data
+        INNER JOIN rival_player_data ON rival_player_data.data_id = player_data.id
+        INNER JOIN game ON rival_player_data.game_id = game.id
+        where game.id=#{gameId}
+    </select>
+
+
     <select id="selectMySchoolPlayerData" resultType="ubtms.module.user.dto.PlayerDataDto">
-    SELECT
-        `user`.real_name AS user_name,
-        `user`.id AS user_id,
+        SELECT
+        `user`.real_name AS player_name,
+        `user`.id AS player_id,
         `user`.duty,
         `user`.shirt_num,
         school.sch_name,
-        school.sch_id AS sch_id,
         player_data.turnover,
         player_data.blockshot,
         player_data.steal,

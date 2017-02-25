@@ -39,6 +39,6 @@ public interface PlayerDataMapper {
      * @param gameId
      * @return
      */
-    List<PlayerDataDto> selectMySchoolPlayerData(@Param("gameId") Integer gameId);
-    List<PlayerDataDto> selectRivalPlayerData(@Param("gameId") Integer gameId);
+    List<PlayerDataDto> selectMySchoolPlayerData(Integer gameId);
+    List<PlayerDataDto> selectRivalPlayerData(Integer gameId);
 }

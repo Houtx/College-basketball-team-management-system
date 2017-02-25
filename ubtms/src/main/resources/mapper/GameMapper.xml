@@ -117,7 +117,7 @@
     insert into game (id, start_time, rival, 
       place, remark, school_id
       )
-    values (#{id,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{rival,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{rival,jdbcType=VARCHAR},
       #{place,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{schoolId,jdbcType=INTEGER}
       )
   </insert>
@@ -234,8 +234,7 @@
     set start_time = #{startTime,jdbcType=TIMESTAMP},
       rival = #{rival,jdbcType=VARCHAR},
       place = #{place,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      school_id = #{schoolId,jdbcType=INTEGER}
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -27,7 +27,7 @@ public interface UserService {
     int[] getTeamScore(Integer gameId);
     PlayerData getLastData();
     int savePlayData(PlayerData playerData);
-    int updateMySchoolPlayerData(List<PlayerData> playerDatas);
+    int updateMySchoolPlayerData(List<PlayerDataDto> playerDatas);
     int updateRivalPlayerData(Integer gameId,List<PlayerDataDto> playerDataDtos);
     List<PlayerDataDto> getMySchoolPlayerData(Integer gameId);
     List<PlayerDataDto> getRivalPlayerData(Integer gameId);

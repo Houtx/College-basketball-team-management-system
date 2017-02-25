@@ -55,10 +55,10 @@ public class GameServiceImpl implements GameService{
 
     @Override
     public int saveGameMsg(Game game,String schoolName) {
-        Integer gameId = gameMapper.selectLastData().getId();
         Integer schId = schoolService.selectOne(new School(schoolName)).getSchId();
         game.setSchoolId(schId);
         gameMapper.insert(game);
+        Integer gameId = gameMapper.selectLastData().getId();
         UserQuery userQuery = new UserQuery();
         userQuery.setSchoolId(schId);
         userQuery.setRoleName("球员");
@@ -81,7 +81,12 @@ public class GameServiceImpl implements GameService{
 
     @Override
     public List<Game> selectGameMsgByExample(GameExample gameExample) {
-        return null;
+        return gameMapper.selectByExample(gameExample);
+    }
+
+    @Override
+    public Game getById(Integer id) {
+        return gameMapper.selectByPrimaryKey(id);
     }
 
 

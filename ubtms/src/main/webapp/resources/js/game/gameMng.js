@@ -26,7 +26,6 @@
     },
 
     init: function () {
-        debugger;
         //1.初始化Table
         var oTable = new TableInit();
         oTable.Init();
@@ -102,9 +101,9 @@ var TableInit = function () {
                 title: '操作',
                 formatter: function (value, row, index, params) {
                     var editState = $('#gameEditP').val();
-                    var detail = "<a href=" + gameMng.URL.detail() + "?gameId=" + row.id + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;详情</a>";
-                    var editGame = "<a href=" + gameMng.URL.editGameMsg() + "?gameId=" + row.id + " style='margin-left: 25px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑赛事</a>";
-                    var editData = "<a href='javascript:void(0)' onclick='DataEditLayer.open(" + row.id + ")' style='margin-left: 25px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑数据</a>";
+                    var detail = "<a href=" + gameMng.URL.detail() + "?gameId=" + row.game.id +"><i class='glyphicon glyphicon-eye-open'></i>&nbsp;详情</a>";
+                    var editGame = "<a href=" + gameMng.URL.editGameMsg() + "&gameId=" + row.game.id + " style='margin-left: 25px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑赛事</a>";
+                    var editData = "<a href='javascript:void(0)' onclick='DataEditLayer.open(" + row.game.id + ")' style='margin-left: 25px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑数据</a>";
                     if (editState == 1) {
                         return detail + editGame +editData;
                     } else {
@@ -119,7 +118,7 @@ var TableInit = function () {
     //得到查询的参数
     oTableInit.queryParams = function (params) {
         oTableInit.curPageNum = params.offset;
-        debugger;
+        //debugger;
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
@@ -183,16 +182,22 @@ var ButtonInit = function () {
 var DataEditLayer = {
     url: gameMng.URL.editGameData(),
     open: function (id) {
-        //debugger;
-        DataEditLayer.url = DataEditLayer.url + "?gameId=" + id;
+        var dataUrl = DataEditLayer.url + "?gameId=" + id;
         var maxOpen = layer.open({
             type: 2,
             title: '编辑比赛数据',
             shadeClose: true,
             shade: false,
             maxmin: true, //开启最大化最小化按钮
-            area: ['840px', '500px'],
-            content: DataEditLayer.url
+            area: ['900px', '600px'],
+            content: dataUrl,
+            btn: ['保存'],
+            yes: function(index, layero){
+                debugger;
+                //var a = $('#btnSaveAll').find(layero);
+                //btnClick.click();
+                //layero.find('#btnSaveAll').click();
+            }
         });
         layer.full(maxOpen);
     },

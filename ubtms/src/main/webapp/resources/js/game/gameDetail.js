@@ -17,42 +17,19 @@ var gameDetail = {
         }
     },
 
-    validator: {
-        validateAll: function () {
-            this.validateGameName();
-            return true;
-        },
-
-        validateGameName: function (gameName) {
-            console.log("validateGameName");
-        },
-
-    },
-
     gameAdd: {
         init: function () {
             $('#datetimepickerDiv').datetimepicker({
                 format: 'YYYY-MM-DD hh:mm',//日期格式化，只显示日期
             });
             schoolNameUtil.init('schoolName');
-            grid.init();
-            //gameDetail.gameAdd.setFormValidator();
-            var gameType = $('#opType').val();
-            // if(gameType=="0"){
-            //     gameDetail.gameAdd.handleDetail();
-            // }else if(gameType=="1"){
-            //     gameDetail.gameAdd.handleEdit();
-            // }
-            myToastr.init();
-        },
-
-        initPic: function () {
-            var schLogo = $('#schLogo').val();
-            if (schLogo != "") {
-                $('#imgDiv').css("background", "url(resources/images/common/" + schLogo + ")");
-                $('#imgDiv').css("background-size", "100% 100%");
+            gameDetail.gameAdd.setFormValidator();
+            var opType = $('#opType').val();
+            //1编辑 2添加
+            if(opType=="1"){
+                gameDetail.gameAdd.handleEdit();
             }
-
+            myToastr.init();
         },
         setFormValidator: function () {
             $("#gameForm").validate({
@@ -115,18 +92,7 @@ var gameDetail = {
 
             });
         },
-        fileChange: function () {
-            //因为可以一次上传多个文件所以要写file.files[0]表示第一个文件
-            var myFile = file.files[0];
-            if (!myValidator.picValidator(myFile)) {
-                return;
-            }
-            var url = window.URL.createObjectURL(myFile);
-            $('#imgDiv').css("background", "url(" + url + ")");
-            $('#imgDiv').css("background-size", "100% 100%");
-            //参考文档  https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
-            $("#headImgForm").submit();
-        },
+
         back: function () {
             window.document.location = gameDetail.URL.parent();
         },
@@ -134,17 +100,15 @@ var gameDetail = {
             setTimeout("gameDetail.gameAdd.back()", 1200);
         },
         submitForm: function () {
-            debugger;
-            var startTime = $('#startTime').val();
-
             var access = $("#gameForm").valid();
             if (!access) {
                 return;
             }
             var url;
-            var gameType = $('#type').val();
+            var gameType = $('#opType').val();
             if (gameType == "1") {
-                url = gameDetail.URL.edit();
+                var gameId = $('#gameId').val();
+                url = gameDetail.URL.edit()+"&gameId="+gameId;
             } else {
                 url = gameDetail.URL.add();
             }
@@ -154,7 +118,7 @@ var gameDetail = {
                     toastr.success(result.msg);
                     gameDetail.gameAdd.successBack();
                 } else {
-                    toastr.error('添加失败');
+                    toastr.error(result.msg);
                     $('#btnSave').attr('disabled', false);
                 }
             }, 'json');
@@ -174,17 +138,9 @@ var gameDetail = {
 
         handleEdit: function () {
             $('#title').html("&nbsp;赛事管理&nbsp;&nbsp;>&nbsp;&nbsp;修改赛事");
-            $('#gameName').attr('disabled', true);
+            $('#schoolName').attr('disabled', true);
         },
 
-        handleEditBtn: function () {
-            $('#type').val("1");
-            $('#title').html("&nbsp;赛事管理&nbsp;&nbsp;>&nbsp;&nbsp;修改赛事");
-            $('#btnSave').show();
-            $('#btnEdit').hide();
-            $('#file').attr('disabled', false);
-            $('#introduction').attr('disabled', false);
-        },
     }
 }
 

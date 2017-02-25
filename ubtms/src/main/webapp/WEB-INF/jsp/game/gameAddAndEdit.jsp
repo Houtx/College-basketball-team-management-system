@@ -1,3 +1,4 @@
+<%@include file="../common/tag.jsp" %>
 <%--
   Created by IntelliJ IDEA.
   User: jinzhany
@@ -32,20 +33,21 @@
     <div class="row detailRow">
         <div class="col-xs-8 col-md-6 myColCenterBlock">
             <form class="form-horizontal myForm" role="form" id="gameForm" method="post" enctype="multipart/form-rows">
-                <input type="hidden" id="schId" name="schId" value="${gameDetail.schId}"/>
-                <input id="gameEditP" type="hidden" value="${gameEditP}"/>
-                <input id="opType" type="hidden" value="${opType}"/>
                 <div class="form-group">
                     <label for="schoolName" class="col-sm-2 control-label"><span class="requiredMsg">*</span>学校</label>
                     <div class="col-sm-10">
+                        <!--更新时schoolName传不过去-->
                         <input type="text" class="form-control" id="schoolName" name="schoolName"
-                               data-provide="typeahead">
+                               data-provide="typeahead" value="${mySchoolName}">
                         <span class="help-block errorMsg" id="schoolName-error">&nbsp;</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="rival" class="col-sm-2 control-label"><span class="requiredMsg">*</span>对手</label>
                     <div class="col-sm-10">
+                        <input id="gameEditP" type="hidden" value="${gameEditP}"/>
+                        <input id="opType" type="hidden" value="${opType}"/>
+                        <input id="gameId" type="hidden" value="${gameDetail.id}"/>
                         <input type="text" class="form-control" id="rival" name="rival" value="${gameDetail.rival}"/>
                         <span class="help-block errorMsg" id="rival-error">&nbsp;</span>
                     </div>
@@ -54,7 +56,7 @@
                     <label for="startTime" class="col-sm-2 control-label"><span class="requiredMsg">*</span>开场时间</label>
                     <div class='col-sm-10'>
                         <div class='input-group date' id="datetimepickerDiv">
-                            <input id="startTime" name="startTime" type='text' value="${gameDetail.startTime}" class="form-control"/>
+                            <input id="startTime" name="startTime" type='text' value="<fmt:formatDate value="${gameDetail.startTime}" pattern="yyyy-MM-dd hh:mm"/>" class="form-control"/>
                             <span id="datetimepicker" class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>

@@ -7,6 +7,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ubtms.basic.entity.LimitObjet;
 import ubtms.module.role.entity.Role;
 import ubtms.module.school.entity.School;
+import ubtms.module.user.dto.PlayerDataDto;
 import ubtms.module.user.entity.User;
 import ubtms.module.user.entity.UserQuery;
 
@@ -24,6 +25,8 @@ import static org.junit.Assert.*;
 public class UserMapperTest {
     @Resource
     UserMapper userMapper;
+    @Resource
+    PlayerDataMapper playerDataMapper;
 
     @Test
     public void selectBySchoolId(){
@@ -33,6 +36,13 @@ public class UserMapperTest {
         System.out.println(userMapper.selectByUserQuery(userQuery));
     }
 
+    @Test
+    public void selecMySchoolPlayerData(){
+       // List<PlayerDataDto> playerDataDtos = playerDataMapper.selectMySchoolPlayerData(1);
+        List<PlayerDataDto> playerDataDtos = playerDataMapper.selectRivalPlayerData(1);
+        System.out.println(playerDataDtos);
+        //userService.getMySchoolPlayerData(gameId);
+    }
 
     @Test
     public void selectWithRelative() throws Exception {
