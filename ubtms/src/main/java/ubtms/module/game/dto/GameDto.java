@@ -30,8 +30,7 @@ public class GameDto {
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm");
         this.startTime = sdf.format(game.getStartTime());
         Date today = new Date();
-        long todayTime = today.getTime();
-        if (todayTime < game.getStartTime().getTime()) {
+        if (today.compareTo(game.getStartTime())>0) {
             this.VSScore = " - ";
             this.state = "未开始";
         } else {

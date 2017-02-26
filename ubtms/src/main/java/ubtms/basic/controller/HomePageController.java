@@ -25,7 +25,7 @@ public class HomePageController {
 //    @Autowired
 //    private Role role;
 //    @Autowired
-//    private SchoolService schoolService;
+//    private CommunityService schoolService;
 //    @Autowired
 //    private School school;
 //

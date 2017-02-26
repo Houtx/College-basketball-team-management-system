@@ -55,6 +55,10 @@ public class User {
         this.id = id;
     }
 
+    public User(String phone) {
+        this.phone = phone;
+    }
+
     public User(String phone, String password, String realName, Byte sex, Byte state, Float height, Float weight, String grade, Byte shirtNum, Byte duty, Integer roleId, String headPic) {
         this.phone = phone;
         this.password = password;

@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : axb
-Source Server Version : 50628
-Source Host           : 172.16.10.187:3306
-Source Database       : yjz
+Source Server         : ubtms
+Source Server Version : 50716
+Source Host           : localhost:3306
+Source Database       : ubtms
 
 Target Server Type    : MYSQL
-Target Server Version : 50628
+Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-02-21 17:53:41
+Date: 2017-02-26 23:57:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,17 +21,23 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `content` text,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `article_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of article
 -- ----------------------------
+INSERT INTO `article` VALUES ('1', '在在', '2017-02-26 22:18:13', '<p>要工<img src=\"http://localhost:8080/images/upload/e3200ab0-1ef8-4d94-b774-473fff67e812.jpg\" alt=\"hp\" style=\"max-width: 100%;\"></p><p><br></p>', '3');
+INSERT INTO `article` VALUES ('2', '在在', '2017-02-26 22:19:34', '<p>要工<img src=\"http://localhost:8080/images/upload/e3200ab0-1ef8-4d94-b774-473fff67e812.jpg\" alt=\"hp\" style=\"max-width: 100%;\"></p><p><br></p>', '3');
+INSERT INTO `article` VALUES ('3', 'sdafsadfds', '2017-02-26 22:20:35', '<p>翨</p>', '3');
+INSERT INTO `article` VALUES ('4', 'sdafsadfdstrjtj', '2017-02-26 22:20:54', '<p>翨jjhhjty</p>', '3');
+INSERT INTO `article` VALUES ('5', 'dsfgdfg', '2017-02-26 22:28:26', '<p>dfvbdvf</p>', '3');
 
 -- ----------------------------
 -- Table structure for attendance
@@ -107,12 +113,17 @@ CREATE TABLE `game` (
   PRIMARY KEY (`id`),
   KEY `school_id` (`school_id`),
   CONSTRAINT `game_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `school` (`sch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game
 -- ----------------------------
-INSERT INTO `game` VALUES ('1', '2017-02-16 11:17:26', '北师', '北理', '无', '2');
+INSERT INTO `game` VALUES ('1', '2017-02-24 12:17:00', '北师大大', '北理工新篮球场', '届时请看管好各自家的啦啦队', '2');
+INSERT INTO `game` VALUES ('7', '2017-02-02 07:20:00', '哈佛', '我家', '打你啊', '2');
+INSERT INTO `game` VALUES ('8', '2017-02-08 11:09:00', 'kjlkjlk', 'sdfsdf', 'sadfsadfsadf', '2');
+INSERT INTO `game` VALUES ('9', '2017-02-07 12:18:00', 'dfgdfg', 'gdfgdfgdf', 'sdgdxf', '2');
+INSERT INTO `game` VALUES ('10', '2017-02-04 12:18:00', 'fghdf', 'g二', '无奇不有', '30');
+INSERT INTO `game` VALUES ('11', '2017-02-28 12:41:00', '楔', 'sdfgds g', '夺顶替', '2');
 
 -- ----------------------------
 -- Table structure for menu
@@ -128,13 +139,14 @@ CREATE TABLE `menu` (
   PRIMARY KEY (`id`),
   KEY `menu_ibfk_1` (`role_id`),
   CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
 INSERT INTO `menu` VALUES ('1', '&#xe62d;', '人员管理', '3', '1', '1');
 INSERT INTO `menu` VALUES ('2', '&#xe62d;', '球队管理', '1', '1', '1');
+INSERT INTO `menu` VALUES ('3', '&#xe62d;', '球队动态', '2', '1', '1');
 
 -- ----------------------------
 -- Table structure for permission
@@ -149,7 +161,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `permission_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `sub_menu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of permission
@@ -170,6 +182,10 @@ INSERT INTO `permission` VALUES ('13', '4', '1', '1', null);
 INSERT INTO `permission` VALUES ('14', '4', '2', '1', null);
 INSERT INTO `permission` VALUES ('15', '4', '3', '1', null);
 INSERT INTO `permission` VALUES ('16', '4', '4', '1', null);
+INSERT INTO `permission` VALUES ('17', '5', '1', '1', null);
+INSERT INTO `permission` VALUES ('18', '5', '2', '1', null);
+INSERT INTO `permission` VALUES ('19', '5', '3', '1', null);
+INSERT INTO `permission` VALUES ('20', '5', '4', '1', null);
 
 -- ----------------------------
 -- Table structure for player_data
@@ -188,13 +204,13 @@ CREATE TABLE `player_data` (
   `blockshot` int(11) DEFAULT NULL,
   `turnover` int(11) DEFAULT NULL COMMENT '失误',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of player_data
 -- ----------------------------
-INSERT INTO `player_data` VALUES ('1', '12', '12', '12', '12', '76', '534', '5', '3', '5', '78');
-INSERT INTO `player_data` VALUES ('2', '1', '2', '3', '1', '7', '9', '0', '0', '2', '8');
+INSERT INTO `player_data` VALUES ('1', '12', '12', '12', '12', '7', '5', '5', '3', '5', '1');
+INSERT INTO `player_data` VALUES ('2', '11', '2', '3', '1', '7', '9', '0', '0', '2', '8');
 INSERT INTO `player_data` VALUES ('7', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `player_data` VALUES ('8', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `player_data` VALUES ('9', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
@@ -229,6 +245,41 @@ INSERT INTO `player_data` VALUES ('37', '0', '0', '0', '0', '0', '0', '0', '0', 
 INSERT INTO `player_data` VALUES ('38', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `player_data` VALUES ('39', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `player_data` VALUES ('40', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('41', '22', '0', '0', '0', '0', '0', '0', '0', '0', '3');
+INSERT INTO `player_data` VALUES ('42', '11', '0', '0', '6', '5', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('43', '11', '4', '2', '0', '0', '0', '2', '0', '0', '2');
+INSERT INTO `player_data` VALUES ('44', '0', '0', '0', '0', '0', '2', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('45', '2', '0', '0', '11', '0', '0', '0', '0', '0', '1');
+INSERT INTO `player_data` VALUES ('46', '3', '0', '0', '0', '0', '0', '1', '2', '0', '0');
+INSERT INTO `player_data` VALUES ('47', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('48', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('49', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('50', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('51', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('52', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('53', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('54', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('55', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('56', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('57', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('58', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('59', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('60', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('61', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('62', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('63', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('64', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('65', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('66', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('67', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('68', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('69', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('70', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `player_data` VALUES ('71', '12', '0', '0', '5', '4', '1', '0', '1', '1', '1');
+INSERT INTO `player_data` VALUES ('72', '23', '13', '10', '3', '1', '2', '1', '1', '2', '2');
+INSERT INTO `player_data` VALUES ('73', '11', '0', '0', '0', '0', '0', '0', '0', '0', '7');
+INSERT INTO `player_data` VALUES ('74', '22', '3', '0', '12', '10', '0', '2', '3', '0', '0');
+INSERT INTO `player_data` VALUES ('75', '1', '2', '0', '0', '0', '0', '2', '0', '0', '2');
 
 -- ----------------------------
 -- Table structure for reply
@@ -267,11 +318,16 @@ CREATE TABLE `rival_player_data` (
   KEY `rival_player_data_ibfk_3` (`data_id`),
   CONSTRAINT `rival_player_data_ibfk_2` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `rival_player_data_ibfk_3` FOREIGN KEY (`data_id`) REFERENCES `player_data` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rival_player_data
 -- ----------------------------
+INSERT INTO `rival_player_data` VALUES ('8', '威少', null, '1', '1', '72');
+INSERT INTO `rival_player_data` VALUES ('9', '村上春树', null, '5', '1', '73');
+INSERT INTO `rival_player_data` VALUES ('10', '海明威', null, '3', '1', '74');
+INSERT INTO `rival_player_data` VALUES ('11', '杜兰奇', null, '2', '1', '75');
+INSERT INTO `rival_player_data` VALUES ('12', '你妹', null, '1', '1', '75');
 
 -- ----------------------------
 -- Table structure for role
@@ -295,7 +351,7 @@ INSERT INTO `role` VALUES ('2', '系统管理员', '1', '1');
 INSERT INTO `role` VALUES ('3', '教练', '2', '1');
 INSERT INTO `role` VALUES ('4', '球员', '2', '1');
 INSERT INTO `role` VALUES ('5', '球队领队', '2', '1');
-INSERT INTO `role` VALUES ('6', 'xxx', '1', '0');
+INSERT INTO `role` VALUES ('6', 'xxx', '1', '1');
 INSERT INTO `role` VALUES ('7', 'dvik', '1', '1');
 INSERT INTO `role` VALUES ('8', 'cxbn', '1', '1');
 INSERT INTO `role` VALUES ('9', 'dsssd', '1', '1');
@@ -319,10 +375,10 @@ CREATE TABLE `school` (
 -- Records of school
 -- ----------------------------
 INSERT INTO `school` VALUES ('1', '系统', '1486812729623.jpg', '1', '在在');
-INSERT INTO `school` VALUES ('2', '北理珠', '1486813342607.jpg', '0', 'fsdgfsdgdfg');
-INSERT INTO `school` VALUES ('15', '北师珠13', null, '0', null);
-INSERT INTO `school` VALUES ('21', 'sdfsdf', '1486641897458.jpg', '0', 'sdfsdfsdf');
-INSERT INTO `school` VALUES ('23', 'ssssssssssssss', null, null, 'sdf');
+INSERT INTO `school` VALUES ('2', '北理珠', '1486813342607.jpg', '1', 'fsdgfsdgdfg');
+INSERT INTO `school` VALUES ('15', '北师珠13', null, '1', null);
+INSERT INTO `school` VALUES ('21', 'sdfsdf', '1486641897458.jpg', '1', 'sdfsdfsdf');
+INSERT INTO `school` VALUES ('23', 'ssssssssssssss', null, '1', 'sdf');
 INSERT INTO `school` VALUES ('24', 'sdfsdfsssssssss', null, '1', 'sadf');
 INSERT INTO `school` VALUES ('25', '测试state1', null, '1', '');
 INSERT INTO `school` VALUES ('26', 'fhfgh', null, '1', 'fdghd');
@@ -352,13 +408,43 @@ CREATE TABLE `school_player_data` (
   CONSTRAINT `school_player_data_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `school_player_data_ibfk_2` FOREIGN KEY (`player_id`) REFERENCES `user` (`id`),
   CONSTRAINT `school_player_data_ibfk_3` FOREIGN KEY (`data_id`) REFERENCES `player_data` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of school_player_data
 -- ----------------------------
 INSERT INTO `school_player_data` VALUES ('1', '5', '1', '1');
 INSERT INTO `school_player_data` VALUES ('2', '8', '1', '2');
+INSERT INTO `school_player_data` VALUES ('37', '5', '1', '41');
+INSERT INTO `school_player_data` VALUES ('38', '8', '1', '42');
+INSERT INTO `school_player_data` VALUES ('39', '9', '1', '43');
+INSERT INTO `school_player_data` VALUES ('40', '10', '1', '44');
+INSERT INTO `school_player_data` VALUES ('41', '11', '1', '45');
+INSERT INTO `school_player_data` VALUES ('42', '12', '1', '46');
+INSERT INTO `school_player_data` VALUES ('43', '5', '8', '47');
+INSERT INTO `school_player_data` VALUES ('44', '8', '8', '48');
+INSERT INTO `school_player_data` VALUES ('45', '9', '8', '49');
+INSERT INTO `school_player_data` VALUES ('46', '10', '8', '50');
+INSERT INTO `school_player_data` VALUES ('47', '11', '8', '51');
+INSERT INTO `school_player_data` VALUES ('48', '12', '8', '52');
+INSERT INTO `school_player_data` VALUES ('49', '13', '8', '53');
+INSERT INTO `school_player_data` VALUES ('50', '14', '8', '54');
+INSERT INTO `school_player_data` VALUES ('51', '5', '9', '55');
+INSERT INTO `school_player_data` VALUES ('52', '8', '9', '56');
+INSERT INTO `school_player_data` VALUES ('53', '9', '9', '57');
+INSERT INTO `school_player_data` VALUES ('54', '10', '9', '58');
+INSERT INTO `school_player_data` VALUES ('55', '11', '9', '59');
+INSERT INTO `school_player_data` VALUES ('56', '12', '9', '60');
+INSERT INTO `school_player_data` VALUES ('57', '13', '9', '61');
+INSERT INTO `school_player_data` VALUES ('58', '14', '9', '62');
+INSERT INTO `school_player_data` VALUES ('59', '5', '11', '63');
+INSERT INTO `school_player_data` VALUES ('60', '8', '11', '64');
+INSERT INTO `school_player_data` VALUES ('61', '9', '11', '65');
+INSERT INTO `school_player_data` VALUES ('62', '10', '11', '66');
+INSERT INTO `school_player_data` VALUES ('63', '11', '11', '67');
+INSERT INTO `school_player_data` VALUES ('64', '12', '11', '68');
+INSERT INTO `school_player_data` VALUES ('65', '13', '11', '69');
+INSERT INTO `school_player_data` VALUES ('66', '14', '11', '70');
 
 -- ----------------------------
 -- Table structure for sub_menu
@@ -374,7 +460,7 @@ CREATE TABLE `sub_menu` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `sub_menu_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `menu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sub_menu
@@ -383,6 +469,7 @@ INSERT INTO `sub_menu` VALUES ('1', '1', '/school/schoolMngPage', '学校管理'
 INSERT INTO `sub_menu` VALUES ('2', '1', '/role/roleMngPage', '角色管理', '3', '1');
 INSERT INTO `sub_menu` VALUES ('3', '1', '/user/userMngPage', '人员管理', '1', '1');
 INSERT INTO `sub_menu` VALUES ('4', '2', '/game/gameMngPage', '赛程管理', '1', '1');
+INSERT INTO `sub_menu` VALUES ('5', '3', '/community/communityMngPage', '球队动态', '1', '1');
 
 -- ----------------------------
 -- Table structure for training
@@ -458,3 +545,17 @@ INSERT INTO `user` VALUES ('11', '13160672584', 'asddasdf', '叶', '0', '', '1',
 INSERT INTO `user` VALUES ('12', '13160672222', 'asddasdf', '叶', '0', '', '1', '1212', '333', '212', '111', '1', '4');
 INSERT INTO `user` VALUES ('13', '13160672221', 'asddasdf', '叶', '0', '', '1', '1212', '333', '212', '111', '1', '4');
 INSERT INTO `user` VALUES ('14', '13162587158', '3213213', '135', '1', '1487481474906.jpg', '1', '213', '321', '131', '11', '1', '4');
+DROP TRIGGER IF EXISTS `Delect_RivalPlayerData`;
+DELIMITER ;;
+CREATE TRIGGER `Delect_RivalPlayerData` AFTER DELETE ON `rival_player_data` FOR EACH ROW BEGIN
+	DELETE FROM player_data WHERE id = old.data_id;
+END
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `Delete_SchoolPlayerData`;
+DELIMITER ;;
+CREATE TRIGGER `Delete_SchoolPlayerData` AFTER DELETE ON `school_player_data` FOR EACH ROW BEGIN
+ DELETE FROM player_data WHERE id = old.data_id;
+END
+;;
+DELIMITER ;

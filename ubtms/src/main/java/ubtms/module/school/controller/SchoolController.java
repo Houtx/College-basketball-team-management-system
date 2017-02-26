@@ -63,8 +63,8 @@ public class SchoolController {
             return result;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     @ResponseBody

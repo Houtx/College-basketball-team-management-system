@@ -8,6 +8,8 @@ public class LimitObjet<T> {
     private int offset;
     private int limit;
 
+    public LimitObjet() {
+    }
 
     public LimitObjet(T data, int offset, int limit) {
         this.data = data;

@@ -2,10 +2,16 @@ package ubtms.module.community.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import ubtms.basic.entity.LimitObjet;
+import ubtms.module.community.dto.ArticleDto;
 import ubtms.module.community.entity.Article;
 import ubtms.module.community.entity.ArticleExample;
+import ubtms.module.community.entity.ArticleLimitObject;
 
 public interface ArticleMapper {
+   int countWithLimit(ArticleLimitObject articleLimitObject);
+
+    List<ArticleDto> selectWithLimit(ArticleLimitObject articleLimitObject);
     int countByExample(ArticleExample example);
 
     int deleteByExample(ArticleExample example);

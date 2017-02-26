@@ -5,72 +5,80 @@
   Time: 13:27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="../common/basePath.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <base href="<%=basePath%>">
-    <title>添加公告</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" rel="stylesheet">
-    <!-- 引入 Bootstrap -->
-    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <!--引入wangEditor-->
+    <title>帖子添加</title>
+    <%@ include file="../common/common_head.jsp" %>
+    <%@ include file="../common/detail_head.jsp" %>
     <link rel="stylesheet" type="text/css" href="resources/css/wangEditor.min.css">
-    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
-    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-
+    <style>
+        /*.wangEditor-container{*/
+            /*border-radius:1%;*/
+        /*}*/
+    </style>
 </head>
 
 
 <body>
-<h1>Hello, world!</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 myNav">
+            <div class="navContent">
+                <i class="Hui-iconfont">&#xe62d;</i><span id="title">&nbsp;学校管理&nbsp;&nbsp;>&nbsp;&nbsp;添加学校</span>
+            </div>
+        </div>
+    </div>
 
-<div>
-    <input type="text">
-    <button style="float: right">发表</button>
-
+    <div class="row detailRow">
+        <div class="col-xs-10 myColCenterBlock">
+            <form class="form-horizontal myForm" role="form" id="articleForm" method="post"
+                  enctype="multipart/form-rows">
+                <%--                        <input type="hidden" id="schId" name="schId" value="${schoolDetail.schId}"/>
+                        <input type="hidden" id="schLogo" name="schLogo" value="${schoolDetail.schLogo}"/>
+                        <input id="schoolEditP" type="hidden" value="${schoolEditP}"/>
+                        <input id="opType" type="hidden" value="${opType}"/>--%>
+                <div class="form-group">
+                    <%--  style="padding-left: 0px;margin-left: -10px;"
+                      style="text-align: left;"--%>
+                    <label style="text-align: left" for="articleTitle" class="col-xs-1 control-label"><span
+                            class="requiredMsg">*</span>标题</label>
+                    <div style="padding-left: 0px;margin-left: -10px;" class="col-xs-10">
+                        <input type="text" class="form-control" id="articleTitle" name="articleTitle"
+                               value="${schoolDetail.schName}"/>
+                        <span class="help-block errorMsg" id="articleTitle-error">&nbsp;</span>
+                    </div>
+                    <div class="col-xs-1">
+                        <input id="btnExpress" class="btn btn-primary" onclick="articleDetail.articleOp.submitForm()" type="button" value="发表">
+                    </div>
+                </div>
+<%--                <div class="form-group">
+                    <label for="schoolName" class="col-sm-2 control-label"><span
+                            class="requiredMsg">*</span>收贴学校</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="schoolName" name="schoolName"
+                               value="${schoolDetail.schName}"/>
+                        <span class="help-block errorMsg" id="schoolName-error">&nbsp;</span>
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="btn btn-primary" type="button" value="发表">
+                    </div>
+                </div>--%>
+                <div id="editor" style="height: 800px;"></div>
+            </form>
+            <div style="margin-top: 30px; visibility: hidden">&nbsp;</div>
+        </div>
+    </div>
 </div>
-<div id="div1">
-    <p>请输入内容...</p>
-</div>
-
 </body>
 
+<%@ include file="../common/common_footer.jsp" %>
+<%@ include file="../common/detail_footer.jsp" %>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="resources/lib/wangEditor.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/js/community/articleDetail.js"></script>
 
-<script type="text/javascript">
-    var editor = new wangEditor('div1');
-
-/*     仅仅想移除某几个菜单，例如想移除『插入代码』和『全屏』菜单：
-     其中的 wangEditor.config.menus 可获取默认情况下的菜单配置*/
-     editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
-         if (item === 'source') {
-             return null;
-         }
-         if (item === 'video') {
-             return null;
-         }
-         if (item === 'location') {
-             return null;
-         }
-         if (item === 'insertcode') {
-             return null;
-         }
-         return item;
-     });
-
-    editor.create();
-</script>
 </html>
