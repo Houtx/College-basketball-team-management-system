@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/ubtms/module/role/controller/RoleController.java" line="123" />
     <bookmark url="file://$PROJECT_DIR$/src/main/java/ubtms/module/user/controller/UserController.java" />
   </component>
   <component name="ChangeListManager">
@@ -30,67 +29,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CommunityServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/service/impl/CommunityServiceImpl.java">
+      <file leaf-file-name="articleDetail.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/community/articleDetail.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="40" column="62" selection-start-line="40" selection-start-column="62" selection-end-line="40" selection-end-column="62" />
+            <state relative-caret-position="-240">
+              <caret line="139" column="25" selection-start-line="139" selection-start-column="25" selection-end-line="139" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommunityController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/controller/CommunityController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="21">
+              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArticleMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/dao/ArticleMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArticleMapperTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/ubtms/module/community/dao/ArticleMapperTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Article.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/entity/Article.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArticleDto.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/dto/ArticleDto.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CommunityService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/service/CommunityService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#2679#2688#0" expanded="true" />
+                <element signature="e#3167#3185#0" expanded="true" />
+                <element signature="e#3585#3601#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,9 +57,24 @@
       <file leaf-file-name="communityMng.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/community/communityMng.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="117" column="10" selection-start-line="117" selection-start-column="10" selection-end-line="117" selection-end-column="10" />
+            <state relative-caret-position="280">
+              <caret line="80" column="31" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArticleDto.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/dto/ArticleDto.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding>
+                <element signature="e#292#293#0" expanded="true" />
+                <element signature="e#321#322#0" expanded="true" />
+                <element signature="e#365#366#0" expanded="true" />
+                <element signature="e#401#402#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,38 +82,22 @@
       <file leaf-file-name="ArticleMapper.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/ArticleMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3700">
-              <caret line="185" column="113" selection-start-line="185" selection-start-column="113" selection-end-line="185" selection-end-column="113" />
+            <state relative-caret-position="138">
+              <caret line="210" column="37" selection-start-line="210" selection-start-column="37" selection-end-line="210" selection-end-column="37" />
               <folding>
-                <marker date="1488124378070" expanded="true" signature="5426:5593" ph="select , fro... " />
-                <marker date="1488124378070" expanded="true" signature="5683:5740" ph="delete from " />
-                <marker date="1488124378070" expanded="true" signature="5856:5875" ph="delete from " />
-                <marker date="1488124378070" expanded="true" signature="6078:6282" ph="insert into article... " />
-                <marker date="1488124378070" expanded="true" signature="7641:7669" ph="select count... article" />
-                <marker date="1488124378070" expanded="true" signature="7912:8384" ph="SELECT artic... article" />
-                <marker date="1488124378070" expanded="true" signature="8568:9215" ph="SELECT artic... article" />
-                <marker date="1488124378070" expanded="true" signature="8568:9224" ph="SELECT artic... article" />
-                <marker date="1488124378070" expanded="true" signature="10183:10468" ph="update artic... " />
-                <marker date="1488124378070" expanded="true" signature="10660:10887" ph="update artic... " />
-                <marker date="1488124378070" expanded="true" signature="11125:11670" ph="update artic... " />
-                <marker date="1488124378070" expanded="true" signature="11789:12030" ph="update artic... " />
-                <marker date="1488124378070" expanded="true" signature="12138:12330" ph="update artic... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SchoolMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/SchoolMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1380">
-              <caret line="69" column="29" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="45" />
-              <folding>
-                <marker date="1487593410000" expanded="true" signature="278:330" ph="SELECT * FRO... school" />
-                <marker date="1487593410000" expanded="true" signature="404:460" ph="SELECT * FRO... school" />
-                <marker date="1487593410000" expanded="true" signature="541:605" ph="SELECT sch_n... school" />
-                <marker date="1487593410000" expanded="true" signature="1582:1939" ph="UPDATE schoo... " />
-                <marker date="1487593410000" expanded="true" signature="2397:2488" ph="INSERT INTO school... " />
+                <marker date="1488608567836" expanded="true" signature="5426:5593" ph="select , fro... " />
+                <marker date="1488608567836" expanded="true" signature="5683:5740" ph="delete from " />
+                <marker date="1488608567836" expanded="true" signature="5856:5875" ph="delete from " />
+                <marker date="1488608567836" expanded="true" signature="6078:6282" ph="insert into article... " />
+                <marker date="1488608567836" expanded="true" signature="7641:7669" ph="select count... article" />
+                <marker date="1488608567836" expanded="true" signature="7912:8384" ph="SELECT artic... article" />
+                <marker date="1488608567836" expanded="true" signature="8568:9253" ph="SELECT artic... article" />
+                <marker date="1488608567836" expanded="true" signature="8568:9262" ph="SELECT artic... article" />
+                <marker date="1488608567836" expanded="true" signature="10221:10506" ph="update artic... " />
+                <marker date="1488608567836" expanded="true" signature="10698:10925" ph="update artic... " />
+                <marker date="1488608567836" expanded="true" signature="11163:11708" ph="update artic... " />
+                <marker date="1488608567836" expanded="true" signature="11827:12068" ph="update artic... " />
+                <marker date="1488608567836" expanded="true" signature="12176:12368" ph="update artic... " />
               </folding>
             </state>
           </provider>
@@ -170,8 +127,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ubtms/module/user/service/impl/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/userAddAndEdit.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/ubtms/module/user/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/js/common/common.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/js/user/userDetail.js" />
@@ -210,17 +165,19 @@
         <option value="$PROJECT_DIR$/src/main/java/ubtms/module/user/entity/User.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/js/community/articleDetail.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/community/communityMng.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/ubtms/module/community/dto/ArticleDto.java" />
         <option value="$PROJECT_DIR$/src/main/java/ubtms/module/school/controller/SchoolController.java" />
         <option value="$PROJECT_DIR$/src/main/java/ubtms/basic/entity/LimitObjet.java" />
         <option value="$PROJECT_DIR$/src/main/java/ubtms/module/community/entity/ArticleLimitObject.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/resources/js/community/communityMng.js" />
         <option value="$PROJECT_DIR$/src/main/java/ubtms/module/community/dao/ArticleMapper.java" />
         <option value="$PROJECT_DIR$/src/test/java/ubtms/module/community/dao/ArticleMapperTest.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/ArticleMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/ubtms/module/community/service/CommunityService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ubtms/module/community/service/impl/CommunityServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/community/articleDetail.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/ubtms/basic/interceptor/CodingInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/ubtms/module/community/controller/CommunityController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ubtms/module/community/dto/ArticleDto.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/ArticleMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/resources/js/community/communityMng.js" />
       </list>
     </option>
   </component>
@@ -326,11 +283,11 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="PackagesPane">
         <subPane />
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -362,22 +319,8 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ubtms" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ubtms" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -395,37 +338,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ubtms" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ubtms" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
+              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -444,18 +361,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -502,6 +407,10 @@
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ubtms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -531,15 +440,15 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\myrepository\ubtms\src\main\webapp\resources\js\game" />
-      <recent name="E:\myrepository\ubtms\src\main\sql" />
-      <recent name="E:\myrepository\ubtms\src\main\webapp\resources\js\H-ui" />
-      <recent name="E:\myrepository\ubtms\src\main\webapp\resources\css\H-ui" />
-      <recent name="E:\myrepository\ubtms\src\main\webapp\resources" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="ubtms.module" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\myrepository\ubtms\src\main\webapp\WEB-INF\jsp\community" />
+      <recent name="E:\myrepository\ubtms\src\main\java\ubtms\module\community" />
+      <recent name="E:\myrepository\ubtms\src\main\webapp\resources\js" />
+      <recent name="E:\myrepository\ubtms\src\main\webapp\resources\images\common" />
+      <recent name="E:\myrepository\ubtms\src\main\webapp\resources\js\game" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ubtms.module.role.service.impl" />
@@ -548,12 +457,12 @@
       <recent name="ubtms.module.community.controller" />
       <recent name="ubtms.module.user.service.impl" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\myrepository\ubtms\src\main\java\ubtms\module\community" />
-      <recent name="E:\myrepository\ubtms\src\main\webapp\resources\js" />
-      <recent name="E:\myrepository\ubtms\src\main\webapp\WEB-INF\jsp\community" />
-      <recent name="E:\myrepository\ubtms\src\main\webapp\resources\images\common" />
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\myrepository\ubtms\src\main\webapp\resources\js\game" />
+      <recent name="E:\myrepository\ubtms\src\main\sql" />
+      <recent name="E:\myrepository\ubtms\src\main\webapp\resources\js\H-ui" />
+      <recent name="E:\myrepository\ubtms\src\main\webapp\resources\css\H-ui" />
+      <recent name="E:\myrepository\ubtms\src\main\webapp\resources" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.tomcat7">
@@ -1364,6 +1273,7 @@
       <workItem from="1488082625511" duration="924000" />
       <workItem from="1488084458533" duration="20704000" />
       <workItem from="1488282127693" duration="975000" />
+      <workItem from="1488602890810" duration="4125000" />
     </task>
     <servers />
   </component>
@@ -1400,43 +1310,43 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="465260000" />
+    <option name="totallyTimeSpent" value="469385000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33660132" sideWeight="0.5121029" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29291338" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2700454" sideWeight="0.49448818" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24963397" sideWeight="0.5055118" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4232026" sideWeight="0.48789713" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26143792" sideWeight="0.4941435" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4640523" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27382752" sideWeight="0.49448818" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24963397" sideWeight="0.5055118" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47549018" sideWeight="0.48789713" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26143792" sideWeight="0.4941435" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39869282" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4640523" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1467,7 +1377,7 @@
           <option name="timeStamp" value="379" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="382" />
+      <option name="time" value="387" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1476,27 +1386,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/jdbc.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/game/grid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="61" column="37" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/user/userDetail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-298">
-          <caret line="131" column="10" selection-start-line="131" selection-start-column="10" selection-end-line="131" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/game/service/impl/GameServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -1629,7 +1518,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1488119290523" expanded="true" signature="3760:3777" ph="..." />
+            <marker date="1488124739000" expanded="true" signature="3760:3777" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1689,7 +1578,7 @@
         <state relative-caret-position="80">
           <caret line="127" column="6" selection-start-line="127" selection-start-column="6" selection-end-line="127" selection-end-column="6" />
           <folding>
-            <marker date="1488119290142" expanded="true" signature="4412:4429" ph="..." />
+            <marker date="1488124739000" expanded="true" signature="4412:4429" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1742,8 +1631,8 @@
         <state relative-caret-position="188">
           <caret line="61" column="58" selection-start-line="61" selection-start-column="58" selection-end-line="61" selection-end-column="58" />
           <folding>
-            <element signature="e#2232#2240#0" expanded="true" />
-            <element signature="e#2401#2415#0" expanded="true" />
+            <element signature="e#2151#2159#0" expanded="true" />
+            <element signature="e#2320#2334#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1785,42 +1674,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/dao/ArticleMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ubtms/module/community/dao/ArticleMapperTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="false" />
+            <element signature="e#882#891#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/controller/CommunityController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="75" column="13" selection-start-line="75" selection-start-column="13" selection-end-line="75" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2679#2688#0" expanded="true" />
-            <element signature="e#3318#3336#0" expanded="true" />
-            <element signature="e#3755#3771#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/dto/ArticleDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1836,40 +1697,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/service/CommunityService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+        <state relative-caret-position="240">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/community/communityMng.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="117" column="10" selection-start-line="117" selection-start-column="10" selection-end-line="117" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/ArticleMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3700">
-          <caret line="185" column="113" selection-start-line="185" selection-start-column="113" selection-end-line="185" selection-end-column="113" />
-          <folding>
-            <marker date="1488124378070" expanded="true" signature="5426:5593" ph="select , fro... " />
-            <marker date="1488124378070" expanded="true" signature="5683:5740" ph="delete from " />
-            <marker date="1488124378070" expanded="true" signature="5856:5875" ph="delete from " />
-            <marker date="1488124378070" expanded="true" signature="6078:6282" ph="insert into article... " />
-            <marker date="1488124378070" expanded="true" signature="7641:7669" ph="select count... article" />
-            <marker date="1488124378070" expanded="true" signature="7912:8384" ph="SELECT artic... article" />
-            <marker date="1488124378070" expanded="true" signature="8568:9215" ph="SELECT artic... article" />
-            <marker date="1488124378070" expanded="true" signature="8568:9224" ph="SELECT artic... article" />
-            <marker date="1488124378070" expanded="true" signature="10183:10468" ph="update artic... " />
-            <marker date="1488124378070" expanded="true" signature="10660:10887" ph="update artic... " />
-            <marker date="1488124378070" expanded="true" signature="11125:11670" ph="update artic... " />
-            <marker date="1488124378070" expanded="true" signature="11789:12030" ph="update artic... " />
-            <marker date="1488124378070" expanded="true" signature="12138:12330" ph="update artic... " />
           </folding>
         </state>
       </provider>
@@ -1879,12 +1710,102 @@
         <state relative-caret-position="1380">
           <caret line="69" column="29" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="45" />
           <folding>
-            <marker date="1487593410000" expanded="true" signature="278:330" ph="SELECT * FRO... school" />
-            <marker date="1487593410000" expanded="true" signature="404:460" ph="SELECT * FRO... school" />
-            <marker date="1487593410000" expanded="true" signature="541:605" ph="SELECT sch_n... school" />
-            <marker date="1487593410000" expanded="true" signature="1582:1939" ph="UPDATE schoo... " />
-            <marker date="1487593410000" expanded="true" signature="2397:2488" ph="INSERT INTO school... " />
+            <marker date="1488124739000" expanded="true" signature="278:330" ph="SELECT * FRO... school" />
+            <marker date="1488124739000" expanded="true" signature="404:460" ph="SELECT * FRO... school" />
+            <marker date="1488124739000" expanded="true" signature="541:605" ph="SELECT sch_n... school" />
+            <marker date="1488124739000" expanded="true" signature="1582:1939" ph="UPDATE schoo... " />
+            <marker date="1488124739000" expanded="true" signature="2397:2488" ph="INSERT INTO school... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/dao/ArticleMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/basic/interceptor/CodingInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="38" column="33" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/seckill/service/impl/SeckillServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-440">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/community/articleDetail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-240">
+          <caret line="139" column="25" selection-start-line="139" selection-start-column="25" selection-end-line="139" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/dto/ArticleDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <element signature="e#292#293#0" expanded="true" />
+            <element signature="e#321#322#0" expanded="true" />
+            <element signature="e#365#366#0" expanded="true" />
+            <element signature="e#401#402#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ubtms/module/community/controller/CommunityController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2679#2688#0" expanded="true" />
+            <element signature="e#3167#3185#0" expanded="true" />
+            <element signature="e#3585#3601#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/ArticleMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="210" column="37" selection-start-line="210" selection-start-column="37" selection-end-line="210" selection-end-column="37" />
+          <folding>
+            <marker date="1488608567836" expanded="true" signature="5426:5593" ph="select , fro... " />
+            <marker date="1488608567836" expanded="true" signature="5683:5740" ph="delete from " />
+            <marker date="1488608567836" expanded="true" signature="5856:5875" ph="delete from " />
+            <marker date="1488608567836" expanded="true" signature="6078:6282" ph="insert into article... " />
+            <marker date="1488608567836" expanded="true" signature="7641:7669" ph="select count... article" />
+            <marker date="1488608567836" expanded="true" signature="7912:8384" ph="SELECT artic... article" />
+            <marker date="1488608567836" expanded="true" signature="8568:9253" ph="SELECT artic... article" />
+            <marker date="1488608567836" expanded="true" signature="8568:9262" ph="SELECT artic... article" />
+            <marker date="1488608567836" expanded="true" signature="10221:10506" ph="update artic... " />
+            <marker date="1488608567836" expanded="true" signature="10698:10925" ph="update artic... " />
+            <marker date="1488608567836" expanded="true" signature="11163:11708" ph="update artic... " />
+            <marker date="1488608567836" expanded="true" signature="11827:12068" ph="update artic... " />
+            <marker date="1488608567836" expanded="true" signature="12176:12368" ph="update artic... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/community/communityMng.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="80" column="31" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>

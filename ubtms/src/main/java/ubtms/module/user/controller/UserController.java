@@ -48,18 +48,19 @@ public class UserController {
 
 //        String account = request.getParameter("account");
 //        String password = request.getParameter("password");
-        User user = new User("admin","123456");
-        user=userService.selectOne(user);
-        if (user!=null){
-            Role role = roleService.selectByPrimaryKey(user.getRoleId());
-            //model.addAttribute("menus", role.getMenus());
-            request.getSession().setAttribute("loginUser", user.getPhone());
-            request.getSession().setAttribute("loginSchool",schoolService.selectOne(role.getSchoolId()));
-            request.getSession().setAttribute("menus",role.getMenus());
-            return "/mainPage";
-        }else {
-            return "/login";
-        }
+//        User user = new User("admin","123456");
+//        user=userService.selectOne(user);
+//        if (user!=null){
+//            Role role = roleService.selectByPrimaryKey(user.getRoleId());
+//            //model.addAttribute("menus", role.getMenus());
+//            request.getSession().setAttribute("loginUser", user.getPhone());
+//            request.getSession().setAttribute("loginSchool",schoolService.selectOne(role.getSchoolId()));
+//            request.getSession().setAttribute("menus",role.getMenus());
+//            return "/mainPage";
+//        }else {
+//            return "/login";
+//        }
+        return "/mainPage";
     }
 
     @RequestMapping("/userMngPage")
@@ -145,8 +146,6 @@ public class UserController {
         int total;
         List<User> users = new ArrayList<User>();
         try {
-            schoolName = new String(schoolName.getBytes("ISO-8859-1"), "UTF-8");
-            userName = new String(userName.getBytes("ISO-8859-1"), "UTF-8");
             School school = schoolService.selectOne(new School(schoolName));
             if (!schoolName.isEmpty() && school==null) {
                 return new MngResult<List<User>>(true, new ArrayList<User>(),0);
@@ -185,7 +184,7 @@ public class UserController {
             
             MngResult<List<User>> result = new MngResult<List<User>>(true, users, total);
             return result;
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -207,24 +206,18 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/userValidateAction")
+    @RequestMapping(value = "/loginValidation")
     @ResponseBody
-    public boolean userAccountValidate(HttpServletRequest request) {
-        try {
-            String account = request.getParameter("account");
-            if (userService.isUserAccountExist(account)){
-                return false;
-            }else {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+    public Map<String,Object> userAccountValidate(@RequestBody User user,HttpServletRequest request) {
+        Map<String,Object>  map = userService.userLoginValidate(user);
+        boolean success = (boolean) map.get("success");
+        if (success) {
+            user=userService.selectOne(user);
+            Role role = roleService.selectByPrimaryKey(user.getRoleId());
+            request.getSession().setAttribute("loginUser", user.getPhone());
+            request.getSession().setAttribute("loginSchool",schoolService.selectOne(role.getSchoolId()));
+            request.getSession().setAttribute("menus",role.getMenus());
         }
+        return map;
     }
-
-
-
-
-
 }

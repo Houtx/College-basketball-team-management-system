@@ -9,6 +9,7 @@ import java.util.Properties;
  * Created by jinzhany on 2016/12/18.
  */
 public class FileUtil {
+    //保存文件到指定路径
     public static String saveFile(MultipartFile file,InputStream picurlProperties) {
         String fileName = file.getOriginalFilename();
         // 获取图片的扩展名
@@ -108,5 +109,27 @@ public class FileUtil {
         }
 
     }
+
+    //从配置文件里读取文件路径
+    //        String path = WebUtil.getFilePath("logs/Analysis");
+
+//    public static String getFilePath(String file) {
+//        String resultPath = "";
+//
+//        String path = Thread.currentThread().getContextClassLoader().getResource("/").getFile();
+//
+//        if (path.indexOf("WEB-INF") >= 0) {
+//            path = path.substring(0, path.indexOf("WEB-INF"));
+//        }
+//        else {
+//            path = path.replace("target/test-classes", "src/main/webapp");
+//        }
+//        resultPath = path + file;
+//
+//        System.out.println("FILE PATH:------------------------------------------------------");
+//        System.out.println("FILE PATH:" + resultPath);
+//
+//        return resultPath;
+//    }
 
 }

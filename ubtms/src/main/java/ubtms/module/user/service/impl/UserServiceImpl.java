@@ -14,7 +14,9 @@ import ubtms.module.user.dto.PlayerDataDto;
 import ubtms.module.user.entity.*;
 import ubtms.module.user.service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jinzhany on 2016/12/8.
@@ -49,6 +51,27 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Map<String, Object> userLoginValidate(User user) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (!isUserAccountExist(user.getPhone())) {
+            map.put("success", false);
+            map.put("msg", "账号或密码错误");
+            return map;
+        }
+
+        user = selectOne(user);
+        if (user.getState() == 0) {
+            map.put("success", false);
+            map.put("msg", "账号已被禁用");
+            return map;
+        }
+
+        map.put("success", true);
+        map.put("msg", "验证成功");
+        return map;
     }
 
     @Override

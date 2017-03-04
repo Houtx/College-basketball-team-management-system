@@ -65,34 +65,37 @@ var TableInit = function () {
             columns: [{
                 title: null,
                 checkbox: true,
-                width: '4%'
             }, {
                 align: 'center',
                 title: '序号',
                 formatter: function (value, row, index) {
                     return index + 1 + oTableInit.curPageNum;
                 },
-                width: '4%'
             }, {
                 align: 'center',
                 title: '时间',
-                width: '52%'
+                formatter: function (value, row, index) {
+                    // debugger;
+                    // var date = new Date(row.createTime);
+                    // return date.format("yyyy-MM-dd hh:mm:ss");
+                    return "-";
+                },
             }, {
                 align: 'center',
                 title: '标题',
-                width: '20%'
+                field:'title'
             }, {
                 align: 'center',
                 title: '作者',
-                width: '20%'
+                field:'author'
             },  {
                 align: 'center',
                 title: '学校',
-                width: '20%'
+                field:'schoolName'
             },{
                 align: 'center',
                 title: '操作',
-                formatter: function (value, row, index, params) {
+                formatter: function (value, row, index) {
                     // var editState = $('#communityEditP').val();
                     // var detail = "<a href=" + communityMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
                     // var edit = "<a href=" + communityMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
@@ -102,7 +105,6 @@ var TableInit = function () {
                     //     return detail;
                     // }
                 },
-                width: '20%'
             },]
         });
     };

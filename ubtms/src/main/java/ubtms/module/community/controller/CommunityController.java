@@ -66,19 +66,17 @@ public class CommunityController {
         Article article = new Article();
         ArticleLimitObject<Article> articleLimitObject = new ArticleLimitObject<Article>(article,offset,limit);
         try {
-            schoolName = new String(schoolName.getBytes("ISO-8859-1"), "UTF-8");
-            title = new String(title.getBytes("ISO-8859-1"), "UTF-8");
             if (!title.isEmpty()) {
                 article.setTitle(title);
             }
-            if (schoolName.isEmpty()) {
+            if (!schoolName.isEmpty()) {
                 articleLimitObject.setSchoolName(schoolName);
             }
             List<ArticleDto> articles = communityService.selectWithLimit(articleLimitObject);
             int total = communityService.countWithLimit(articleLimitObject);
             MngResult<List<ArticleDto>> result = new MngResult<List<ArticleDto>>(true, articles, total);
             return result;
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -106,7 +104,6 @@ public class CommunityController {
     public void uploadImg(HttpServletRequest request,HttpServletResponse response) {
         try {
             String path = request.getSession().getServletContext().getRealPath("/images/upload");
-            //String path = request.getRealPath();
             File file = new File(path);
             if (!file.exists())
                 file.mkdirs();

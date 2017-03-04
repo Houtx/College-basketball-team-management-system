@@ -208,6 +208,7 @@
         article.create_time,
         article.content,
         article.user_id,
+        `user`.real_name AS `author`,
         school.sch_name AS `schoolName`
         FROM
         article

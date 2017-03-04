@@ -10,7 +10,7 @@ import java.util.List;
  * Created by jinzhany on 2016/12/8.
  */
 public interface CommunityService {
-    int svaeArticle(Article article,String userAccount);
+    int svaeArticle(Article article, String userAccount);
     int countWithLimit(ArticleLimitObject articleLimitObject);
     List<ArticleDto> selectWithLimit(ArticleLimitObject articleLimitObject);
 }

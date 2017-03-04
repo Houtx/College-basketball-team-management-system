@@ -5,6 +5,10 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
+	<welcome-file-list>
+		<welcome-file>/adminLogin.jsp</welcome-file>
+	</welcome-file-list>
+
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
 		<param-value>classpath:log4j.properties</param-value><!-- log4j配置文件路径 -->

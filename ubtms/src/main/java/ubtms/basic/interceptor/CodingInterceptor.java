@@ -5,20 +5,41 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by jinzhany on 2017/2/11.
  */
 public class CodingInterceptor implements HandlerInterceptor {
+
+    private List<String> excludedUrls;
+    public List<String> getExcludedUrls() {
+        return excludedUrls;
+    }
+
+    public void setExcludedUrls(List<String> excludedUrls) {
+        this.excludedUrls = excludedUrls;
+    }
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("preHandle");
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
 
+        String requestUri = request.getRequestURI();
+        for (String url : excludedUrls) {
+            if (requestUri.endsWith(url)) {
+                return true;
+            }
+        }
+        //logger.info("loginStatus-->[" + loginStatus + "];requestUri-->[" + requestUri + "]");
+
         //是否登录进行判断
-        //request.getSession()
-        return false;
+//        String loginUser = request.getSession().getAttribute("loginUser").toString();
+//        if (loginUser == null || loginUser.isEmpty()) {
+//            return false;
+//        }
+        return true;
     }
 
     @Override

@@ -60,10 +60,6 @@ public class RoleController {
         roleExample.setLimit(limit);
         roleExample.setOffset(offset);
         try {
-            request.setCharacterEncoding("utf-8");
-            //roleName = new String(roleName.getBytes("ISO-8859-1"), "UTF-8");
-           // schoolName = new String(schoolName.getBytes("ISO-8859-1"), "UTF-8");
-
             School school = schoolService.selectOne(new School(schoolName));
             if (!schoolName.isEmpty() && school==null) {
                 return new MngResult<List<Role>>(true, new ArrayList<Role>(),0);
@@ -90,7 +86,7 @@ public class RoleController {
             roleExample.setOffset(null);
             MngResult<List<Role>> result = new MngResult<List<Role>>(true, roles, roleService.countByExample(roleExample));
             return result;
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new MngResult<List<Role>>(false,"系统异常");
         }
@@ -144,7 +140,6 @@ public class RoleController {
         }
         map.put("success", true);
         map.put("data", menus);
-        //response.setCharacterEncoding("utf-8");
         return map;
     }
 }

@@ -134,7 +134,6 @@ var userDetail = {
             setTimeout("userDetail.userAdd.back()", 1200);
         },
         submitForm: function () {
-            debugger;
             var result = $("#userForm").valid();
             var fileError = $('#file-error').css('visibility');
 

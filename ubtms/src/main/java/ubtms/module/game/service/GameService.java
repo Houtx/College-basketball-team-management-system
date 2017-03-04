@@ -14,7 +14,7 @@ import java.util.List;
 public interface GameService {
     MngResult<List<GameDto>> getGames(int limit, int offset);
 
-    int saveGameMsg(Game game,String schoolName);
+    int saveGameMsg(Game game, String schoolName);
 
     int updateGameMsgById(Game game);
 

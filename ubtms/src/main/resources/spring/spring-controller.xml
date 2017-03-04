@@ -40,12 +40,18 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
     -->	
 	<mvc:default-servlet-handler/>
 
-	<!--<mvc:interceptors>-->
-		<!--<mvc:interceptor>-->
-			<!--<mvc:mapping path="/**"/>-->
-			<!--<bean class="ubtms.basic.interceptor.CodingInterceptor"></bean>-->
-		<!--</mvc:interceptor>-->
-	<!--</mvc:interceptors>-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="ubtms.basic.interceptor.CodingInterceptor">
+				<property name="excludedUrls">
+				<list>
+					<value>/user/loginValidation</value>
+				</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 
 

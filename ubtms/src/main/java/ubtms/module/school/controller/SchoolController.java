@@ -50,7 +50,6 @@ public class SchoolController {
     public MngResult<List<School>> getSchools(int limit, int offset, String schoolName, String state) {
         School school = new School();
         try {
-            schoolName = new String(schoolName.getBytes("ISO-8859-1"), "UTF-8");
             if (schoolName != null && !schoolName.equals("")) {
                 school.setSchName(schoolName);
             }
@@ -61,7 +60,7 @@ public class SchoolController {
             List<School> schools = schoolService.selectWithLimit(limitObjet);
             MngResult<List<School>> result = new MngResult<List<School>>(true, schools, schoolService.getSchoolNum(school));
             return result;
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -72,13 +71,12 @@ public class SchoolController {
     public boolean validateSchool1(HttpServletRequest request) {
         try {
             String school = request.getParameter("schoolName");
-            school = new String(school.getBytes("ISO-8859-1"), "UTF-8");
             if (schoolService.isSchoolExist(school)){
                 return false;
             }else {
                 return true;
             }
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -89,13 +87,12 @@ public class SchoolController {
     public boolean validateSchool2(HttpServletRequest request) {
         try {
             String school = request.getParameter("schoolName");
-            school = new String(school.getBytes("ISO-8859-1"), "UTF-8");
             if (schoolService.isSchoolExist(school)){
                 return true;
             }else {
                 return false;
             }
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -215,10 +212,9 @@ public class SchoolController {
     public List<String>  querySchoolByName(HttpServletRequest request) {
         try {
             String schName = request.getParameter("query");
-            schName = new String(schName.getBytes("ISO-8859-1"), "UTF-8");
             List<String> schNames = schoolService.selectSchNameFuzzy(schName);
             return schNames;
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
