@@ -45,7 +45,10 @@ public class UserController {
 
     @RequestMapping("/mainPage")
     public String mainPage(HttpServletRequest request, Model model){
-
+        String basePath = "/resources/images/common";
+        String urlFilePathName = request.getSession().getServletContext().getRealPath(basePath);
+        InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICPATH);
+        FileUtil.putPicToTomcat(picurlProperties, urlFilePathName);
 //        String account = request.getParameter("account");
 //        String password = request.getParameter("password");
 //        User user = new User("admin","123456");

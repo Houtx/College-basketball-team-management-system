@@ -10,15 +10,12 @@
         addAndEdit: function () {
             return 'community/articleAddPage';
         },
-        detailAndEdit: function () {
-            return '/community/communityViewAndEditAction';
+        detail: function () {
+            return 'community/detailPage';
         },
         delete: function () {
             return "/community/communityDelAction";
         },
-        changeState: function () {
-            return "/community/communityStateChangeAction";
-        }
     },
 
     init: function () {
@@ -75,10 +72,15 @@ var TableInit = function () {
                 align: 'center',
                 title: '时间',
                 formatter: function (value, row, index) {
-                    // debugger;
-                    // var date = new Date(row.createTime);
-                    // return date.format("yyyy-MM-dd hh:mm:ss");
-                    return "-";
+                    //debugger;
+                    var date = new Date(row.createTime);
+                    var year = date.getFullYear();
+                    var month = date.getMonth()+1;
+                    var day = date.getDate();
+                    var hour = date.getHours();
+                    var min = date.getMinutes();
+                    var sec = date.getSeconds();
+                    return year+"-"+month+"-"+day+" "+hour+":"+min+":"+sec;
                 },
             }, {
                 align: 'center',
@@ -96,14 +98,14 @@ var TableInit = function () {
                 align: 'center',
                 title: '操作',
                 formatter: function (value, row, index) {
-                    // var editState = $('#communityEditP').val();
-                    // var detail = "<a href=" + communityMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
-                    // var edit = "<a href=" + communityMng.URL.detailAndEdit() + "?schId=" + row.schId + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
-                    // if (editState == 1) {
-                    //     return detail + edit;
-                    // } else {
-                    //     return detail;
-                    // }
+                    var editState = $('#communityEditP').val();
+                    var detail = "<a href=" + communityMng.URL.detail() + "?articleId=" + row.id + "&author="+"><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
+                    var edit = "<a href=" + communityMng.URL.addAndEdit() + "?articleId=" + row.id + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
+                    if (editState == 1) {
+                        return detail + edit;
+                    } else {
+                        return detail;
+                    }
                 },
             },]
         });
@@ -180,7 +182,7 @@ var ButtonInit = function () {
                 selectCommunity.state = 0;
                 select.push(selectCommunity);
             }
-            debugger;
+            //debugger;
             Ewin.confirm({message: "确认要禁用选择的学校吗？"}).on(function (e) {
                 if (!e) {
                     return;
@@ -192,7 +194,7 @@ var ButtonInit = function () {
                     contentType: "application/json;charset=utf-8",
                     data: JSON.stringify(select),
                     success: function (data, status) {
-                        debugger;
+                        //debugger;
                         if (data.success) {
                             toastr.success('禁用成功');
                             $("#tb_community").bootstrapTable('refresh');

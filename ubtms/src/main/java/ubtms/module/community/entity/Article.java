@@ -1,6 +1,9 @@
 package ubtms.module.community.entity;
 
+import ubtms.module.community.dto.CommentDto;
+
 import java.util.Date;
+import java.util.List;
 
 public class Article {
     private Integer id;
@@ -12,6 +15,16 @@ public class Article {
     private Integer userId;
 
     private String content;
+
+    private List<CommentDto> commentDtos;
+
+    public List<CommentDto> getCommentDtos() {
+        return commentDtos;
+    }
+
+    public void setCommentDtos(List<CommentDto> commentDtos) {
+        this.commentDtos = commentDtos;
+    }
 
     public Integer getId() {
         return id;
@@ -52,4 +65,5 @@ public class Article {
     public void setContent(String content) {
         this.content = content;
     }
+
 }

@@ -1,8 +1,8 @@
 //存放主要交互逻辑的js代码
 // javascript 模块化(package.类.方法)
 var articleDetail = {
-    editor: null,
-
+    editor:null,
+    
     URL: {
         parent: function () {
             return "community/communityMngPage";
@@ -12,100 +12,40 @@ var articleDetail = {
         },
         edit: function () {
             return "community/articleEditAction";
-        },
-        saveComment: function () {
-            return "community/commentSaveAction";
-        },
-        saveReply: function () {
-            return "community/replySaveAction";
-        },
+        }
     },
 
     articleOp: {
-        replyComment: function (object) {
-            var jqObject = $(object);
-            var commentId = jqObject.prev().val();
-            $('#commentId').val(commentId);
-            var parent = jqObject.parent().next();
-            if (parent.next().length != 0) {
-                parent.next().remove();
-                $('#commonId').val("");
-                return;
-            }
-            var divId = "comment" + commentId + "Div";
-            var editorId = "comment" + commentId + "Editor";
-            debugger;
-            parent.after("<div style='margin-top: 20px' id=" + divId + "><div id=" + editorId + " style='height: 120px;'></div><div style='margin-top: 10px' class='row'><div class='col-xs-offset-11 col-xs-1'><input onclick='articleDetail.articleOp.sendReply(\"" +divId+"\",\""+ editorId + "\")' style='width: 70px' type='button' class='btn btn-primary' value='发送'></div></div></div>");
-            var editor = new wangEditor(editorId);
-            editor.config.menus = [
-                'emotion'
-            ];
-            editor.create();
-            var children = parent.parent().children();
-            var personMsgDom = children[0];
-            var personName = "@" + personMsgDom.children[1].innerText + "：";
-            editor.$txt.text(personName);
-        },
-        sendReply: function (divId,editorId) {
-            debugger;
-            var content = $('#' + editorId).html();
-            var id = $('#commentId').val();
-            var reply = new Object();
-            reply.content = content;
-            reply.commentId = id;
-            $.ajax({
-                type: "post",
-                url: articleDetail.URL.saveReply(),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                data: JSON.stringify(reply),
-                success: function(data, status) {
-                    if (data.success) {
-                        $('#' + divId).remove();
-                        //toastr.success(data.msg);
-                    } else {
-                        toastr.error(data.msg);
-                    }
-                }
-            });
-        },
         init: function () {
-            //articleDetail.articleOp.setFormValidator();
+            articleDetail.articleOp.setFormValidator();
             articleDetail.articleOp.setEditor();
             //var articleType = $('#opType').val();
             myToastr.init();
         },
 
         setEditor: function () {
-            articleDetail.editor = new wangEditor('myComment');
-            articleDetail.editor.config.menus = [
-                'emotion'
-            ];
-            articleDetail.editor.create();
-        },
-
-        sendComment: function () {
-            var content = articleDetail.editor.$txt.html();
-            if (content == "<p><br></p>") {
-                return;
-            }
-            var comment = new Object();
-            comment.content = content;
-            comment.articleId = $('#articleId').val();
-            $.ajax({
-                type: "post",
-                url: articleDetail.URL.saveComment(),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                data: JSON.stringify(comment),
-                success: function (data, status) {
-                    if (data.success) {
-                        toastr.success(data.msg);
-                    } else {
-                        toastr.error(data.msg);
-                    }
+            articleDetail.editor = new wangEditor('editor');
+            /*     仅仅想移除某几个菜单，例如想移除『插入代码』和『全屏』菜单：
+             其中的 wangEditor.config.menus 可获取默认情况下的菜单配置*/
+            articleDetail.editor .config.menus = $.map(wangEditor.config.menus, function (item, key) {
+                articleDetail.editor .config.uploadImgUrl = 'community/imgUpload';
+                //取消网络url上传图片
+                articleDetail.editor .config.hideLinkImg = true;
+                if (item === 'source') {
+                    return null;
                 }
+                if (item === 'video') {
+                    return null;
+                }
+                if (item === 'location') {
+                    return null;
+                }
+                if (item === 'insertcode') {
+                    return null;
+                }
+                return item;
             });
+            articleDetail.editor .create();
         },
 
         setFormValidator: function () {
@@ -160,7 +100,7 @@ var articleDetail = {
             //     url = articleDetail.URL.add();
             // }
 
-            // $('#btnExpress').attr('disabled', true);
+           // $('#btnExpress').attr('disabled', true);
             var article = new Object();
             article.title = $('#articleTitle').val();
             article.content = content;
@@ -172,6 +112,7 @@ var articleDetail = {
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify(article),
                 success: function (data, status) {
+                    debugger;
                     if (data.success) {
                         toastr.success(data.msg);
                         articleDetail.articleOp.successBack();
@@ -179,7 +120,9 @@ var articleDetail = {
                         toastr.error(data.msg);
                     }
                 }
+
             });
+
 
 
             // $.post(url, $('#articleForm').serialize(), function (result) {
@@ -197,9 +140,27 @@ var articleDetail = {
             // }, 'json');
         },
 
+        handleDetail: function () {
+            $('#title').html("&nbsp;帖子管理&nbsp;&nbsp;>&nbsp;&nbsp;帖子详情");
+            $('#btnSave').hide();
+            $('#file').attr('disabled', true);
+            $('#articleName').attr('disabled', true);
+            $('#introduction').attr('disabled', true);
+            var editState = $('#articleEditP').val();
+            // editState=0;
+            // debugger;
+            if (editState == 1) {
+                $('#btnEdit').show();
+            }
+        },
+
+        handleEdit: function () {
+            $('#title').html("&nbsp;帖子管理&nbsp;&nbsp;>&nbsp;&nbsp;修改帖子");
+            $('#articleName').attr('disabled', true);
+        },
 
     }
-};
+}
 
 $(function () {
     articleDetail.articleOp.init();

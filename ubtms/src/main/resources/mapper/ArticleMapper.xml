@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="ubtms.module.community.dao.ArticleMapper">
+    <resultMap id="articleResultMap" type="ubtms.module.community.entity.Article">
+        <id column="article_id" property="id" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="article_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="article_content" property="content" jdbcType="LONGVARCHAR"/>
+        <collection property="commentDtos" resultMap="commentDtosMap"/>
+    </resultMap>
+
+    <resultMap id="commentDtosMap" type="ubtms.module.community.dto.CommentDto">
+        <id column="comment_id" property="id" jdbcType="INTEGER"/>
+        <result column="comment_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="comment_content" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="head_pic" property="headPic" jdbcType="LONGVARCHAR"/>
+        <result column="comment_username" property="userName" jdbcType="VARCHAR"/>
+        <collection property="replyDtos" resultMap="replyDtosMap"/>
+    </resultMap>
+
+    <resultMap id="replyDtosMap" type="ubtms.module.community.dto.ReplyDto">
+        <id column="reply_id" property="id" jdbcType="INTEGER"/>
+        <result column="reply_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="reply_content" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="reply_username" property="opUserName" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <resultMap id="BaseResultMap" type="ubtms.module.community.entity.Article">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
@@ -115,13 +140,38 @@
             </if>
         </if>
     </select>
-    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
-        from article
-        where id = #{id,jdbcType=INTEGER}
+    <!--<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--,-->
+    <!--<include refid="Blob_Column_List"/>-->
+    <!--from article-->
+    <!--where id = #{id,jdbcType=INTEGER}-->
+    <!--</select>-->
+
+    <select id="selectByPrimaryKey" resultMap="articleResultMap">
+        SELECT
+        `comment`.id AS comment_id,
+        `comment`.create_time AS comment_create_time,
+        `comment`.content AS comment_content,
+        article.id AS article_id,
+        article.title,
+        article.create_time AS article_create_time,
+        article.content AS article_content,
+        article.user_id,
+        reply.id AS reply_id,
+        reply.create_time AS reply_create_time,
+        reply.content AS reply_content ,
+        reply_user.real_name AS reply_username,
+        comment_user.real_name AS comment_username,
+        comment_user.head_pic AS head_pic
+        FROM
+        article
+        LEFT JOIN `comment` ON `comment`.article_id = article.id
+        LEFT JOIN `user` comment_user ON comment_user.id = `comment`.user_id
+        LEFT JOIN reply ON reply.comment_id = `comment`.id
+        LEFT JOIN `user` reply_user ON reply.user_id = reply_user.id
+        WHERE article.id = #{id}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from article

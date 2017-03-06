@@ -75,6 +75,30 @@ public class FileUtil {
         copyFile(new File(getFilePath),new File(saveFilePath));
     }
 
+    //把本地图片上传到服务器
+    public static void putPicToTomcat(InputStream picurlProperties,String tomcatDir) {
+        String localDir="";
+        try {
+            Properties props = new Properties();
+            InputStream in = picurlProperties;
+            props.load(in);
+            in.close();
+            localDir = props.getProperty("savePicUrl");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        File localFileDir = new File(localDir);
+        File tomcatFileDir = new File(tomcatDir);
+
+        String[] files = localFileDir.list();
+        for (String cFile : files) {
+            File srcFile = new File(localFileDir, cFile);
+            File destFile = new File(tomcatFileDir, cFile);
+            copyFile(srcFile,destFile);
+        }
+    }
+
     public static void copyFile(File file1, File file2){
         FileOutputStream fileOutputStream = null;
         InputStream inputStream = null;

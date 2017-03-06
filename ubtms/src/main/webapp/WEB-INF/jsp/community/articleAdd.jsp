@@ -79,6 +79,6 @@
 <%@ include file="../common/detail_footer.jsp" %>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script type="text/javascript" src="resources/lib/wangEditor.min.js"></script>
-<script type="text/javascript" src="resources/js/community/articleDetail.js"></script>
+<script type="text/javascript" src="resources/js/community/articleAddAndEdit.js"></script>
 
 </html>

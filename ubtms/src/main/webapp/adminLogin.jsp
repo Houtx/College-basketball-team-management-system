@@ -51,7 +51,6 @@
 <%@ include file="./WEB-INF/jsp/common/detail_footer.jsp" %>
 <script>
     function adminBtnLogin() {
-        debugger;
         if (!$("#loginForm").valid()) {
             return;
         }
@@ -67,11 +66,8 @@
             success: function (data) {
                 debugger;
                 if (data.success) {
-                    toastr.success(data.msg);
-                    setTimeout(function () {
-                        window.document.location = "user/mainPage";
-                    },800);
-
+                    //toastr.success(data.msg);
+                    window.document.location = "user/mainPage";
                 } else {
                     toastr.error(data.msg);
                 }

@@ -1,5 +1,7 @@
 package ubtms.module.community.entity;
 
+import ubtms.module.user.entity.User;
+
 import java.util.Date;
 
 public class Comment {

@@ -23,6 +23,12 @@ public class ArticleMapperTest {
     private ArticleMapper articleMapper;
 
     @Test
+    public void selectByExample(){
+        Article article = articleMapper.selectByPrimaryKey(6);
+        //System.out.println(article);
+    }
+
+    @Test
     public void selectWithLimit() throws Exception {
         ArticleLimitObject<Article> articleArticleLimitObject = new ArticleLimitObject<Article>();
         articleArticleLimitObject.setOffset(0);

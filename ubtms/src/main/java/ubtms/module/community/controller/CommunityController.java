@@ -1,36 +1,36 @@
 package ubtms.module.community.controller;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ubtms.basic.dto.MngResult;
-import ubtms.basic.entity.LimitObjet;
 import ubtms.basic.util.PermissionUtil;
 import ubtms.module.community.dto.ArticleDto;
 import ubtms.module.community.entity.Article;
 import ubtms.module.community.entity.ArticleLimitObject;
+import ubtms.module.community.entity.Comment;
+import ubtms.module.community.entity.Reply;
 import ubtms.module.community.service.CommunityService;
 import ubtms.module.role.entity.Menu;
-import ubtms.module.school.entity.School;
-import ubtms.module.user.entity.User;
 import ubtms.module.user.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 /**
- * Created by jinzhany on 2017/1/10.
+ * Created by jinzhany on 2017/3/1.
  */
 @Controller
 @RequestMapping("/community")
@@ -41,13 +41,12 @@ public class CommunityController {
     private UserService userService;
 
     @RequestMapping("/articleAddPage")
-    public String articleAddPage(){
-        System.out.println("in");
+    public String articleAddPage() {
         return "/community/articleAdd";
     }
 
     @RequestMapping("/communityMngPage")
-    public String getCommunityMngPage(HttpServletRequest request){
+    public String getCommunityMngPage(HttpServletRequest request) {
         if (request.getSession().getAttribute("communityAddP") == null) {
             List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
             int[] perssions = PermissionUtil.getPermission(menus, "球队动态");
@@ -59,12 +58,23 @@ public class CommunityController {
         return "/community/communityMng";
     }
 
+    @RequestMapping("/detailPage")
+    public String getArticle(HttpServletRequest httpServletRequest, Model model) {
+        String id = httpServletRequest.getParameter("articleId");
+        String author = httpServletRequest.getParameter("author");
+
+        Article article = communityService.getArticleById(id);
+        model.addAttribute("articleDetail",article);
+        model.addAttribute("author",author);
+
+        return "/community/articleDetail";
+    }
 
     @RequestMapping("/articleGetAction")
     @ResponseBody
-    public MngResult<List<ArticleDto>> getArticles(int limit, int offset, String schoolName,String title) {
+    public MngResult<List<ArticleDto>> getArticles(int limit, int offset, String schoolName, String title) {
         Article article = new Article();
-        ArticleLimitObject<Article> articleLimitObject = new ArticleLimitObject<Article>(article,offset,limit);
+        ArticleLimitObject<Article> articleLimitObject = new ArticleLimitObject<Article>(article, offset, limit);
         try {
             if (!title.isEmpty()) {
                 article.setTitle(title);
@@ -85,25 +95,57 @@ public class CommunityController {
 
     @RequestMapping("/articleAddAction")
     @ResponseBody
-    public Map<String,Object> articleAdd(@RequestBody Article article,HttpServletRequest request){
-        System.out.println(article);
+    public Map<String, Object> articleAdd(@RequestBody Article article, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
             String userAccount = (String) request.getSession().getAttribute("loginUser");
-            communityService.svaeArticle(article,userAccount);
+            communityService.saveArticle(article, userAccount);
             map.put("success", true);
-            map.put("msg","发表成功");
+            map.put("msg", "发表成功");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("success", false);
-            map.put("msg","系统异常");
+            map.put("msg", "系统异常");
         }
         return map;
     }
-    @RequestMapping("/imgUpload")
-    public void uploadImg(HttpServletRequest request,HttpServletResponse response) {
+
+    @RequestMapping("/replySaveAction")
+    @ResponseBody
+    public Map<String, Object> saveReply(@RequestBody Reply reply, HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<String, Object>();
         try {
-            String path = request.getSession().getServletContext().getRealPath("/images/upload");
+            communityService.saveReply(reply,(String)request.getSession().getAttribute("loginUser"));
+            map.put("success", true);
+            map.put("msg", "发送成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("msg", "系统异常，发送失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("/commentSaveAction")
+    @ResponseBody
+    public Map<String, Object> saveComment(@RequestBody Comment comment,HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            communityService.saveComment(comment,(String)request.getSession().getAttribute("loginUser"));
+            map.put("success", true);
+            map.put("msg", "发送成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("msg", "系统异常，发送失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("/imgUpload")
+    public void uploadImg(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String path = request.getSession().getServletContext().getRealPath("/resources/images/common");
             File file = new File(path);
             if (!file.exists())
                 file.mkdirs();
@@ -115,7 +157,7 @@ public class CommunityController {
             sfu.setSizeMax(1024 * 1024); // 限制文件大小
             List<FileItem> fileItems = sfu.parseRequest(request); // 解码请求
             for (FileItem fi : fileItems) {
-                fileName = UUID.randomUUID()+fi.getName().substring(fi.getName().lastIndexOf("."),fi.getName().length());
+                fileName = UUID.randomUUID() + fi.getName().substring(fi.getName().lastIndexOf("."), fi.getName().length());
                 fi.write(new File(path, fileName));
             }
             //获取图片url地址
