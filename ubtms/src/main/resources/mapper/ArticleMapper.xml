@@ -148,8 +148,7 @@
     <!--from article-->
     <!--where id = #{id,jdbcType=INTEGER}-->
     <!--</select>-->
-
-    <select id="selectByPrimaryKey" resultMap="articleResultMap">
+    <select id="selectWithCommentByPrimaryKey" resultMap="articleResultMap">
         SELECT
         `comment`.id AS comment_id,
         `comment`.create_time AS comment_create_time,
@@ -171,7 +170,10 @@
         LEFT JOIN `user` comment_user ON comment_user.id = `comment`.user_id
         LEFT JOIN reply ON reply.comment_id = `comment`.id
         LEFT JOIN `user` reply_user ON reply.user_id = reply_user.id
-        WHERE article.id = #{id}
+        WHERE article.id = #{id} ORDER BY `comment`.create_time DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+    <select id="selectByPrimaryKey" resultType="ubtms.module.community.entity.Article">
+        select * from article WHERE id = #{id};
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from article
@@ -273,7 +275,7 @@
                 AND title LIKE "%"#{data.title}"%"
             </if>
         </where>
-        LIMIT #{limit} OFFSET #{offset}
+        ORDER BY article.create_time DESC LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <update id="updateByExampleSelective" parameterType="map">
@@ -350,7 +352,8 @@
     update article
     set title = #{title,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      user_id = #{userId,jdbcType=INTEGER}
+      user_id = #{userId,jdbcType=INTEGER},
+      content = #{content}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

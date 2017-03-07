@@ -192,14 +192,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> selectByUserQueryMng(UserQuery userQuery) {
+        return userMapper.selectByUserQueryMng(userQuery);
+    }
+
+    @Override
     public List<User> selectBySchoolName(String schoolName) {
         return null;
     }
 
-
     @Override
-    public int countWithRelative(User user) {
-        return userMapper.countWithRelative(user);
+    public int countUserMng(UserQuery userQuery) {
+        return userMapper.countByUserQueryMng(userQuery);
     }
 
     @Override

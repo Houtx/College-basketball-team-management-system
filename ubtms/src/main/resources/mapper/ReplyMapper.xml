@@ -131,9 +131,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="ubtms.module.community.entity.Reply" >
-    insert into reply (id, create_time, comment_id, 
-      user_id, content)
-    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{commentId,jdbcType=INTEGER}, 
+    insert into reply (create_time, comment_id,user_id,content)
+    values (#{createTime,jdbcType=TIMESTAMP}, #{commentId,jdbcType=INTEGER},
       #{userId,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="ubtms.module.community.entity.Reply" >

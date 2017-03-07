@@ -2,10 +2,7 @@ package ubtms.module.user.service;
 
 import ubtms.basic.entity.LimitObjet;
 import ubtms.module.user.dto.PlayerDataDto;
-import ubtms.module.user.entity.PlayerData;
-import ubtms.module.user.entity.User;
-import ubtms.module.user.entity.UserExample;
-import ubtms.module.user.entity.UserQuery;
+import ubtms.module.user.entity.*;
 
 import java.util.List;
 import java.util.Map;
@@ -18,8 +15,9 @@ public interface UserService {
     List<User> select(User user);
     List<User> selectWithRelative(LimitObjet<User> user);
     List<User> selectByUserQuery(UserQuery userQuery);
+    List<UserDto> selectByUserQueryMng(UserQuery userQuery);
     List<User> selectBySchoolName(String schoolName);
-    int countWithRelative(User user);
+    int countUserMng(UserQuery userQuery);
     List<User> selectByExample(UserExample userExample);
     int countByExample(UserExample userExample);
     int updateByPrimaryKey(List<User> users);

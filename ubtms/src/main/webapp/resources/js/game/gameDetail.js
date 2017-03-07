@@ -20,7 +20,7 @@ var gameDetail = {
     gameAdd: {
         init: function () {
             $('#datetimepickerDiv').datetimepicker({
-                format: 'YYYY-MM-DD hh:mm',//日期格式化，只显示日期
+                format: 'YYYY-MM-DD HH:mm',//日期格式化，只显示日期
             });
             schoolNameUtil.init('schoolName');
             gameDetail.gameAdd.setFormValidator();

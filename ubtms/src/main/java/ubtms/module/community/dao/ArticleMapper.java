@@ -12,6 +12,7 @@ public interface ArticleMapper {
    int countWithLimit(ArticleLimitObject articleLimitObject);
 
     List<ArticleDto> selectWithLimit(ArticleLimitObject articleLimitObject);
+
     int countByExample(ArticleExample example);
 
     int deleteByExample(ArticleExample example);
@@ -27,6 +28,8 @@ public interface ArticleMapper {
     List<Article> selectByExample(ArticleExample example);
 
     Article selectByPrimaryKey(Integer id);
+
+    Article selectWithCommentByPrimaryKey(@Param("id")Integer id,@Param("limit")Integer limit,@Param("offset")Integer offset);
 
     int updateByExampleSelective(@Param("record") Article record, @Param("example") ArticleExample example);
 

@@ -37,30 +37,39 @@
             <div class="panel-body">
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:15px">
-                        <label class="control-label col-sm-1" for="searchUserName">校名</label>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="searchUserName" />
+                        <label class="control-label col-sm-1" for="searchSchool">学校</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="searchSchool" />
                         </div>
-
-                        <label class="control-label col-sm-1" for="searchSchoolName">姓名</label>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="searchSchoolName" />
-                        </div>
-                        <label class="control-label col-sm-1" for="searchSchoolSate">状态</label>
-
-                        <div class="col-sm-2">
-                            <select id="searchSchoolSate" class="form-control">
-                                <option value="2">全部</option>
+                        <label class="control-label col-sm-1" for="searchRole">角色</label>
+                        <div class="col-sm-3">
+                            <select id="searchRole" class="form-control">
+                                <option value="-1">全部</option>
+                                <option value="球员">球员</option>
+                                <option value="教练">教练</option>
+                                <option value="领队">领队</option>
+                            </select>                        </div>
+                        <label class="control-label col-sm-1" for="searchSate">状态</label>
+                        <div class="col-sm-3">
+                            <select id="searchSate" class="form-control">
+                                <option value="-1">全部</option>
                                 <option value="1">正常</option>
                                 <option value="0">禁用</option>
                             </select>
                         </div>
 
-                        <div class="col-sm-3" style="text-align:left;">
-                            <input type="button" style="margin-left:50px"  class="btn btn-primary" onclick="userMng.serachClick()" value="查询"/>
+                        <label class="control-label col-sm-1" for="searchUserName" style="margin-top: 20px">姓名</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="searchUserName" style="margin-top: 20px"/>
+                        </div>
+
+                        <label class="control-label col-sm-1" style="margin-top: 20px"></label>
+                        <div class="col-sm-3" style="margin-top: 20px">
+                            <input type="button"  class="btn btn-primary" onclick="userMng.serachClick()" value="查询"/>
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
 

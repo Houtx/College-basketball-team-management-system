@@ -34,6 +34,7 @@
     <div class="row mngMainBody">
         <div class="panel panel-default mngSearch">
             <div class="panel-body">
+
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:15px">
                         <label class="control-label col-sm-1" for="searchSchoolName">校名</label>
@@ -48,9 +49,11 @@
                         <div class="col-sm-2">
                             <input type="text" class="form-control" id="state" />
                         </div>
+
                         <div class="col-sm-1">
                             <input type="text" style="visibility: hidden" value="xx" class="form-control"  />
                         </div>
+
                         <label class="control-label col-sm-1" for="startTime" style="margin-top: 20px">时间</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="startTime" style="margin-top: 20px"/>

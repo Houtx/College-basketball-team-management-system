@@ -27,7 +27,7 @@ public class GameDto {
         this.mySchoolName = mySchool.getSchName();
         this.mySchoolScore = teamScore[0];
         this.rivalScore = teamScore[1];
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm");
         this.startTime = sdf.format(game.getStartTime());
         Date today = new Date();
         if (today.compareTo(game.getStartTime())<0) {

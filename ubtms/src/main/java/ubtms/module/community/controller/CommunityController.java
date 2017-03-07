@@ -24,10 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by jinzhany on 2017/3/1.
@@ -40,9 +37,17 @@ public class CommunityController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/articleAddPage")
-    public String articleAddPage() {
-        return "/community/articleAdd";
+    @RequestMapping("/articleAddAndEditPage")
+    public String articleAddAndEditPage(HttpServletRequest request,Model model) {
+        String opType = request.getParameter("opType");
+        if (opType.equals("1")){
+            String id = request.getParameter("articleId");
+            Article article = communityService.getArticleById(id);
+            article.setCommentDtos(null);
+            model.addAttribute("articleDetail", article);
+        }
+        model.addAttribute("opType", opType);
+        return "/community/articleAddAndEdit";
     }
 
     @RequestMapping("/communityMngPage")
@@ -60,13 +65,20 @@ public class CommunityController {
 
     @RequestMapping("/detailPage")
     public String getArticle(HttpServletRequest httpServletRequest, Model model) {
-        String id = httpServletRequest.getParameter("articleId");
+        String articleId = httpServletRequest.getParameter("articleId");
         String author = httpServletRequest.getParameter("author");
-
-        Article article = communityService.getArticleById(id);
+        int limit = 1000;
+        int offset = Integer.valueOf(httpServletRequest.getParameter("offset"));
+        Article article = communityService.getArticleWithCommentById(articleId,limit,offset);
+        int commentSum = communityService.countComment(articleId);
+        if (offset + limit >= commentSum) {
+            model.addAttribute("moreFlag",0);
+        }else{
+            model.addAttribute("moreFlag",1);
+            model.addAttribute("offset",offset+limit);
+        }
         model.addAttribute("articleDetail",article);
         model.addAttribute("author",author);
-
         return "/community/articleDetail";
     }
 
@@ -102,6 +114,23 @@ public class CommunityController {
             communityService.saveArticle(article, userAccount);
             map.put("success", true);
             map.put("msg", "发表成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("msg", "系统异常");
+        }
+        return map;
+    }
+
+    @RequestMapping("/articleEditAction")
+    @ResponseBody
+    public Map<String, Object> articleEdit(@RequestBody Article article, HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            String userAccount = (String) request.getSession().getAttribute("loginUser");
+            communityService.updateArticle(article, userAccount);
+            map.put("success", true);
+            map.put("msg", "更新成功");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("success", false);
@@ -161,7 +190,7 @@ public class CommunityController {
                 fi.write(new File(path, fileName));
             }
             //获取图片url地址
-            String imgUrl = "http://localhost:8080/images/upload/" + fileName;
+            String imgUrl = "http://localhost:8080/resources/images/common/" + fileName;
             response.setContentType("text/text;charset=utf-8");
             PrintWriter out = null;
             out = response.getWriter();
@@ -171,6 +200,20 @@ public class CommunityController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @RequestMapping("/articleDelAction")
+    @ResponseBody
+    private Map<String, Object> delArticles(@RequestBody List<Article> articles) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            communityService.delArticle(articles);
+            map.put("success", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success", false);
+        }
+        return map;
     }
 
 }

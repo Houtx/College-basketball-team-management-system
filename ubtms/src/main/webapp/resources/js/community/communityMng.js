@@ -8,13 +8,13 @@
             return 'community/articleGetAction';
         },
         addAndEdit: function () {
-            return 'community/articleAddPage';
+            return 'community/articleAddAndEditPage';
         },
         detail: function () {
             return 'community/detailPage';
         },
         delete: function () {
-            return "/community/communityDelAction";
+            return "community/articleDelAction";
         },
     },
 
@@ -99,8 +99,8 @@ var TableInit = function () {
                 title: '操作',
                 formatter: function (value, row, index) {
                     var editState = $('#communityEditP').val();
-                    var detail = "<a href=" + communityMng.URL.detail() + "?articleId=" + row.id + "&author="+"><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
-                    var edit = "<a href=" + communityMng.URL.addAndEdit() + "?articleId=" + row.id + "&type=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
+                    var detail = "<a href=" + communityMng.URL.detail() + "?articleId=" + row.id + "&author="+row.author+"&offset=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
+                    var edit = "<a href=" + communityMng.URL.addAndEdit() + "?articleId=" + row.id + "&opType=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
                     if (editState == 1) {
                         return detail + edit;
                     } else {
@@ -130,7 +130,7 @@ var ButtonInit = function () {
 
     oInit.Init = function () {
         $("#btn_add").click(function () {
-            window.document.location = communityMng.URL.addAndEdit();
+            window.document.location = communityMng.URL.addAndEdit()+"?opType=2";
         });
 
         $("#btn_delete").click(function () {
@@ -141,12 +141,12 @@ var ButtonInit = function () {
             }
             var select = new Array();
             for (var i = 0; i < arrselections.length; i++) {
-                var selectCommunity = new Object();
-                selectCommunity.schId = arrselections[i].schId;
-                select.push(selectCommunity);
+                var selectArticle = new Object();
+                selectArticle.id = arrselections[i].id;
+                select.push(selectArticle);
             }
 
-            Ewin.confirm({message: "确认要删除选择的学校吗？"}).on(function (e) {
+            Ewin.confirm({message: "确认要删除选择的帖子吗？"}).on(function (e) {
                 if (!e) {
                     return;
                 }
@@ -169,73 +169,6 @@ var ButtonInit = function () {
             });
         });
 
-        $("#btn_disable").click(function () {
-            var arrselections = $("#tb_community").bootstrapTable('getSelections');
-            if (arrselections.length <= 0) {
-                toastr.warning('请选择至少一条数据');
-                return;
-            }
-            var select = new Array();
-            for (var i = 0; i < arrselections.length; i++) {
-                var selectCommunity = new Object();
-                selectCommunity.schId = arrselections[i].schId;
-                selectCommunity.state = 0;
-                select.push(selectCommunity);
-            }
-            //debugger;
-            Ewin.confirm({message: "确认要禁用选择的学校吗？"}).on(function (e) {
-                if (!e) {
-                    return;
-                }
-                $.ajax({
-                    type: "post",
-                    url: communityMng.URL.changeState(),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    data: JSON.stringify(select),
-                    success: function (data, status) {
-                        //debugger;
-                        if (data.success) {
-                            toastr.success('禁用成功');
-                            $("#tb_community").bootstrapTable('refresh');
-                        } else {
-                            toastr.error('禁用失败');
-                        }
-                    }
-                });
-            });
-        });
-
-
-        $("#btn_enable").click(function () {
-            var arrselections = $("#tb_community").bootstrapTable('getSelections');
-            if (arrselections.length <= 0) {
-                toastr.warning('请选择至少一条数据');
-                return;
-            }
-            var select = new Array();
-            for (var i = 0; i < arrselections.length; i++) {
-                var selectCommunity = new Object();
-                selectCommunity.schId = arrselections[i].schId;
-                selectCommunity.state = 1;
-                select.push(selectCommunity);
-            }
-            $.ajax({
-                type: "post",
-                url: communityMng.URL.changeState(),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                data: JSON.stringify(select),
-                success: function (data, status) {
-                    if (data.success) {
-                        toastr.success('启用成功');
-                        $("#tb_community").bootstrapTable('refresh');
-                    } else {
-                        toastr.error('启用失败');
-                    }
-                }
-            });
-        });
     };
     return oInit;
 };

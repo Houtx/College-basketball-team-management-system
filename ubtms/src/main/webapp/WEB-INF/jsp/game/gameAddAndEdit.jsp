@@ -56,7 +56,7 @@
                     <label for="startTime" class="col-sm-2 control-label"><span class="requiredMsg">*</span>开场时间</label>
                     <div class='col-sm-10'>
                         <div class='input-group date' id="datetimepickerDiv">
-                            <input id="startTime" name="startTime" type='text' value="<fmt:formatDate value="${gameDetail.startTime}" pattern="yyyy-MM-dd hh:mm"/>" class="form-control"/>
+                            <input id="startTime" name="startTime" type='text' value="<fmt:formatDate value="${gameDetail.startTime}" pattern="yyyy-MM-dd HH:mm"/>" class="form-control"/>
                             <span id="datetimepicker" class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>

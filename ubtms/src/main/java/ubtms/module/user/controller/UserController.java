@@ -19,6 +19,7 @@ import ubtms.module.school.service.SchoolService;
 import ubtms.module.user.entity.User;
 import ubtms.module.user.entity.UserDto;
 import ubtms.module.user.entity.UserExample;
+import ubtms.module.user.entity.UserQuery;
 import ubtms.module.user.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -142,57 +143,25 @@ public class UserController {
 
     @RequestMapping("/userGetAction")
     @ResponseBody
-    public MngResult<List<User>> getSchools(int limit, int offset, String userName, String schoolName) {
-        UserExample userExample = new UserExample();
-        userExample.setLimit(limit);
-        userExample.setOffset(offset);
-        int total;
-        List<User> users = new ArrayList<User>();
-        try {
-            School school = schoolService.selectOne(new School(schoolName));
-            if (!schoolName.isEmpty() && school==null) {
-                return new MngResult<List<User>>(true, new ArrayList<User>(),0);
-            }
-            //学校存在，或者操作者选择了全部
-            int schId=0;
-            if (school != null) {//选择了一所学校
-                schId=school.getSchId();
-                Role role = new Role();
-                role.setSchoolId(schId);
-                User user = new User();
-                user.setRole(role);
-                if (!userName.isEmpty()) {//查询一个人
-                    user.setRealName(userName);
-                }
-                LimitObjet<User> limitObjet = new LimitObjet<>(user,offset,limit);
-                users = userService.selectWithRelative(limitObjet);
-                total = userService.countWithRelative(user);
-            }else{//操作者选择了全部学校
-                if (userName.isEmpty()) {
-                    users = userService.selectByExample(userExample);
-                }else {
-                    userExample.createCriteria().andRealNameEqualTo(userName);
-                    users = userService.selectByExample(userExample);
-                }
-                userExample.setOffset(null);
-                userExample.setLimit(null);
-                total = userService.countByExample(userExample);
-            }
-            //List<User> Users = new ArrayList<User>();
-            
-//            for (User user:users){
-//                User User = new User(user);
-//                Users.add(User);
-//            }
-            
-            MngResult<List<User>> result = new MngResult<List<User>>(true, users, total);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
+    public MngResult<List<UserDto>> getSchools(int limit, int offset, String userName, String schoolName,String state,String role) {
+        UserQuery userQuery = new UserQuery();
+        if (!userName.isEmpty()) {
+            userQuery.setRealName(userName);
         }
-        return null;
+        if (!schoolName.isEmpty()) {
+            userQuery.setSchoolName(schoolName);
+        }
+        if (!state.equals("-1")) {
+            userQuery.setState(new Byte(state));
+        }
+        if (!role.equals("全部")) {
+            userQuery.setRealName(role);
+        }
+        List<UserDto> userDtos = userService.selectByUserQueryMng(userQuery);
+        int total = userService.countUserMng(userQuery);
+        MngResult<List<UserDto>> result = new MngResult<List<UserDto>>(true, userDtos, total);
+        return result;
     }
-
 
     @RequestMapping(value = "/userStateChangeAction", method = RequestMethod.POST)
     @ResponseBody

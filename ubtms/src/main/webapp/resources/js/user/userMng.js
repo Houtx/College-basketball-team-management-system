@@ -134,7 +134,9 @@ var TableInit = function () {
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
             userName: $('#searchUserName').val(),
-            schoolName: $('#searchSchoolName').val(),
+            schoolName: $('#searchSchool').val(),
+            state: $('#searchSate').val(),
+            role: $('#searchRole').val()
         };
         return temp;
     };

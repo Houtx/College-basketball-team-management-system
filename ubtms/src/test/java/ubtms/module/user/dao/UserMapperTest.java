@@ -9,6 +9,7 @@ import ubtms.module.role.entity.Role;
 import ubtms.module.school.entity.School;
 import ubtms.module.user.dto.PlayerDataDto;
 import ubtms.module.user.entity.User;
+import ubtms.module.user.entity.UserDto;
 import ubtms.module.user.entity.UserQuery;
 
 import javax.annotation.Resource;
@@ -46,17 +47,15 @@ public class UserMapperTest {
 
     @Test
     public void selectWithRelative() throws Exception {
-        //School school = new School(1);
-        Role role = new Role();
-        //role.setSchoolId(1);
-
-        User user = new User();
-        //user.setRealName("哈哈哈");
-        user.setRole(role);
-        LimitObjet<User> limitObjet = new LimitObjet<>(user,1,3);
-
-        System.out.println(userMapper.selectWithRelative(limitObjet));
-        //System.out.println("count:"+userMapper.countWithRelative(user));
+        UserQuery userQuery = new UserQuery();
+        userQuery.setLimit(20);
+        userQuery.setOffset(0);
+        userQuery.setSchoolName("系统");
+        //userQuery.setRealName("1");
+        //userQuery.setState((byte)0);
+        List<UserDto> userDtos = userMapper.selectByUserQueryMng(userQuery);
+        System.out.println(userDtos);
+        System.out.println("**************:"+userMapper.countByUserQueryMng(userQuery));
 
     }
 

@@ -1,8 +1,8 @@
 //存放主要交互逻辑的js代码
 // javascript 模块化(package.类.方法)
 var articleDetail = {
-    editor:null,
-    
+    editor: null,
+
     URL: {
         parent: function () {
             return "community/communityMngPage";
@@ -17,20 +17,22 @@ var articleDetail = {
 
     articleOp: {
         init: function () {
+            var opType = $('#opType').val();
+            if (opType == "1") {
+                articleDetail.articleOp.handleEdit();
+            }
             articleDetail.articleOp.setFormValidator();
             articleDetail.articleOp.setEditor();
-            //var articleType = $('#opType').val();
             myToastr.init();
         },
-
         setEditor: function () {
             articleDetail.editor = new wangEditor('editor');
             /*     仅仅想移除某几个菜单，例如想移除『插入代码』和『全屏』菜单：
              其中的 wangEditor.config.menus 可获取默认情况下的菜单配置*/
-            articleDetail.editor .config.menus = $.map(wangEditor.config.menus, function (item, key) {
-                articleDetail.editor .config.uploadImgUrl = 'community/imgUpload';
+            articleDetail.editor.config.menus = $.map(wangEditor.config.menus, function (item, key) {
+                articleDetail.editor.config.uploadImgUrl = 'community/imgUpload';
                 //取消网络url上传图片
-                articleDetail.editor .config.hideLinkImg = true;
+                articleDetail.editor.config.hideLinkImg = true;
                 if (item === 'source') {
                     return null;
                 }
@@ -45,7 +47,7 @@ var articleDetail = {
                 }
                 return item;
             });
-            articleDetail.editor .create();
+            articleDetail.editor.create();
         },
 
         setFormValidator: function () {
@@ -90,20 +92,21 @@ var articleDetail = {
                 return;
             }
 
-            var url = articleDetail.URL.add();
-
-            // var articleType = $('#opTpe').val();
-            // //判断是否修改帖子
-            // if (articleType == "1") {
-            //     url = articleDetail.URL.edit();
-            // } else {
-            //     url = articleDetail.URL.add();
-            // }
-
-           // $('#btnExpress').attr('disabled', true);
+            var url;
             var article = new Object();
             article.title = $('#articleTitle').val();
             article.content = content;
+
+            var articleType = $('#opType').val();
+            //判断是否修改帖子
+            if (articleType == "1") {
+                url = articleDetail.URL.edit();
+                article.id = $('#articleId').val();
+                $('#btnUpdate').attr('disabled', true);
+            } else {
+                url = articleDetail.URL.add();
+                $('#btnExpress').attr('disabled', true);
+            }
 
             $.ajax({
                 type: "post",
@@ -112,32 +115,21 @@ var articleDetail = {
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify(article),
                 success: function (data, status) {
-                    debugger;
                     if (data.success) {
                         toastr.success(data.msg);
                         articleDetail.articleOp.successBack();
                     } else {
                         toastr.error(data.msg);
+                        if (articleType == "1") {
+                            $('#btnUpdate').attr('disabled', false);
+                        } else {
+                            url = articleDetail.URL.add();
+                            $('#btnExpress').attr('disabled', false);
+                        }
                     }
                 }
 
             });
-
-
-
-            // $.post(url, $('#articleForm').serialize(), function (result) {
-            //     if (result.success) {
-            //         if (articleType == "1") {
-            //             toastr.success('修改成功');
-            //         } else {
-            //             toastr.success('添加成功');
-            //         }
-            //         articleDetail.articleOp.successBack();
-            //     } else {
-            //         toastr.error('添加失败');
-            //         $('#btnSave').attr('disabled', false);
-            //     }
-            // }, 'json');
         },
 
         handleDetail: function () {
@@ -156,7 +148,8 @@ var articleDetail = {
 
         handleEdit: function () {
             $('#title').html("&nbsp;帖子管理&nbsp;&nbsp;>&nbsp;&nbsp;修改帖子");
-            $('#articleName').attr('disabled', true);
+            $('#btnExpress').hide();
+            $('#btnUpdate').show();
         },
 
     }

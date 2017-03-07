@@ -13,9 +13,13 @@ import java.util.List;
  */
 public interface CommunityService {
     int saveArticle(Article article, String userAccount);
+    int delArticle(List<Article> articles);
+    int updateArticle(Article article, String userAccount);
     int saveComment(Comment comment,String userAccount);
     int saveReply(Reply reply, String userAccount);
     int countWithLimit(ArticleLimitObject articleLimitObject);
+    int countComment(String articleId);
     List<ArticleDto> selectWithLimit(ArticleLimitObject articleLimitObject);
+    Article getArticleWithCommentById(String id, int limit, int offset);
     Article getArticleById(String id);
 }

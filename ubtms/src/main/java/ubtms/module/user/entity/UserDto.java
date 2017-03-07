@@ -14,7 +14,7 @@ public class UserDto extends User {
     private String schoolName;
     private String roleName;
 
-
+    public UserDto(){}
     public UserDto(User user){
         RoleService roleService = new RoleServiceImpl();
         SchoolService schoolService = new SchoolServiceImpl();
@@ -38,4 +38,6 @@ public class UserDto extends User {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
+
+
 }

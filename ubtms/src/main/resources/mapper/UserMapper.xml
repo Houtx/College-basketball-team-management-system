@@ -90,9 +90,70 @@
     head_pic
   </sql>
 
+    <select id="countByUserQueryMng" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        `user`
+        INNER JOIN role ON `user`.role_id = role.id
+        INNER JOIN school ON role.school_id = school.sch_id
+        <where>
+            <if test="state!=null">
+                `user`.state = #{state}
+            </if>
+            <if test="schoolName!=null">
+                sch_name LIKE "%"#{schoolName}"%"
+            </if>
+            <if test="roleName!=null">
+                AND role_name LIKE "%"#{roleName}"%"
+            </if>
+            <if test="realName!=null">
+                AND real_name LIKE "%"#{realName}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByUserQueryMng" resultType="ubtms.module.user.entity.UserDto">
+        SELECT
+        school.sch_name,
+        role.role_name,
+        `user`.id,
+        `user`.phone,
+        `user`.`password`,
+        `user`.real_name,
+        `user`.sex,
+        `user`.state,
+        `user`.head_pic,
+        `user`.state,
+        `user`.height,
+        `user`.weight,
+        `user`.grade,
+        `user`.shirt_num,
+        `user`.duty,
+        `user`.role_id
+        FROM
+        `user`
+        INNER JOIN role ON `user`.role_id = role.id
+        INNER JOIN school ON role.school_id = school.sch_id
+        <where>
+            <if test="state!=null">
+                `user`.state = #{state}
+            </if>
+            <if test="schoolName!=null">
+                sch_name LIKE "%"#{schoolName}"%"
+            </if>
+            <if test="roleName!=null">
+                AND role_name LIKE "%"#{roleName}"%"
+            </if>
+            <if test="realName!=null">
+                AND real_name LIKE "%"#{realName}"%"
+            </if>
+        </where>
+        limit #{offset},#{limit}
+    </select>
 
     <select id="selectByUserQuery" resultType="ubtms.module.user.entity.User">
-    SELECT
+        SELECT
         `user`.id,
         `user`.phone,
         `user`.`password`,
@@ -125,7 +186,7 @@
             </if>
         </where>
 
-  </select>
+    </select>
 
     <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
             parameterType="ubtms.module.user.entity.UserExample">
