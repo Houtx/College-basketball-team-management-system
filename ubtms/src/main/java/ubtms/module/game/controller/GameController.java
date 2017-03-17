@@ -1,4 +1,5 @@
 package ubtms.module.game.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import ubtms.module.role.entity.Menu;
 import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
 import ubtms.module.user.dto.PlayerDataDto;
-import ubtms.module.user.entity.PlayerData;
 import ubtms.module.user.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,14 +37,12 @@ public class GameController {
 
     @RequestMapping("/gameMngPage")
     public String getGameMngPage(HttpServletRequest request) {
-        if (request.getSession().getAttribute("gameAddP") == null) {
-            List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
-            int[] perssions = PermissionUtil.getPermission(menus, "赛程管理");
-            request.getSession().setAttribute("gameAddP", perssions[1]);
-            request.getSession().setAttribute("gameDelP", perssions[2]);
-            request.getSession().setAttribute("gameEditP", perssions[3]);
-            request.getSession().setAttribute("gameDetailP", perssions[4]);
-        }
+        List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
+        int[] perssions = PermissionUtil.getPermission(menus, "赛程管理");
+        request.getSession().setAttribute("gameAddP", perssions[1]);
+        request.getSession().setAttribute("gameDelP", perssions[2]);
+        request.getSession().setAttribute("gameEditP", perssions[3]);
+        request.getSession().setAttribute("gameDetailP", perssions[4]);
         return "/game/gameMng";
     }
 
@@ -56,14 +54,29 @@ public class GameController {
         if (opType.equals("1")) {
             Integer gameId = Integer.valueOf(request.getParameter("gameId"));
             Game game = gameService.getById(gameId);
-            String test =schoolService.selectOne(game.getSchoolId()).getSchName();
-            model.addAttribute("mySchoolName",schoolService.selectOne(game.getSchoolId()).getSchName());
-            model.addAttribute("gameDetail",game);
+            String test = schoolService.selectOne(game.getSchoolId()).getSchName();
+            model.addAttribute("mySchoolName", schoolService.selectOne(game.getSchoolId()).getSchName());
+            model.addAttribute("gameDetail", game);
         }
-        model.addAttribute("opType",opType);
+        model.addAttribute("opType", opType);
         return "/game/gameAddAndEdit";
     }
 
+    @RequestMapping("/gameDelAction")
+    @ResponseBody
+    public Map<String, Object> delGame(@RequestBody List<Game> games) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            gameService.delGame(games);
+            map.put("success", true);
+            map.put("msg", "删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("msg", "删除失败");
+        }
+        return map;
+    }
 
     @RequestMapping("/gameMsgAddAndEditAction")
     @ResponseBody
@@ -91,7 +104,7 @@ public class GameController {
                 map.put("success", true);
                 map.put("msg", "更新成功");
             } else {
-                gameService.saveGameMsg(game,schName);
+                gameService.saveGameMsg(game, schName);
                 map.put("success", true);
                 map.put("msg", "添加成功");
             }
@@ -104,7 +117,7 @@ public class GameController {
     }
 
     @RequestMapping("/gameDetailPage")
-    public String getGameDetail(HttpServletRequest request,Model model) {
+    public String getGameDetail(HttpServletRequest request, Model model) {
         String id = request.getParameter("gameId");
         GameExample gameExample = new GameExample();
         gameExample.createCriteria().andIdEqualTo(Integer.valueOf(id));
@@ -112,7 +125,7 @@ public class GameController {
 
         School school = schoolService.selectOne(game.getSchoolId());
         int[] teamScore = userService.getTeamScore(game.getId());
-        GameDto gameDto =  new GameDto(game,school,teamScore);
+        GameDto gameDto = new GameDto(game, school, teamScore);
 
         model.addAttribute("game", gameDto);
         return "/game/gameDetail";
@@ -120,7 +133,7 @@ public class GameController {
 
     @RequestMapping("gameDataGetAction")
     @ResponseBody
-    public List<List<PlayerDataDto>> getGameData(HttpServletRequest request){
+    public List<List<PlayerDataDto>> getGameData(HttpServletRequest request) {
         Integer gameId = Integer.valueOf(request.getParameter("gameId"));
         List<PlayerDataDto> mySchoolplayerDataDtos = userService.getMySchoolPlayerData(gameId);
         List<PlayerDataDto> rivalPlayerDataDtos = userService.getRivalPlayerData(gameId);
@@ -132,7 +145,7 @@ public class GameController {
 
     @RequestMapping("chartDataGetAction")
     @ResponseBody
-    public List<PlayerDataDto> getChartData(HttpServletRequest request){
+    public List<PlayerDataDto> getChartData(HttpServletRequest request) {
         try {
             Integer gameId = Integer.valueOf(request.getParameter("gameId"));
             List<PlayerDataDto> mySchoolplayerDataDtos = userService.getMySchoolPlayerData(gameId);
@@ -152,22 +165,22 @@ public class GameController {
 
     @RequestMapping("gameSchoolDataGetAction")
     @ResponseBody
-    public MngResult<List<PlayerDataDto>> getSchoolGameData(HttpServletRequest request){
+    public MngResult<List<PlayerDataDto>> getSchoolGameData(HttpServletRequest request) {
         Integer gameId = Integer.valueOf(request.getParameter("gameId"));
         List<PlayerDataDto> mySchoolplayerDataDtos = userService.getMySchoolPlayerData(gameId);
         PlayerDataDto sum = new PlayerDataDto(mySchoolplayerDataDtos);
         mySchoolplayerDataDtos.add(sum);
-        return new MngResult<List<PlayerDataDto>>(true,mySchoolplayerDataDtos,mySchoolplayerDataDtos.size());
+        return new MngResult<List<PlayerDataDto>>(true, mySchoolplayerDataDtos, mySchoolplayerDataDtos.size());
     }
 
     @RequestMapping("gameRivalDataGetAction")
     @ResponseBody
-    public MngResult<List<PlayerDataDto>> getRivalGameData(HttpServletRequest request){
+    public MngResult<List<PlayerDataDto>> getRivalGameData(HttpServletRequest request) {
         Integer gameId = Integer.valueOf(request.getParameter("gameId"));
         List<PlayerDataDto> rivalPlayerDataDtos = userService.getRivalPlayerData(gameId);
         PlayerDataDto sum = new PlayerDataDto(rivalPlayerDataDtos);
         rivalPlayerDataDtos.add(sum);
-        return new MngResult<List<PlayerDataDto>>(true,rivalPlayerDataDtos,rivalPlayerDataDtos.size());
+        return new MngResult<List<PlayerDataDto>>(true, rivalPlayerDataDtos, rivalPlayerDataDtos.size());
     }
 
     @RequestMapping("/gameDataEditPage")
@@ -176,7 +189,7 @@ public class GameController {
         GameExample gameExample = new GameExample();
         gameExample.createCriteria().andIdEqualTo(gameId);
         Game game = gameService.selectGameMsgByExample(gameExample).get(0);
-        model.addAttribute("game",game);
+        model.addAttribute("game", game);
         model.addAttribute("school", schoolService.selectOne(game.getSchoolId()).getSchName());
         return "game/gameDataEdit";
     }

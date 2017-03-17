@@ -57,6 +57,7 @@
                 <input id="sexMark"  type="hidden" value="${userDetail.sex}"/>
                 <input id="dutyMark"  type="hidden" value="${userDetail.duty}"/>
                 <input id="userEditP" type="hidden" value="${userEditP}"/>
+                <input id="userType" type="hidden" value="${userType}"/>
                 <input id="headPic"  type="hidden" name="headPic" value="${userDetail.headPic}"/>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">性别</label>
@@ -80,7 +81,7 @@
                             <input onclick="userDetail.userAdd.handleUserTypeChange()" type="radio" name="userType"  value="教练"> 教练
                         </label>
                         <label class="radio-inline">
-                            <input onclick="userDetail.userAdd.handleUserTypeChange()" type="radio" name="userType" value="球队领队"> 球队领队
+                            <input onclick="userDetail.userAdd.handleUserTypeChange()" type="radio" name="userType" value="领队"> 领队
                         </label>
                         <span class="help-block errorMsg" id="account-type-error">&nbsp;</span>
                     </div>
@@ -89,7 +90,7 @@
                 <div class="form-group">
                     <label for="schoolName" class="col-sm-2 control-label"><span class="requiredMsg">*</span>学校</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="schoolName" name="schoolName" data-provide="typeahead">
+                        <input type="text" value="${userSchool}" class="form-control" id="schoolName" name="schoolName" data-provide="typeahead">
                         <span class="help-block errorMsg" id="schoolName-error">&nbsp;</span>
                     </div>
                 </div>
@@ -177,7 +178,8 @@
                         </div>
                     </div>
                 </c:when>
-                <c:when test="${ opType=='0' ||opType=='1' && userType=='1'}">
+
+                <c:when test="${ (opType=='0' || opType=='1') && userType=='1'}">
                 <div id="gradeDiv" class="form-group">
                     <label for="grade" class="col-sm-2 control-label">年级</label>
                     <div class="col-sm-10">

@@ -32,6 +32,9 @@
         //2.初始化Button的点击事件
         var oButtonInit = new ButtonInit();
         oButtonInit.Init();
+        $('#datetimepickerDiv').datetimepicker({
+            format: 'YYYY-MM-DD',//日期格式化，只显示日期
+        });
     }
 }
 
@@ -148,7 +151,7 @@ var ButtonInit = function () {
             var select = new Array();
             for (var i = 0; i < arrselections.length; i++) {
                 var selectGame = new Object();
-                selectGame.schId = arrselections[i].schId;
+                selectGame.id = arrselections[i].game.id;
                 select.push(selectGame);
             }
 
@@ -164,7 +167,7 @@ var ButtonInit = function () {
                     data: JSON.stringify(select),
                     success: function (data, status) {
                         if (data.success) {
-                            toastr.success('删除成功');
+                            toastr.success(data.msg);
                             $("#tb_games").bootstrapTable('refresh');
                         } else {
                             toastr.error(data.msg);

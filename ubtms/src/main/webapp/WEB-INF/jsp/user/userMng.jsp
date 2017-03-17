@@ -15,7 +15,7 @@
 
 <head>
     <%@ include file="../common/common_head.jsp"%>
-    <title>学校管理</title>
+    <title>人员管理</title>
     <link href="resources/lib/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
     <link href="resources/css/mng.css" rel="stylesheet" type="text/css" />
 
@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 myNav">
             <div class="navContent">
-                <i class="Hui-iconfont">&#xe62d;</i>&nbsp;学校管理
+                <i class="Hui-iconfont">&#xe62d;</i>&nbsp;人员管理
             </div>
         </div>
     </div>

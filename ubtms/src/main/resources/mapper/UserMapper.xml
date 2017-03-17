@@ -98,11 +98,12 @@
         INNER JOIN role ON `user`.role_id = role.id
         INNER JOIN school ON role.school_id = school.sch_id
         <where>
+            `user`.phone != 'admin'
             <if test="state!=null">
-                `user`.state = #{state}
+               AND  `user`.state = #{state}
             </if>
-            <if test="schoolName!=null">
-                sch_name LIKE "%"#{schoolName}"%"
+            <if test="schName!=null">
+                AND sch_name LIKE "%"#{schName}"%"
             </if>
             <if test="roleName!=null">
                 AND role_name LIKE "%"#{roleName}"%"
@@ -136,11 +137,12 @@
         INNER JOIN role ON `user`.role_id = role.id
         INNER JOIN school ON role.school_id = school.sch_id
         <where>
+            `user`.phone != 'admin'
             <if test="state!=null">
-                `user`.state = #{state}
+                AND `user`.state = #{state}
             </if>
-            <if test="schoolName!=null">
-                sch_name LIKE "%"#{schoolName}"%"
+            <if test="schName!=null">
+                AND sch_name LIKE "%"#{schName}"%"
             </if>
             <if test="roleName!=null">
                 AND role_name LIKE "%"#{roleName}"%"
@@ -175,8 +177,8 @@
             <if test="schoolId!=null">
                 sch_id = #{schoolId}
             </if>
-            <if test="schoolName!=null">
-                AND sch_name = #{schoolName}
+            <if test="schName!=null">
+                AND sch_name = #{schName}
             </if>
             <if test="roleId!=null">
                 AND role.id = #{roleId}
@@ -276,6 +278,14 @@
         </where>
     </select>
 
+    <select id="selectBySchoolName" resultType="User">
+        SELECT *
+        FROM
+        `user`
+        INNER JOIN role ON `user`.role_id = role.id
+        INNER JOIN school ON role.school_id = school.sch_id
+        WHERE sch_name = #{schoolName}
+    </select>
     <select id="selectWithRelative" resultType="User">
         SELECT
         `user`.id,
@@ -487,6 +497,7 @@
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
+
     <update id="updateByExample" parameterType="map">
         update user
         set id = #{record.id,jdbcType=INTEGER},

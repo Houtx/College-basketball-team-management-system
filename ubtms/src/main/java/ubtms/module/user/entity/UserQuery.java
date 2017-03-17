@@ -8,7 +8,7 @@ public class UserQuery extends User{
     private Integer offset;
     private Integer schoolId;
     private Integer roleId;
-    private String schoolName;
+    private String schName;
     private String roleName;
 
     public Integer getLimit() {
@@ -43,12 +43,12 @@ public class UserQuery extends User{
         this.roleId = roleId;
     }
 
-    public String getSchoolName() {
-        return schoolName;
+    public String getSchName() {
+        return schName;
     }
 
-    public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
+    public void setSchName(String schName) {
+        this.schName = schName;
     }
 
     public String getRoleName() {

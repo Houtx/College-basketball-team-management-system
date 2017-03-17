@@ -17,6 +17,7 @@ public interface RoleService {
     Role selectOne(Role role);
     List<Role> select(Role role);
     Role selectByPrimaryKey(Integer id);
+    Role selectByPrimaryKeyNoRelative(Integer id);
     int countByExample(RoleExample roleExample);
     int updatePermissionCascade(List<Menu> menus);
     int updateByPrimaryKey(List<Role> roles);

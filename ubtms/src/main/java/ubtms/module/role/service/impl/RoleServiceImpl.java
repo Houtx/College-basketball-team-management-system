@@ -154,6 +154,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Role selectByPrimaryKeyNoRelative(Integer id) {
+        return roleMapper.selectById(id);
+    }
+
+    @Override
     public int countByExample(RoleExample roleExample) {
         return roleMapper.countByExample(roleExample);
 

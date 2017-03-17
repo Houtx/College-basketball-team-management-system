@@ -33,6 +33,43 @@ var userDetail = {
             if(opType!="2"){
                 $('#password').val('aaa');
                 $('#passwordDiv').hide();
+                var sex = $('#sexMark').val();
+                var duty = $('#dutyMark').val();
+                var userType = $('#userType').val();
+                if (sex == "1"){
+                    $("input[name='sex'][value='1']").attr("checked",true);
+                }else {
+                    $("input[name='sex'][value='0']").attr("checked",true);
+                }
+
+                switch (duty){
+                    case '1':
+                        $("input[name='duty'][value='1']").attr("checked",true);
+                        break;
+                    case '2':
+                        $("input[name='duty'][value='2']").attr("checked",true);
+                        break;
+                    case '3':
+                        $("input[name='duty'][value='3']").attr("checked",true);
+                        break;
+                    case '4':
+                        $("input[name='duty'][value='4']").attr("checked",true);
+                        break;
+                    case '5':
+                        $("input[name='duty'][value='5']").attr("checked",true);
+                        break;
+                }
+                switch (userType){
+                    case '1':
+                        $("input[name='userType'][value='球员']").attr("checked",true);
+                        break;
+                    case '2':
+                        $("input[name='userType'][value='教练']").attr("checked",true);
+                        break;
+                    case '3':
+                        $("input[name='userType'][value='领队']").attr("checked",true);
+                        break;
+                }
                 if (opType == "0") {
                     userDetail.userAdd.handleDetail();
                 } else if (opType == "1") {
@@ -161,11 +198,7 @@ var userDetail = {
             $('#btnSave').attr('disabled', true);
             $.post(url, $('#userForm').serialize(), function (result) {
                 if (result.success) {
-                    if (opType == "1") {
-                        toastr.success('修改成功');
-                    } else {
-                        toastr.success('添加成功');
-                    }
+                    toastr.success(result.msg);
                     userDetail.userAdd.successBack();
                 } else {
                     toastr.error('添加失败:'+result.msg);
@@ -175,7 +208,6 @@ var userDetail = {
         },
 
         handleDetail: function () {
-            debugger;
             $('#title').html("&nbsp;人员管理&nbsp;&nbsp;>&nbsp;&nbsp;人员详情");
             $('#btnSave').hide();
             $("input[name='sex']").attr("disabled",true);
@@ -234,7 +266,6 @@ var userDetail = {
                 $('#weightDiv').hide();
                 $('#shirtNumDiv').hide();
                 $('#dutyDiv').hide();
-
                 $('#grade').val("");
                 $('#height').val("");
                 $('#weight').val("");

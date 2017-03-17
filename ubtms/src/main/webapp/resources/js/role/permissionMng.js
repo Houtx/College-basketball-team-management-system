@@ -165,7 +165,6 @@ var bsTree = {
 			showCheckbox: true,
 			levels: 2,
 			onNodeChecked: function(event, node) { //选中节点
-				debugger;
 				if(typeof(node.type) != "undefined" && node.type != "3") {
 					var siblings = $('#treeview-checkable').treeview('getSiblings', node.nodeId);
 					for(i in siblings) {

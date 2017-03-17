@@ -21,6 +21,7 @@ import ubtms.module.user.entity.UserDto;
 import ubtms.module.user.entity.UserExample;
 import ubtms.module.user.entity.UserQuery;
 import ubtms.module.user.service.UserService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -45,51 +46,33 @@ public class UserController {
     private SchoolService schoolService;
 
     @RequestMapping("/mainPage")
-    public String mainPage(HttpServletRequest request, Model model){
+    public String mainPage(HttpServletRequest request, Model model) {
         String basePath = "/resources/images/common";
         String urlFilePathName = request.getSession().getServletContext().getRealPath(basePath);
         InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICPATH);
         FileUtil.putPicToTomcat(picurlProperties, urlFilePathName);
-//        String account = request.getParameter("account");
-//        String password = request.getParameter("password");
-//        User user = new User("admin","123456");
-//        user=userService.selectOne(user);
-//        if (user!=null){
-//            Role role = roleService.selectByPrimaryKey(user.getRoleId());
-//            //model.addAttribute("menus", role.getMenus());
-//            request.getSession().setAttribute("loginUser", user.getPhone());
-//            request.getSession().setAttribute("loginSchool",schoolService.selectOne(role.getSchoolId()));
-//            request.getSession().setAttribute("menus",role.getMenus());
-//            return "/mainPage";
-//        }else {
-//            return "/login";
-//        }
         return "/mainPage";
     }
 
     @RequestMapping("/userMngPage")
     public String schoolMngPage(HttpServletRequest request) {
-        if (request.getSession().getAttribute("userAddP") == null) {
-            List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
-            int[] perssions = PermissionUtil.getPermission(menus, "人员管理");
-            request.getSession().setAttribute("userAddP", perssions[1]);
-            request.getSession().setAttribute("userDelP", perssions[2]);
-            request.getSession().setAttribute("userEditP", perssions[3]);
-            request.getSession().setAttribute("userDetailP", perssions[4]);
-        }
+        List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
+        int[] perssions = PermissionUtil.getPermission(menus, "人员管理");
+        request.getSession().setAttribute("userAddP", perssions[1]);
+        request.getSession().setAttribute("userDelP", perssions[2]);
+        request.getSession().setAttribute("userEditP", perssions[3]);
+        request.getSession().setAttribute("userDetailP", perssions[4]);
         return "/user/userMng";
     }
-    
-    
+
+
     @RequestMapping("/userAddAndEditPage")
-    public String userAddPage(HttpServletRequest request,Model model) {
-        String opType =  request.getParameter("opType");
+    public String userAddPage(HttpServletRequest request, Model model) {
+        String opType = request.getParameter("opType");
         model.addAttribute("opType", opType);
         if (!opType.equals("2")) {
             String userId = request.getParameter("userId");
-            //userService.selectWithRelative()
             User user = userService.selectOne(new User(Integer.valueOf(userId)));
-
             if (user.getHeadPic() != null && !user.getHeadPic().isEmpty()) {
                 //获取服务器url物理路径
                 String basePath = "/resources/images/common";
@@ -98,7 +81,22 @@ public class UserController {
                 FileUtil.putPicToTomcat(user.getHeadPic(), picurlProperties, urlFilePathName);
             }
 
+            Role role = roleService.selectByPrimaryKeyNoRelative(user.getRoleId());
             model.addAttribute("userDetail", user);
+            model.addAttribute("userSchool", schoolService.selectOne(role.getSchoolId()).getSchName());
+            int userType = 0;
+            switch (role.getRoleName()) {
+                case "球员":
+                    userType = 1;
+                    break;
+                case "教练":
+                    userType = 2;
+                    break;
+                case "领队":
+                    userType = 3;
+                    break;
+            }
+            model.addAttribute("userType", userType);
         }
         return "user/userAddAndEdit";
     }
@@ -106,18 +104,18 @@ public class UserController {
 
     @RequestMapping("/userAddAction")
     @ResponseBody
-    public Map<String, Object> userSave(HttpServletRequest request){
+    public Map<String, Object> userSave(HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            String picName="";
+            String picName = "";
             if (request.getParameter("pic") != null) {
                 MultipartFile file = (MultipartFile) request.getSession().getAttribute("userImg");
                 InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICPATH);
                 picName = FileUtil.saveFile(file, picurlProperties);
             }
-            String sex= request.getParameter("sex");
-            String userType= request.getParameter("userType");
-            String userName= request.getParameter("name");
+            String sex = request.getParameter("sex");
+            String userType = request.getParameter("userType");
+            String userName = request.getParameter("name");
             String schoolName = request.getParameter("schoolName");
             String account = request.getParameter("account");
             String password = request.getParameter("password");
@@ -128,6 +126,37 @@ public class UserController {
             String duty = request.getParameter("duty");
             userService.saveUser(picName, sex, userType, userName, schoolName, account, password, grade, height, weight, shirtNum, duty);
             map.put("success", true);
+            map.put("msg", "修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("msg", "系统异常");
+        }
+        return map;
+    }
+
+    @RequestMapping("/userEditAction")
+    @ResponseBody
+    public Map<String, Object> userEdit(HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            String picName = null;
+            if (request.getParameter("pic") != null) {
+                MultipartFile file = (MultipartFile) request.getSession().getAttribute("userImg");
+                InputStream picurlProperties = getClass().getResourceAsStream(CommonConstant.PICPATH);
+                picName = FileUtil.saveFile(file, picurlProperties);
+            }
+            String userId = request.getParameter("id");
+            String sex = request.getParameter("sex");
+            String userName = request.getParameter("name");
+            String grade = request.getParameter("grade");
+            String height = request.getParameter("height");
+            String weight = request.getParameter("weight");
+            String shirtNum = request.getParameter("shirtNum");
+            String duty = request.getParameter("duty");
+            userService.updateUser(userId, picName, sex, userName, grade, height, weight, shirtNum, duty);
+            map.put("success", true);
+            map.put("msg", "修改成功");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("success", false);
@@ -143,20 +172,22 @@ public class UserController {
 
     @RequestMapping("/userGetAction")
     @ResponseBody
-    public MngResult<List<UserDto>> getSchools(int limit, int offset, String userName, String schoolName,String state,String role) {
+    public MngResult<List<UserDto>> getSchools(int limit, int offset, String userName, String schoolName, String state, String role) {
         UserQuery userQuery = new UserQuery();
         if (!userName.isEmpty()) {
             userQuery.setRealName(userName);
         }
         if (!schoolName.isEmpty()) {
-            userQuery.setSchoolName(schoolName);
+            userQuery.setSchName(schoolName);
         }
         if (!state.equals("-1")) {
             userQuery.setState(new Byte(state));
         }
-        if (!role.equals("全部")) {
-            userQuery.setRealName(role);
+        if (!role.equals("-1")) {
+            userQuery.setRoleName(role);
         }
+        userQuery.setLimit(limit);
+        userQuery.setOffset(offset);
         List<UserDto> userDtos = userService.selectByUserQueryMng(userQuery);
         int total = userService.countUserMng(userQuery);
         MngResult<List<UserDto>> result = new MngResult<List<UserDto>>(true, userDtos, total);
@@ -177,19 +208,53 @@ public class UserController {
         return map;
     }
 
+    @RequestMapping(value = "/userDelAction", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> userDel(@RequestBody List<User> users) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            userService.delUser(users);
+            map.put("success", true);
+            map.put("msg", "删除成功");
+        } catch (Exception e) {
+            map.put("success", false);
+            map.put("msg", "删除失败：系统异常");
+            e.printStackTrace();
+        }
+        return map;
+    }
+
 
     @RequestMapping(value = "/loginValidation")
     @ResponseBody
-    public Map<String,Object> userAccountValidate(@RequestBody User user,HttpServletRequest request) {
-        Map<String,Object>  map = userService.userLoginValidate(user);
+    public Map<String, Object> userAccountValidate(@RequestBody User user, HttpServletRequest request) {
+        Map<String, Object> map = userService.userLoginValidate(user);
         boolean success = (boolean) map.get("success");
         if (success) {
-            user=userService.selectOne(user);
+            user = userService.selectOne(user);
             Role role = roleService.selectByPrimaryKey(user.getRoleId());
             request.getSession().setAttribute("loginUser", user.getPhone());
-            request.getSession().setAttribute("loginSchool",schoolService.selectOne(role.getSchoolId()));
-            request.getSession().setAttribute("menus",role.getMenus());
+            request.getSession().setAttribute("loginUserName", user.getRealName());
+            request.getSession().setAttribute("loginUserId", user.getId());
+            request.getSession().setAttribute("loginSchool", schoolService.selectOne(role.getSchoolId()));
+            request.getSession().setAttribute("menus", role.getMenus());
         }
+        return map;
+    }
+
+    @RequestMapping("/pswUpdatePage")
+    public String updatePswPage() {
+        return "user/userEditPsw";
+    }
+
+    @RequestMapping("/updatePswAction")
+    @ResponseBody
+    public Map<String, Object> updatePsw(@RequestBody String[] str) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        String id = str[0];
+        String oldPsw = str[1];
+        String newPsw = str[2];
+        map = userService.updatePsw(id, oldPsw, newPsw);
         return map;
     }
 }

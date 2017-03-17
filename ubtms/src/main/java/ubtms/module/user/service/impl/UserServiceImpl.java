@@ -99,7 +99,37 @@ public class UserServiceImpl implements UserService {
 
         User user = new User(account, password, userName, Byte.valueOf(sex), new Byte("1"), heightF, weightF, grade, shirtNumB, dutyB, roleId, headPic);
         userMapper.insert(user);
-        return 0;
+        return 1;
+    }
+
+    @Override
+    public int updateUser(String userId,String headPic, String sex, String userName,String grade, String height, String weight, String shirtNum, String duty) {
+
+        Byte dutyB = 0;
+        if (duty != null) {
+            dutyB = Byte.valueOf(duty);
+        }
+        Byte shirtNumB = 0;
+        if (!shirtNum.isEmpty()) {
+            shirtNumB = new Byte(shirtNum);
+        }
+        Float heightF = 0f;
+        if (!height.isEmpty()) {
+            heightF = Float.valueOf(height);
+        }
+        Float weightF = 0f;
+        if (!weight.isEmpty()) {
+            weightF = Float.valueOf(weight);
+        }
+        User user = new User();
+        user.setDuty(dutyB);
+        user.setShirtNum(shirtNumB);
+        user.setHeight(heightF);
+        user.setWeight(weightF);
+        user.setId(Integer.valueOf(userId));
+        user.setSex(new Byte(sex));
+        userMapper.updateByPrimaryKeySelective(user);
+        return 1;
     }
 
     @Override
@@ -167,12 +197,38 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int delUser(List<User> users) {
+        for (User user : users) {
+            userMapper.deleteByPrimaryKey(user.getId());
+        }
+        return users.size();
+    }
+
+    @Override
     public User selectOne(User user) {
         List<User> users = select(user);
         if (users.size() > 0) {
             return users.get(0);
         }
         return null;
+    }
+
+    @Override
+    public Map<String,Object> updatePsw(String userId, String oldPsw, String newPsw) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        User oldeUser = this.selectOne(new User(Integer.valueOf(userId)));
+        if (!oldeUser.getPassword().equals(oldPsw)) {
+            map.put("success", false);
+            map.put("msg", "原始密码错误");
+            return map;
+        }
+        User user = new User();
+        user.setId(Integer.valueOf(userId));
+        user.setPassword(newPsw);
+        userMapper.updateByPrimaryKeySelective(user);
+        map.put("success", true);
+        map.put("msg", "修改成功");
+        return map;
     }
 
     @Override
@@ -198,7 +254,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> selectBySchoolName(String schoolName) {
-        return null;
+        return userMapper.selectBySchoolName(schoolName);
     }
 
     @Override

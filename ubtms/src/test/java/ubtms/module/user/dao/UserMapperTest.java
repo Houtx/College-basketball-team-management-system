@@ -32,7 +32,7 @@ public class UserMapperTest {
     @Test
     public void selectBySchoolId(){
         UserQuery userQuery = new UserQuery();
-        userQuery.setSchoolName("北理珠");
+        userQuery.setSchName("北理珠");
         userQuery.setRoleName("球员");
         System.out.println(userMapper.selectByUserQuery(userQuery));
     }
@@ -50,7 +50,7 @@ public class UserMapperTest {
         UserQuery userQuery = new UserQuery();
         userQuery.setLimit(20);
         userQuery.setOffset(0);
-        userQuery.setSchoolName("系统");
+        userQuery.setSchName("系统");
         //userQuery.setRealName("1");
         //userQuery.setState((byte)0);
         List<UserDto> userDtos = userMapper.selectByUserQueryMng(userQuery);

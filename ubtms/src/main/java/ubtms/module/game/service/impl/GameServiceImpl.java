@@ -54,6 +54,14 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
+    public int delGame(List<Game> games) {
+        for (Game game : games) {
+            gameMapper.deleteByPrimaryKey(game.getId());
+        }
+        return games.size();
+    }
+
+    @Override
     public int saveGameMsg(Game game,String schoolName) {
         Integer schId = schoolService.selectOne(new School(schoolName)).getSchId();
         game.setSchoolId(schId);

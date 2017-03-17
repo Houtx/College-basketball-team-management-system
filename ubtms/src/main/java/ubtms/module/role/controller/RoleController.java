@@ -41,40 +41,38 @@ public class RoleController {
         String loginUser = (String) request.getSession().getAttribute("loginUser");
         if (!loginUser.equals("admin")) {
             School school = (School) request.getSession().getAttribute("loginSchool");
-             model.addAttribute("loginSchoolName",school.getSchName());
-        }else {
-            model.addAttribute("loginSchoolName","系统");
+            model.addAttribute("loginSchoolName", school.getSchName());
+        } else {
+            model.addAttribute("loginSchoolName", "系统");
         }
-        if (request.getSession().getAttribute("roleEditP") == null) {
-            List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
-            int[] perssions = PermissionUtil.getPermission(menus, "角色管理");
-            request.getSession().setAttribute("roleEditP", perssions[3]);
-        }
+        List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
+        int[] perssions = PermissionUtil.getPermission(menus, "角色管理");
+        request.getSession().setAttribute("roleEditP", perssions[3]);
         return "/role/roleMng";
     }
-    
+
     @RequestMapping("/roleGetAction")
     @ResponseBody
-    public MngResult<List<Role>> getRoles(int limit, int offset, String roleName, String state,String schoolName,HttpServletRequest request) {
+    public MngResult<List<Role>> getRoles(int limit, int offset, String roleName, String state, String schoolName, HttpServletRequest request) {
         RoleExample roleExample = new RoleExample();
         roleExample.setLimit(limit);
         roleExample.setOffset(offset);
         try {
             School school = schoolService.selectOne(new School(schoolName));
-            if (!schoolName.isEmpty() && school==null) {
-                return new MngResult<List<Role>>(true, new ArrayList<Role>(),0);
+            if (!schoolName.isEmpty() && school == null) {
+                return new MngResult<List<Role>>(true, new ArrayList<Role>(), 0);
             }
 
-            int schId=0;
+            int schId = 0;
             if (school != null) {
-                schId=school.getSchId();
+                schId = school.getSchId();
             }
 
             roleExample.createCriteria();
             if (schId > 0) {
                 roleExample.getOredCriteria().get(0).andSchoolIdEqualTo(schId);
             }
-            if (!state.equals("2")){
+            if (!state.equals("2")) {
                 roleExample.getOredCriteria().get(0).andStatedEqualTo(new Byte(state));
             }
             if (!roleName.isEmpty()) {
@@ -88,7 +86,7 @@ public class RoleController {
             return result;
         } catch (Exception e) {
             e.printStackTrace();
-            return new MngResult<List<Role>>(false,"系统异常");
+            return new MngResult<List<Role>>(false, "系统异常");
         }
     }
 
@@ -107,7 +105,6 @@ public class RoleController {
     }
 
 
-
     @RequestMapping("/permissionMngPage")
     public String permissionMngPage(HttpServletRequest request, Model model) {
         model.addAttribute("type", request.getParameter("type"));
@@ -124,16 +121,16 @@ public class RoleController {
 
     @RequestMapping("/getPermissionsAction")
     @ResponseBody
-    public Map<String,Object> getPermissions(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public Map<String, Object> getPermissions(HttpServletRequest request, HttpServletResponse response, Model model) {
         Map<String, Object> map = new HashMap<String, Object>();
         String roleId = request.getParameter("roleId");
         Role role = roleService.selectByPrimaryKey(Integer.valueOf(roleId));
         List<Menu> menus = role.getMenus();
         for (Menu menu : menus) {
             menu.setRole(null);
-            for (SubMenu subMenu:menu.getSubMenus()) {
+            for (SubMenu subMenu : menu.getSubMenus()) {
                 subMenu.setMenu(null);
-                for (Permission permission:subMenu.getPermissions()){
+                for (Permission permission : subMenu.getPermissions()) {
                     permission.setSubMenu(null);
                 }
             }

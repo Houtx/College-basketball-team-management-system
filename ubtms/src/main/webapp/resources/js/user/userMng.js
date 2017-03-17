@@ -82,7 +82,7 @@ var TableInit = function () {
                 align: 'center',
                 title: '性别',
                 formatter: function (value, row, index) {
-                    if (row.sex == 0) {
+                    if (row.sex == 1) {
                         return "男";
                     }else{
                         return "女";
@@ -91,12 +91,12 @@ var TableInit = function () {
                 width: '4%'
             }, {
                 align: 'center',
-                // field: 'role.school.schName',
+                field: 'schName',
                 title: '学校',
                 width: '30%'
             }, {
                 align: 'center',
-                field: 'roleId',
+                field: 'roleName',
                 title: '角色',
                 width: '10%'
             }, {
@@ -160,10 +160,11 @@ var ButtonInit = function () {
             }
             var select = new Array();
             for (var i = 0; i < arrselections.length; i++) {
-                var selectSchool = new Object();
-                selectSchool.schId = arrselections[i].schId;
-                select.push(selectSchool);
+                var selectUser = new Object();
+                selectUser.id = arrselections[i].id;
+                select.push(selectUser);
             }
+
 
             Ewin.confirm({message: "确认要删除选择的人员吗？"}).on(function (e) {
                 if (!e) {

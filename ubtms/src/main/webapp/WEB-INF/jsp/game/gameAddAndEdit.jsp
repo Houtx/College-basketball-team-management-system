@@ -84,11 +84,6 @@
 
                 </div>
             </form>
-
-            <!--
-                这个地方加入可编辑的table
-                gameDetail只用来显示数据，这个页面用来添加和编辑
-            -->
             <div class="row">
                 <div class="col-sm-2">
                 </div>

@@ -20,8 +20,8 @@ public class UserServiceImplTest {
     UserMapper userMapper;
     @Test
     public void selectById() throws Exception {
-        User user = userMapper.selectByPrimaryKey(1);
-        System.out.println(user);
+        //User user = userMapper.selectByPrimaryKey(1);
+        //System.out.println(user);
     }
 
     @Test

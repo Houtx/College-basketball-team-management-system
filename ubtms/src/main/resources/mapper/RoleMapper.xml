@@ -55,7 +55,9 @@
         select * from school where sch_id = #{sch_id}
     </select>
 
-
+    <select id="selectById" resultType="ubtms.module.role.entity.Role">
+        SELECT  * from role WHERE id = #{id}
+    </select>
     <select id="selectByPrimaryKey" resultMap="roleRightsMap" parameterType="java.lang.Integer">
     SELECT
       p.id AS permission_id,

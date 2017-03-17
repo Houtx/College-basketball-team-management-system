@@ -1,10 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="common/tag.jsp" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="./common/tag.jsp" %>
+<%@ include file="./common/basePath.jsp" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -32,16 +28,14 @@
     <title>CROSSOVER高校篮球管理系统</title>
 </head>
 <body>
-<header class="Hui-header cl"><a class="Hui-logo l" title="H-ui.admin v2.3" href="/">H-ui.admin</a> <a
-        class="Hui-logo-m l" href="/" title="H-ui.admin">H-ui</a> <span class="Hui-subtitle l">V2.3</span>
+<header class="Hui-header cl"><a class="Hui-logo l" title="H-ui.admin v2.3" href="javascript:void(0)">CROSSOVER高校篮球管理系统</a> <a
+        class="Hui-logo-m l" href="javascript:void(0)" title="H-ui.admin">H-ui</a> <span class="Hui-subtitle l">V1.0</span>
 
     <ul class="Hui-userbar">
-        <li>超级管理员</li>
-        <li class="dropDown dropDown_hover"><a href="#" class="dropDown_A">admin <i class="Hui-iconfont">
+        <li class="dropDown dropDown_hover"><a href="javascript:void(0)" class="dropDown_A">${loginUserName}<i class="Hui-iconfont">
             &#xe6d5;</i></a>
             <ul class="dropDown-menu radius box-shadow">
-                <li><a href="#">个人信息</a></li>
-                <li><a href="#">切换账户</a></li>
+                <li><a href="javascript:void(0)" onclick="myLayer.open()">修改密码</a></li>
                 <li><a href="#">退出</a></li>
             </ul>
         </li>
@@ -63,6 +57,7 @@
 </header>
 
 <aside class="Hui-aside">
+    <input id="loginUserId" type="hidden" value="${loginUserId}">
     <input runat="server" id="divScrollValue" type="hidden" value=""/>
     <div class="menu_dropdown bk_2">
         <c:forEach items="${menus}" var="menu">
@@ -74,7 +69,7 @@
                         <ul>
                             <c:forEach items="${menu.subMenus}" var="subMenu">
                                 <c:if test="${subMenu.state==1}">
-                                    <li><a _href="${subMenu.url}?id=${subMenu.id}" rows-title="${subMenu.name}"
+                                    <li><a _href="${subMenu.url}?userId=${loginUserId}&opType=0" rows-title="${subMenu.name}"
                                            href="javascript:void(0)">${subMenu.name}</a></li>
                                 </c:if>
                             </c:forEach>
@@ -106,4 +101,22 @@
 <script type="text/javascript" src="resources/lib/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/H-ui/H-ui.js"></script>
 <script type="text/javascript" src="resources/js/H-ui/H-ui.admin.js"></script>
+<script src="resources/lib/layer/layer.js"></script>
+
+<script>
+    var myLayer = {
+        open: function () {
+            var url = "/user/pswUpdatePage";
+            layer.open({
+                type: 2,
+                title: '修改密码',
+                shadeClose: true,
+                shade: false,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['700px', '270px'],
+                content: url
+            });
+        },
+    }
+</script>
 </html>
