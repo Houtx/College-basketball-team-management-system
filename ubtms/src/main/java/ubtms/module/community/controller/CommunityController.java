@@ -4,6 +4,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,10 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ubtms.basic.dto.MngResult;
 import ubtms.basic.util.PermissionUtil;
 import ubtms.module.community.dto.ArticleDto;
-import ubtms.module.community.entity.Article;
-import ubtms.module.community.entity.ArticleLimitObject;
-import ubtms.module.community.entity.Comment;
-import ubtms.module.community.entity.Reply;
+import ubtms.module.community.dto.CommentDto;
+import ubtms.module.community.dto.ReplyDto;
+import ubtms.module.community.entity.*;
 import ubtms.module.community.service.CommunityService;
 import ubtms.module.role.entity.Menu;
 import ubtms.module.user.service.UserService;
@@ -38,9 +38,9 @@ public class CommunityController {
     private UserService userService;
 
     @RequestMapping("/articleAddAndEditPage")
-    public String articleAddAndEditPage(HttpServletRequest request,Model model) {
+    public String articleAddAndEditPage(HttpServletRequest request, Model model) {
         String opType = request.getParameter("opType");
-        if (opType.equals("1")){
+        if (opType.equals("1")) {
             String id = request.getParameter("articleId");
             Article article = communityService.getArticleById(id);
             article.setCommentDtos(null);
@@ -52,34 +52,114 @@ public class CommunityController {
 
     @RequestMapping("/communityMngPage")
     public String getCommunityMngPage(HttpServletRequest request) {
-        if (request.getSession().getAttribute("communityAddP") == null) {
-            List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
-            int[] perssions = PermissionUtil.getPermission(menus, "球队动态");
-            request.getSession().setAttribute("communityAddP", perssions[1]);
-            request.getSession().setAttribute("communityDelP", perssions[2]);
-            request.getSession().setAttribute("communityEditP", perssions[3]);
-            request.getSession().setAttribute("communityDetailP", perssions[4]);
-        }
+        List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
+        int[] perssions = PermissionUtil.getPermission(menus, "球队动态");
+        request.getSession().setAttribute("communityAddP", perssions[1]);
+        request.getSession().setAttribute("communityDelP", perssions[2]);
+        request.getSession().setAttribute("communityEditP", perssions[3]);
+        request.getSession().setAttribute("communityDetailP", perssions[4]);
         return "/community/communityMng";
     }
 
     @RequestMapping("/detailPage")
     public String getArticle(HttpServletRequest httpServletRequest, Model model) {
         String articleId = httpServletRequest.getParameter("articleId");
-        String author = httpServletRequest.getParameter("author");
+        String author = "";
+        if (httpServletRequest.getParameter("author") != null) {
+            author = httpServletRequest.getParameter("author");
+        }
         int limit = 1000;
-        int offset = Integer.valueOf(httpServletRequest.getParameter("offset"));
-        Article article = communityService.getArticleWithCommentById(articleId,limit,offset);
+        int offset = 0;
+        if (httpServletRequest.getParameter("offset") != null) {
+            offset = Integer.valueOf(httpServletRequest.getParameter("offset"));
+        }
+        Article article = communityService.getArticleWithCommentById(articleId, limit, offset);
         int commentSum = communityService.countComment(articleId);
         if (offset + limit >= commentSum) {
-            model.addAttribute("moreFlag",0);
-        }else{
-            model.addAttribute("moreFlag",1);
-            model.addAttribute("offset",offset+limit);
+            model.addAttribute("moreFlag", 0);
+        } else {
+            model.addAttribute("moreFlag", 1);
+            model.addAttribute("offset", offset + limit);
         }
-        model.addAttribute("articleDetail",article);
-        model.addAttribute("author",author);
+        model.addAttribute("articleDetail", article);
+        model.addAttribute("author", author);
         return "/community/articleDetail";
+    }
+
+    @RequestMapping("/commentMngPage")
+    public String commentMngPage(HttpServletRequest request) {
+        List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
+        int[] perssions = PermissionUtil.getPermission(menus, "评论管理");
+        request.getSession().setAttribute("commentDelP", perssions[2]);
+        return "community/commentMng";
+    }
+
+    @RequestMapping("/replyMngPage")
+    public String replyMngPage(HttpServletRequest request) {
+        List<Menu> menus = (List<Menu>) request.getSession().getAttribute("menus");
+        int[] perssions = PermissionUtil.getPermission(menus, "回复管理");
+        request.getSession().setAttribute("replyDelP", perssions[2]);
+        return "community/replyMng";
+    }
+
+    @RequestMapping("/personReplyGetAction")
+    @ResponseBody
+    public MngResult<List<ReplyDto>> getPersonReplys(int limit, int offset, String schoolName, String userName, HttpServletRequest request) {
+        try {
+            int total = 0;
+            ReplyQuery replyQuery = new ReplyQuery();
+            replyQuery.setLimit(limit);
+            replyQuery.setOffset(offset);
+            String userPhone = (String) request.getSession().getAttribute("loginUser");
+            if (userPhone.equals("admin")) {
+                if (!schoolName.isEmpty()) {
+                    replyQuery.setSchName(schoolName);
+                }
+                if (!userName.isEmpty()) {
+                    replyQuery.setReplyUserName(userName);
+                }
+            } else {
+                String loginUserId = (String) request.getSession().getAttribute("loginUserId");
+                replyQuery.setUserId(Integer.valueOf(loginUserId));
+            }
+            List<ReplyDto> replyDtos = communityService.getPersonReplys(replyQuery);
+            total = communityService.countPersonReplys(replyQuery);
+            MngResult<List<ReplyDto>> list = new MngResult<List<ReplyDto>>(true, replyDtos, total);
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @RequestMapping("/personCommentGetAction")
+    @ResponseBody
+    public MngResult<List<CommentDto>> getPersonComments(int limit, int offset, String schoolName, String userName, HttpServletRequest request) {
+        try {
+            int total = 0;
+            CommentQuery commentQuery = new CommentQuery();
+            commentQuery.setLimit(limit);
+            commentQuery.setOffset(offset);
+            String userPhone = (String) request.getSession().getAttribute("loginUser");
+            if (userPhone.equals("admin")) {
+                if (!schoolName.isEmpty()) {
+                    commentQuery.setSchName(schoolName);
+                }
+                if (!userName.isEmpty()) {
+                    commentQuery.setCommentUserName(userName);
+                }
+            } else {
+                String loginUserId = (String) request.getSession().getAttribute("loginUserId");
+                commentQuery.setUserId(Integer.valueOf(loginUserId));
+            }
+            List<CommentDto> commentDtos = communityService.getPersonComments(commentQuery);
+            total = communityService.countPersonComments(commentQuery);
+            MngResult<List<CommentDto>> list = new MngResult<List<CommentDto>>(true, commentDtos, total);
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @RequestMapping("/articleGetAction")
@@ -144,7 +224,7 @@ public class CommunityController {
     public Map<String, Object> saveReply(@RequestBody Reply reply, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            communityService.saveReply(reply,(String)request.getSession().getAttribute("loginUser"));
+            communityService.saveReply(reply, (String) request.getSession().getAttribute("loginUser"));
             map.put("success", true);
             map.put("msg", "发送成功");
         } catch (Exception e) {
@@ -157,10 +237,10 @@ public class CommunityController {
 
     @RequestMapping("/commentSaveAction")
     @ResponseBody
-    public Map<String, Object> saveComment(@RequestBody Comment comment,HttpServletRequest request) {
+    public Map<String, Object> saveComment(@RequestBody Comment comment, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            communityService.saveComment(comment,(String)request.getSession().getAttribute("loginUser"));
+            communityService.saveComment(comment, (String) request.getSession().getAttribute("loginUser"));
             map.put("success", true);
             map.put("msg", "发送成功");
         } catch (Exception e) {
@@ -202,6 +282,38 @@ public class CommunityController {
         }
     }
 
+    @RequestMapping("/commentDelAction")
+    @ResponseBody
+    private Map<String, Object> delComments(@RequestBody List<Comment> comments) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            communityService.delComment(comments);
+            map.put("success", true);
+            map.put("msg", "删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("msg", "删除失败：系统异常");
+        }
+        return map;
+    }
+
+    @RequestMapping("/replyDelAction")
+    @ResponseBody
+    private Map<String, Object> delReplies(@RequestBody List<Reply> replies) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            communityService.delReply(replies);
+            map.put("success", true);
+            map.put("msg", "删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("msg", "删除失败：系统异常");
+        }
+        return map;
+    }
+
     @RequestMapping("/articleDelAction")
     @ResponseBody
     private Map<String, Object> delArticles(@RequestBody List<Article> articles) {
@@ -209,9 +321,12 @@ public class CommunityController {
         try {
             communityService.delArticle(articles);
             map.put("success", true);
+            map.put("msg", "删除成功");
+
         } catch (Exception e) {
             e.printStackTrace();
             map.put("success", false);
+            map.put("msg", "删除失败：系统异常");
         }
         return map;
     }

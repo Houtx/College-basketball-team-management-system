@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="ubtms.module.training.entity.Training" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="school_id" property="schoolId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, school_id
+    id, school_id, title
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="ubtms.module.training.entity.TrainingExample" >
     select
@@ -105,8 +106,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="ubtms.module.training.entity.Training" >
-    insert into training (id, school_id)
-    values (#{id,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER})
+    insert into training (id, school_id, title
+      )
+    values (#{id,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="ubtms.module.training.entity.Training" >
     insert into training
@@ -117,6 +120,9 @@
       <if test="schoolId != null" >
         school_id,
       </if>
+      <if test="title != null" >
+        title,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -124,6 +130,9 @@
       </if>
       <if test="schoolId != null" >
         #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -142,6 +151,9 @@
       <if test="record.schoolId != null" >
         school_id = #{record.schoolId,jdbcType=INTEGER},
       </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -150,7 +162,8 @@
   <update id="updateByExample" parameterType="map" >
     update training
     set id = #{record.id,jdbcType=INTEGER},
-      school_id = #{record.schoolId,jdbcType=INTEGER}
+      school_id = #{record.schoolId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -161,12 +174,16 @@
       <if test="schoolId != null" >
         school_id = #{schoolId,jdbcType=INTEGER},
       </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="ubtms.module.training.entity.Training" >
     update training
-    set school_id = #{schoolId,jdbcType=INTEGER}
+    set school_id = #{schoolId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

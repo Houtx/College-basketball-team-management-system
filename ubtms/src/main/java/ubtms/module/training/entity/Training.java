@@ -5,6 +5,8 @@ public class Training {
 
     private Integer schoolId;
 
+    private String title;
+
     public Integer getId() {
         return id;
     }
@@ -19,5 +21,13 @@ public class Training {
 
     public void setSchoolId(Integer schoolId) {
         this.schoolId = schoolId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

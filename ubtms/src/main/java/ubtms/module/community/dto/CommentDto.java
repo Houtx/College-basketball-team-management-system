@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 public class CommentDto extends Comment{
+    private String schName;
+    private String articleTitle;
     private String userName;
     private String headPic;
 
@@ -33,5 +35,21 @@ public class CommentDto extends Comment{
 
     public void setHeadPic(String headPic) {
         this.headPic = headPic;
+    }
+
+    public String getSchName() {
+        return schName;
+    }
+
+    public void setSchName(String schName) {
+        this.schName = schName;
+    }
+
+    public String getArticleTitle() {
+        return articleTitle;
+    }
+
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
     }
 }

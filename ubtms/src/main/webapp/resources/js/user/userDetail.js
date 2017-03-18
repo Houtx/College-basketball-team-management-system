@@ -93,7 +93,6 @@ var userDetail = {
                     },
                     name: {
                         required: true,
-
                     },
                     account: {
                         required: true,

@@ -2,10 +2,14 @@ package ubtms.module.community.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import ubtms.module.community.dto.ReplyDto;
 import ubtms.module.community.entity.Reply;
 import ubtms.module.community.entity.ReplyExample;
+import ubtms.module.community.entity.ReplyQuery;
 
 public interface ReplyMapper {
+    List<ReplyDto> selectByReplyQuery(ReplyQuery replyQuery);
+    int countByReplyQuery(ReplyQuery replyQuery);
     int countByExample(ReplyExample example);
 
     int deleteByExample(ReplyExample example);

@@ -1,22 +1,22 @@
-﻿var communityMng = {
+﻿var trainingMng = {
     serachClick: function () {
-        $("#tb_community").bootstrapTable('refresh');
+        $("#tb_trainings").bootstrapTable('refresh');
     },
 
     URL: {
-        getArticles: function () {
-            return 'community/articleGetAction';
+        getTrainings: function () {
+            return 'training/trainingGetAction';
         },
         addAndEdit: function () {
-            return 'community/articleAddAndEditPage';
-        },
-        detail: function () {
-            return 'community/detailPage';
+            return 'training/trainingAddAndEditPage';
         },
         delete: function () {
-            return "community/articleDelAction";
+            return "/training/trainingDelAction";
         },
+
     },
+
+
 
     init: function () {
         //1.初始化Table
@@ -35,8 +35,8 @@ var TableInit = function () {
     oTableInit.curPageNum = 0;
     //初始化Table
     oTableInit.Init = function () {
-        $('#tb_community').bootstrapTable({
-            url: communityMng.URL.getArticles(),         //请求后台的URL（*）
+        $('#tb_trainings').bootstrapTable({
+            url: trainingMng.URL.getTrainings(),         //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
@@ -68,44 +68,29 @@ var TableInit = function () {
                 formatter: function (value, row, index) {
                     return index + 1 + oTableInit.curPageNum;
                 },
+                width:'10px'
             }, {
                 align: 'center',
-                title: '时间',
-                formatter: function (value, row, index) {
-                    //debugger;
-                    var date = new Date(row.createTime);
-                    var year = date.getFullYear();
-                    var month = date.getMonth()+1;
-                    var day = date.getDate();
-                    var hour = date.getHours();
-                    var min = date.getMinutes();
-                    return year+"-"+month+"-"+day+" "+hour+":"+min;
-                },
+                title: '标题'
             }, {
-                align: 'center',
-                title: '标题',
-                field:'title'
-            }, {
-                align: 'center',
-                title: '作者',
-                field:'author'
-            },  {
                 align: 'center',
                 title: '学校',
-                field:'schoolName'
+                field:'mySchoolName'
             },{
                 align: 'center',
                 title: '操作',
-                formatter: function (value, row, index) {
-                    var editState = $('#communityEditP').val();
-                    var detail = "<a href=" + communityMng.URL.detail() + "?articleId=" + row.id + "&author="+row.author+"&offset=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
-                    var edit = "<a href=" + communityMng.URL.addAndEdit() + "?articleId=" + row.id + "&opType=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
-                    if (editState == 1) {
-                        return detail + edit;
-                    } else {
-                        return detail;
-                    }
+                formatter: function (value, row, index, params) {
+                    // var editState = $('#trainingEditP').val();
+                    // var detail = "<a href=" + trainingMng.URL.detail() + "?trainingId=" + row.training.id +"><i class='glyphicon glyphicon-eye-open'></i>&nbsp;详情</a>";
+                    // var editTraining = "<a href=" + trainingMng.URL.editTrainingMsg() + "&trainingId=" + row.training.id + " style='margin-left: 25px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑赛事</a>";
+                    // var editData = "<a href='javascript:void(0)' onclick='DataEditLayer.open(" + row.training.id + ")' style='margin-left: 25px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑数据</a>";
+                    // if (editState == 1) {
+                    //     return detail + editTraining +editData;
+                    // } else {
+                    //     return detail;
+                    // }
                 },
+                width:'300px'
             },]
         });
     };
@@ -113,11 +98,12 @@ var TableInit = function () {
     //得到查询的参数
     oTableInit.queryParams = function (params) {
         oTableInit.curPageNum = params.offset;
+        //debugger;
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
-            title: $('#searchTitle').val(),
-            schoolName: $('#searchSchoolName').val()
+            searchSchool:$('#searchSchoolName').val(),
+            searchTitle:$('#searchTitle').val()
         };
         return temp;
     };
@@ -129,36 +115,36 @@ var ButtonInit = function () {
 
     oInit.Init = function () {
         $("#btn_add").click(function () {
-            window.document.location = communityMng.URL.addAndEdit()+"?opType=2";
+            window.document.location = trainingMng.URL.addAndEdit()+"?opType=2";
         });
 
         $("#btn_delete").click(function () {
-            var arrselections = $("#tb_community").bootstrapTable('getSelections');
+            var arrselections = $("#tb_trainings").bootstrapTable('getSelections');
             if (arrselections.length <= 0) {
                 toastr.warning('请选择至少一条数据');
                 return;
             }
             var select = new Array();
             for (var i = 0; i < arrselections.length; i++) {
-                var selectArticle = new Object();
-                selectArticle.id = arrselections[i].id;
-                select.push(selectArticle);
+                var selectTraining = new Object();
+                selectTraining.id = arrselections[i].training.id;
+                select.push(selectTraining);
             }
 
-            Ewin.confirm({message: "确认要删除选择的帖子吗？"}).on(function (e) {
+            Ewin.confirm({message: "确认要删除选择的赛程吗？"}).on(function (e) {
                 if (!e) {
                     return;
                 }
                 $.ajax({
                     type: "post",
-                    url: communityMng.URL.delete(),
+                    url: trainingMng.URL.delete(),
                     dataType: "json",
                     contentType: "application/json;charset=utf-8",
                     data: JSON.stringify(select),
                     success: function (data, status) {
                         if (data.success) {
-                            toastr.success('删除成功');
-                            $("#tb_community").bootstrapTable('refresh');
+                            toastr.success(data.msg);
+                            $("#tb_trainings").bootstrapTable('refresh');
                         } else {
                             toastr.error(data.msg);
                         }
@@ -172,9 +158,8 @@ var ButtonInit = function () {
     return oInit;
 };
 
-
 $(function () {
-    communityMng.init();
+    trainingMng.init();
     //初始化消息框位置
     myToastr.init();
     //初始化模态框位置

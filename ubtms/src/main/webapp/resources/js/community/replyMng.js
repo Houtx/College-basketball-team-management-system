@@ -1,20 +1,17 @@
-﻿var communityMng = {
+﻿var replyMng = {
     serachClick: function () {
-        $("#tb_community").bootstrapTable('refresh');
+        $("#tb_reply").bootstrapTable('refresh');
     },
 
     URL: {
-        getArticles: function () {
-            return 'community/articleGetAction';
-        },
-        addAndEdit: function () {
-            return 'community/articleAddAndEditPage';
+        getReplys: function () {
+            return 'community/personReplyGetAction';
         },
         detail: function () {
             return 'community/detailPage';
         },
         delete: function () {
-            return "community/articleDelAction";
+            return "community/replyDelAction";
         },
     },
 
@@ -35,8 +32,8 @@ var TableInit = function () {
     oTableInit.curPageNum = 0;
     //初始化Table
     oTableInit.Init = function () {
-        $('#tb_community').bootstrapTable({
-            url: communityMng.URL.getArticles(),         //请求后台的URL（*）
+        $('#tb_reply').bootstrapTable({
+            url: replyMng.URL.getReplys(),         //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
@@ -68,11 +65,16 @@ var TableInit = function () {
                 formatter: function (value, row, index) {
                     return index + 1 + oTableInit.curPageNum;
                 },
-            }, {
+                width:'10px'
+            },{
+                align: 'center',
+                title: '学校',
+                field:'schName'
+            },{
                 align: 'center',
                 title: '时间',
+                width:'140px',
                 formatter: function (value, row, index) {
-                    //debugger;
                     var date = new Date(row.createTime);
                     var year = date.getFullYear();
                     var month = date.getMonth()+1;
@@ -83,30 +85,22 @@ var TableInit = function () {
                 },
             }, {
                 align: 'center',
-                title: '标题',
-                field:'title'
-            }, {
-                align: 'center',
-                title: '作者',
-                field:'author'
+                title: '所属帖子',
+                formatter: function (value, row, index) {
+                    var html = "<a href='/community/detailPage?articleId="+row.articleId+"\'>"+row.articleTitle+"</a>";
+                    return html;
+                }
             },  {
                 align: 'center',
-                title: '学校',
-                field:'schoolName'
+                title: '回复人',
+                field:'opUserName'
             },{
                 align: 'center',
-                title: '操作',
+                title: '内容',
                 formatter: function (value, row, index) {
-                    var editState = $('#communityEditP').val();
-                    var detail = "<a href=" + communityMng.URL.detail() + "?articleId=" + row.id + "&author="+row.author+"&offset=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;查看</a>";
-                    var edit = "<a href=" + communityMng.URL.addAndEdit() + "?articleId=" + row.id + "&opType=1 style='margin-left: 30px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑</a>";
-                    if (editState == 1) {
-                        return detail + edit;
-                    } else {
-                        return detail;
-                    }
+                    return row.content;
                 },
-            },]
+            }]
         });
     };
 
@@ -116,8 +110,8 @@ var TableInit = function () {
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
-            title: $('#searchTitle').val(),
-            schoolName: $('#searchSchoolName').val()
+            schoolName:$('#searchSchoolName').val(),
+            userName:$('#searchUserName').val()
         };
         return temp;
     };
@@ -128,37 +122,33 @@ var ButtonInit = function () {
     var oInit = new Object();
 
     oInit.Init = function () {
-        $("#btn_add").click(function () {
-            window.document.location = communityMng.URL.addAndEdit()+"?opType=2";
-        });
-
         $("#btn_delete").click(function () {
-            var arrselections = $("#tb_community").bootstrapTable('getSelections');
+            var arrselections = $("#tb_reply").bootstrapTable('getSelections');
             if (arrselections.length <= 0) {
                 toastr.warning('请选择至少一条数据');
                 return;
             }
             var select = new Array();
             for (var i = 0; i < arrselections.length; i++) {
-                var selectArticle = new Object();
-                selectArticle.id = arrselections[i].id;
-                select.push(selectArticle);
+                var selectComment = new Object();
+                selectComment.id = arrselections[i].id;
+                select.push(selectComment);
             }
 
-            Ewin.confirm({message: "确认要删除选择的帖子吗？"}).on(function (e) {
+            Ewin.confirm({message: "确认要删除选择的回复吗？"}).on(function (e) {
                 if (!e) {
                     return;
                 }
                 $.ajax({
                     type: "post",
-                    url: communityMng.URL.delete(),
+                    url: replyMng.URL.delete(),
                     dataType: "json",
                     contentType: "application/json;charset=utf-8",
                     data: JSON.stringify(select),
                     success: function (data, status) {
                         if (data.success) {
-                            toastr.success('删除成功');
-                            $("#tb_community").bootstrapTable('refresh');
+                            toastr.success(data.msg);
+                            $("#tb_reply").bootstrapTable('refresh');
                         } else {
                             toastr.error(data.msg);
                         }
@@ -172,9 +162,8 @@ var ButtonInit = function () {
     return oInit;
 };
 
-
 $(function () {
-    communityMng.init();
+    replyMng.init();
     //初始化消息框位置
     myToastr.init();
     //初始化模态框位置
