@@ -20,6 +20,7 @@ import ubtms.module.training.entity.Training;
 import ubtms.module.training.entity.TrainingQuery;
 import ubtms.module.training.service.TrainingService;
 import ubtms.module.user.service.UserService;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -49,6 +50,13 @@ public class TrainingController {
         return "/training/trainingMng";
     }
 
+    @RequestMapping("/trainingDetailGetAction")
+    @ResponseBody
+    public TrainingDto getTraining(HttpServletRequest request) {
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        TrainingDto training = trainingService.getTrainingById(id);
+        return training;
+    }
 
     @RequestMapping("/trainingAddAndEditPage")
     public String getOpPage(HttpServletRequest request, Model model) {
@@ -56,10 +64,7 @@ public class TrainingController {
         //0详情 1编辑 2添加
         if (!opType.equals("2")) {
             Integer id = Integer.valueOf(request.getParameter("id"));
-            Training training = trainingService.getTrainingById(id);
-            model.addAttribute("trainingDetail", training);
-        }else {
-
+            model.addAttribute("trainingId", id);
         }
         model.addAttribute("opType", opType);
         return "/training/trainingAddAndEdit";
@@ -97,20 +102,6 @@ public class TrainingController {
         return map;
     }
 
-    @RequestMapping("/gameDetailPage")
-    public String getGameDetail(HttpServletRequest request, Model model) {
-        String id = request.getParameter("gameId");
-        GameExample gameExample = new GameExample();
-        gameExample.createCriteria().andIdEqualTo(Integer.valueOf(id));
-        Game game = gameService.selectGameMsgByExample(gameExample).get(0);
-
-        School school = schoolService.selectOne(game.getSchoolId());
-        int[] teamScore = userService.getTeamScore(game.getId());
-        GameDto gameDto = new GameDto(game, school, teamScore);
-
-        model.addAttribute("game", gameDto);
-        return "/game/gameDetail";
-    }
 
     @RequestMapping("/trainingGetAction")
     @ResponseBody

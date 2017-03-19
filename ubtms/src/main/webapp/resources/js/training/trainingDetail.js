@@ -6,6 +6,9 @@ var trainingDetail = {
         parent: function () {
             return "training/trainingMngPage";
         },
+        getTraining:function () {
+            return 'training/trainingDetailGetAction';
+        },
         addAndEdit: function () {
             return 'training/trainingAddAndEditAction';
         },
@@ -13,15 +16,37 @@ var trainingDetail = {
 
     op: {
         init: function () {
-            debugger;
             schoolNameUtil.init('schoolName');
             trainingDetail.op.setFormValidator();
             var opType = $('#opType').val();
             //1编辑 2添加
-            if(opType=="1"){
-                trainingDetail.op.handleEdit();
+            if(opType!="2"){
+                trainingDetail.op.initData();
+
+               // trainingDetail.op.handleEdit();
             }
             myToastr.init();
+        },
+
+        initData:function () {
+            var trainingId = $('#trainingId').val();
+            $.get(trainingDetail.URL.getTraining()+"?id="+trainingId,{},function (data) {
+                $('#title').val(data.title);
+                $('#schoolName').val(data.schName);
+                var k=0;
+                for (var i = 1; i <= 5; i++) {
+                    for (var j = 1; j <= 4; j++) {
+                        var trainingItem = data.trainingItems[k++];
+                        var type = "tType"+i+j;
+                        var content = "tContent"+i+j;
+                        var cost = "tCost"+i+j;
+                        $('#'+type).val(trainingItem.item);
+                        $('#'+content).val(trainingItem.content);
+                        $('#'+cost).val(trainingItem.cost);
+                    }
+                }
+
+            });
         },
         setFormValidator: function () {
             $("#trainingForm").validate({

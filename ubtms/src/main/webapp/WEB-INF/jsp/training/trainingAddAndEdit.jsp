@@ -22,6 +22,8 @@
 <body>
 <div class="container-fluid">
     <input type="hidden" id="opType" value="${opType}">
+    <input type="hidden" id="trainingId" value="${trainingId}">
+
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 myNav">
             <div class="navContent">
@@ -44,7 +46,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="schoolName" class="col-sm-1 control-label"><span class="requiredMsg">*</span>计划名</label>
+                    <label for="title" class="col-sm-1 control-label"><span class="requiredMsg">*</span>计划名</label>
                     <div class="col-sm-11">
                         <input type="text" class="form-control" id="title" name="title">
                         <span class="help-block errorMsg" id="title-error">&nbsp;</span>

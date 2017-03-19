@@ -106,7 +106,6 @@ var bsTree = {
 		var parent1 = $('#treeview-checkable').treeview('getNode', 0);
 		var nodeArray = $('#treeview-checkable').treeview('getSiblings', 0);
 		nodeArray.unshift(parent1);
-		debugger;
 		var backDataList = bsTree.getTreeData(nodeArray);
 		return bsTree.changeData(backDataList);
 	},

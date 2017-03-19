@@ -17,6 +17,6 @@ public interface TrainingService {
     int saveTraining(HttpServletRequest request);
     List<TrainingDto> getTrainingMng(TrainingQuery trainingQuery);
     int countTrainingMng(TrainingQuery trainingQuery);
-    Training getTrainingById(Integer id);
+    TrainingDto getTrainingById(Integer id);
     int delTraining(List<Training> trainings);
 }

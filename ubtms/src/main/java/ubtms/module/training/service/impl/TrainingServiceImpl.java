@@ -65,13 +65,20 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
-    public Training getTrainingById(Integer id) {
+    public TrainingDto getTrainingById(Integer id) {
         Training training = trainingMapper.selectByPrimaryKey(id);
         TrainingItemExample trainingItemExample = new TrainingItemExample();
         trainingItemExample.createCriteria().andTraingingIdEqualTo(id);
         List<TrainingItem> trainingItems = trainingItemMapper.selectByExample(trainingItemExample);
         training.setTrainingItems(trainingItems);
-        return training;
+        TrainingDto trainingDto = new TrainingDto();
+        trainingDto.setTrainingItems(training.getTrainingItems());
+        trainingDto.setId(training.getId());
+        trainingDto.setTitle(training.getTitle());
+        trainingDto.setSchoolId(training.getSchoolId());
+        String schName = schoolService.selectOne(training.getSchoolId()).getSchName();
+        trainingDto.setSchName(schName);
+        return trainingDto;
     }
 
     @Override
