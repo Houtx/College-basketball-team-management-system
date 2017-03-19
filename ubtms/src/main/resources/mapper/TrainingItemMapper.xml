@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="item" property="item" jdbcType="TINYINT" />
     <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="cost" property="cost" jdbcType="TINYINT" />
+    <result column="cost" property="cost" jdbcType="INTEGER" />
     <result column="day" property="day" jdbcType="TINYINT" />
     <result column="trainging_id" property="traingingId" jdbcType="INTEGER" />
   </resultMap>
@@ -113,7 +113,7 @@
       cost, day, trainging_id
       )
     values (#{id,jdbcType=INTEGER}, #{item,jdbcType=TINYINT}, #{content,jdbcType=VARCHAR}, 
-      #{cost,jdbcType=TINYINT}, #{day,jdbcType=TINYINT}, #{traingingId,jdbcType=INTEGER}
+      #{cost,jdbcType=INTEGER}, #{day,jdbcType=TINYINT}, #{traingingId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="ubtms.module.training.entity.TrainingItem" >
@@ -149,7 +149,7 @@
         #{content,jdbcType=VARCHAR},
       </if>
       <if test="cost != null" >
-        #{cost,jdbcType=TINYINT},
+        #{cost,jdbcType=INTEGER},
       </if>
       <if test="day != null" >
         #{day,jdbcType=TINYINT},
@@ -178,7 +178,7 @@
         content = #{record.content,jdbcType=VARCHAR},
       </if>
       <if test="record.cost != null" >
-        cost = #{record.cost,jdbcType=TINYINT},
+        cost = #{record.cost,jdbcType=INTEGER},
       </if>
       <if test="record.day != null" >
         day = #{record.day,jdbcType=TINYINT},
@@ -196,7 +196,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       item = #{record.item,jdbcType=TINYINT},
       content = #{record.content,jdbcType=VARCHAR},
-      cost = #{record.cost,jdbcType=TINYINT},
+      cost = #{record.cost,jdbcType=INTEGER},
       day = #{record.day,jdbcType=TINYINT},
       trainging_id = #{record.traingingId,jdbcType=INTEGER}
     <if test="_parameter != null" >
@@ -213,7 +213,7 @@
         content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="cost != null" >
-        cost = #{cost,jdbcType=TINYINT},
+        cost = #{cost,jdbcType=INTEGER},
       </if>
       <if test="day != null" >
         day = #{day,jdbcType=TINYINT},
@@ -228,7 +228,7 @@
     update training_item
     set item = #{item,jdbcType=TINYINT},
       content = #{content,jdbcType=VARCHAR},
-      cost = #{cost,jdbcType=TINYINT},
+      cost = #{cost,jdbcType=INTEGER},
       day = #{day,jdbcType=TINYINT},
       trainging_id = #{traingingId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

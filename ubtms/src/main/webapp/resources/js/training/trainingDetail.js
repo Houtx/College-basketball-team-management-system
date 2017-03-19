@@ -42,7 +42,7 @@ var trainingDetail = {
                 },
                 messages: {
                     title: {
-                        required: "请选择开场时间",
+                        required: "请输入计划名",
                     },
                     schoolName: {
                         required: "请输入校名",
@@ -63,7 +63,6 @@ var trainingDetail = {
                     $('#' + errorMsgId).parent().removeClass('has-error');
                     $('#' + errorMsgId).css('visibility', 'hidden');
                 }
-
             });
         },
 
@@ -74,7 +73,6 @@ var trainingDetail = {
             setTimeout("trainingDetail.op.back()", 800);
         },
         submitForm: function () {
-            debugger;
             var access = $("#trainingForm").valid();
             if (!access) {
                 return;

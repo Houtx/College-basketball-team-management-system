@@ -38,11 +38,11 @@
                     <div class="form-group" style="margin-top:15px">
                         <label class="control-label col-sm-1" for="searchSchoolName">学校</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="searchSchoolName" />
+                            <input type="text" class="form-control" id="searchSchoolName" name="searchSchoolName"/>
                         </div>
-                        <label class="control-label col-sm-1" for="searchTitle">标题</label>
+                        <label class="control-label col-sm-1" for="searchTitle">计划名</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="searchTitle" />
+                            <input type="text" class="form-control" name="searchTitle" id="searchTitle" />
                         </div>
                         <div class="col-sm-4" style="text-align:left;">
                             <input type="button" style="margin-left:50px"  class="btn btn-primary" onclick="trainingMng.serachClick()" value="查询"/>

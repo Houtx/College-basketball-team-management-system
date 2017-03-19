@@ -15,9 +15,10 @@ import ubtms.module.game.service.GameService;
 import ubtms.module.role.entity.Menu;
 import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
+import ubtms.module.training.dto.TrainingDto;
 import ubtms.module.training.entity.Training;
+import ubtms.module.training.entity.TrainingQuery;
 import ubtms.module.training.service.TrainingService;
-import ubtms.module.user.dto.PlayerDataDto;
 import ubtms.module.user.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -52,13 +53,11 @@ public class TrainingController {
     @RequestMapping("/trainingAddAndEditPage")
     public String getOpPage(HttpServletRequest request, Model model) {
         String opType = request.getParameter("opType");
-        //1编辑 2添加
-        if (opType.equals("1")) {
-            Integer gameId = Integer.valueOf(request.getParameter("gameId"));
-            Game game = gameService.getById(gameId);
-            String test = schoolService.selectOne(game.getSchoolId()).getSchName();
-            model.addAttribute("mySchoolName", schoolService.selectOne(game.getSchoolId()).getSchName());
-            model.addAttribute("gameDetail", game);
+        //0详情 1编辑 2添加
+        if (!opType.equals("2")) {
+            Integer id = Integer.valueOf(request.getParameter("id"));
+            Training training = trainingService.getTrainingById(id);
+            model.addAttribute("trainingDetail", training);
         }else {
 
         }
@@ -71,7 +70,7 @@ public class TrainingController {
     public Map<String, Object> delTraining(@RequestBody List<Training> trainings) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            //gameService.delGame(games);
+            trainingService.delTraining(trainings);
             map.put("success", true);
             map.put("msg", "删除成功");
         } catch (Exception e) {
@@ -87,11 +86,13 @@ public class TrainingController {
     public Map<String, Object> addAndEditGameMsg(HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-
+            trainingService.saveTraining(request);
+            map.put("success", true);
+            map.put("msg", "添加成功");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("success", false);
-            map.put("msg", "操作失败:系统异常");
+            map.put("msg", "添加失败:系统异常");
         }
         return map;
     }
@@ -111,35 +112,21 @@ public class TrainingController {
         return "/game/gameDetail";
     }
 
-
-
-    @RequestMapping("gameSchoolDataGetAction")
-    @ResponseBody
-    public MngResult<List<PlayerDataDto>> getSchoolGameData(HttpServletRequest request) {
-        Integer gameId = Integer.valueOf(request.getParameter("gameId"));
-        List<PlayerDataDto> mySchoolplayerDataDtos = userService.getMySchoolPlayerData(gameId);
-        PlayerDataDto sum = new PlayerDataDto(mySchoolplayerDataDtos);
-        mySchoolplayerDataDtos.add(sum);
-        return new MngResult<List<PlayerDataDto>>(true, mySchoolplayerDataDtos, mySchoolplayerDataDtos.size());
-    }
-
-
-    @RequestMapping("/gameDataEditPage")
-    public String getGameDataEditPage(HttpServletRequest request, Model model) {
-        Integer gameId = Integer.valueOf(request.getParameter("gameId").toString());
-        GameExample gameExample = new GameExample();
-        gameExample.createCriteria().andIdEqualTo(gameId);
-        Game game = gameService.selectGameMsgByExample(gameExample).get(0);
-        model.addAttribute("game", game);
-        model.addAttribute("school", schoolService.selectOne(game.getSchoolId()).getSchName());
-        return "game/gameDataEdit";
-    }
-
-
     @RequestMapping("/trainingGetAction")
     @ResponseBody
-    public MngResult<List<GameDto>> getTrainings(int limit, int offset,String searchSchoolName,String searchTitle) {
-
-        return gameService.getGames(limit, offset);
+    public MngResult<List<TrainingDto>> getTrainings(int limit, int offset, String searchSchoolName, String searchTitle) {
+        TrainingQuery trainingQuery = new TrainingQuery();
+        trainingQuery.setLimit(limit);
+        trainingQuery.setOffset(offset);
+        if (!searchSchoolName.isEmpty()) {
+            trainingQuery.setSchName(searchSchoolName);
+        }
+        if (!searchTitle.isEmpty()) {
+            trainingQuery.setTitle(searchTitle);
+        }
+        List<TrainingDto> trainingDtos = trainingService.getTrainingMng(trainingQuery);
+        int total = trainingService.countTrainingMng(trainingQuery);
+        MngResult<List<TrainingDto>> list = new MngResult<List<TrainingDto>>(true, trainingDtos, total);
+        return list;
     }
 }

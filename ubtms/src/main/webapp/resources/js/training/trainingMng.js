@@ -2,7 +2,6 @@
     serachClick: function () {
         $("#tb_trainings").bootstrapTable('refresh');
     },
-
     URL: {
         getTrainings: function () {
             return 'training/trainingGetAction';
@@ -15,8 +14,6 @@
         },
 
     },
-
-
 
     init: function () {
         //1.初始化Table
@@ -71,24 +68,25 @@ var TableInit = function () {
                 width:'10px'
             }, {
                 align: 'center',
-                title: '标题'
+                title: '计划名',
+                field:'title'
             }, {
                 align: 'center',
                 title: '学校',
-                field:'mySchoolName'
+                field:'schName'
             },{
                 align: 'center',
                 title: '操作',
                 formatter: function (value, row, index, params) {
-                    // var editState = $('#trainingEditP').val();
-                    // var detail = "<a href=" + trainingMng.URL.detail() + "?trainingId=" + row.training.id +"><i class='glyphicon glyphicon-eye-open'></i>&nbsp;详情</a>";
-                    // var editTraining = "<a href=" + trainingMng.URL.editTrainingMsg() + "&trainingId=" + row.training.id + " style='margin-left: 25px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑赛事</a>";
-                    // var editData = "<a href='javascript:void(0)' onclick='DataEditLayer.open(" + row.training.id + ")' style='margin-left: 25px'><i class='glyphicon glyphicon-pencil'></i>&nbsp;编辑数据</a>";
-                    // if (editState == 1) {
-                    //     return detail + editTraining +editData;
-                    // } else {
-                    //     return detail;
-                    // }
+                    debugger;
+                    var editState = $('#trainingEditP').val();
+                    var detail = "<a href=" + trainingMng.URL.addAndEdit() + "?id=" + row.id +"&opType=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;详情</a>";
+                    var edit = "<a style='margin-left: 30px' href=" + trainingMng.URL.addAndEdit() + "?id=" + row.id +"&opType=1><i class='glyphicon glyphicon-eye-open'></i>&nbsp;编辑</a>";
+                    if (editState == 1) {
+                        return detail + edit;
+                    } else {
+                        return detail;
+                    }
                 },
                 width:'300px'
             },]
@@ -102,7 +100,7 @@ var TableInit = function () {
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
-            searchSchool:$('#searchSchoolName').val(),
+            searchSchoolName:$('#searchSchoolName').val(),
             searchTitle:$('#searchTitle').val()
         };
         return temp;
@@ -127,11 +125,11 @@ var ButtonInit = function () {
             var select = new Array();
             for (var i = 0; i < arrselections.length; i++) {
                 var selectTraining = new Object();
-                selectTraining.id = arrselections[i].training.id;
+                selectTraining.id = arrselections[i].id;
                 select.push(selectTraining);
             }
 
-            Ewin.confirm({message: "确认要删除选择的赛程吗？"}).on(function (e) {
+            Ewin.confirm({message: "确认要删除选择的训练计划吗？"}).on(function (e) {
                 if (!e) {
                     return;
                 }

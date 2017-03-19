@@ -324,52 +324,52 @@ public class TrainingItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andCostEqualTo(Byte value) {
+        public Criteria andCostEqualTo(Integer value) {
             addCriterion("cost =", value, "cost");
             return (Criteria) this;
         }
 
-        public Criteria andCostNotEqualTo(Byte value) {
+        public Criteria andCostNotEqualTo(Integer value) {
             addCriterion("cost <>", value, "cost");
             return (Criteria) this;
         }
 
-        public Criteria andCostGreaterThan(Byte value) {
+        public Criteria andCostGreaterThan(Integer value) {
             addCriterion("cost >", value, "cost");
             return (Criteria) this;
         }
 
-        public Criteria andCostGreaterThanOrEqualTo(Byte value) {
+        public Criteria andCostGreaterThanOrEqualTo(Integer value) {
             addCriterion("cost >=", value, "cost");
             return (Criteria) this;
         }
 
-        public Criteria andCostLessThan(Byte value) {
+        public Criteria andCostLessThan(Integer value) {
             addCriterion("cost <", value, "cost");
             return (Criteria) this;
         }
 
-        public Criteria andCostLessThanOrEqualTo(Byte value) {
+        public Criteria andCostLessThanOrEqualTo(Integer value) {
             addCriterion("cost <=", value, "cost");
             return (Criteria) this;
         }
 
-        public Criteria andCostIn(List<Byte> values) {
+        public Criteria andCostIn(List<Integer> values) {
             addCriterion("cost in", values, "cost");
             return (Criteria) this;
         }
 
-        public Criteria andCostNotIn(List<Byte> values) {
+        public Criteria andCostNotIn(List<Integer> values) {
             addCriterion("cost not in", values, "cost");
             return (Criteria) this;
         }
 
-        public Criteria andCostBetween(Byte value1, Byte value2) {
+        public Criteria andCostBetween(Integer value1, Integer value2) {
             addCriterion("cost between", value1, value2, "cost");
             return (Criteria) this;
         }
 
-        public Criteria andCostNotBetween(Byte value1, Byte value2) {
+        public Criteria andCostNotBetween(Integer value1, Integer value2) {
             addCriterion("cost not between", value1, value2, "cost");
             return (Criteria) this;
         }

@@ -39,15 +39,15 @@
                     <label for="schoolName" class="col-sm-1 control-label"><span class="requiredMsg">*</span>学校</label>
                     <div class="col-sm-11">
                         <input type="text" class="form-control" id="schoolName" name="schoolName" data-provide="typeahead">
-                        <span class="help-block errorMsg" id="schoolName-error ">&nbsp;</span>
+                        <span class="help-block errorMsg" id="schoolName-error">&nbsp;</span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="schoolName" class="col-sm-1 control-label"><span class="requiredMsg">*</span>标题</label>
+                    <label for="schoolName" class="col-sm-1 control-label"><span class="requiredMsg">*</span>计划名</label>
                     <div class="col-sm-11">
-                        <input type="text" class="form-control" id="title" name="schoolName">
-                        <span class="help-block errorMsg" id="title-error ">&nbsp;</span>
+                        <input type="text" class="form-control" id="title" name="title">
+                        <span class="help-block errorMsg" id="title-error">&nbsp;</span>
                     </div>
                 </div>
                 <!--星期一-->
@@ -63,10 +63,10 @@
                     <label for="tType11" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType11" class="form-control" name="tType11">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType11-error">&nbsp;</span>
 
@@ -80,7 +80,7 @@
 
                     <label for="tCost11" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost11" name="tCost11">
+                        <input type="number" class="form-control " id="tCost11" name="tCost11">
                         <span class="help-block errorMsg" id="tCost11-error">&nbsp;</span>
                     </div>
                 </div>
@@ -88,10 +88,10 @@
                     <label for="tType12" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType12" class="form-control" name="tType12">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType12-error">&nbsp;</span>
 
@@ -105,18 +105,18 @@
 
                     <label for="tCost12" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost12" name="tCost12">
+                        <input type="number" class="form-control " id="tCost12" name="tCost12">
                         <span class="help-block errorMsg" id="tCost12-error">&nbsp;</span>
                     </div>
                 </div>
                 <div class="form-group ">
-                    <label for="tType11" class="col-sm-1 control-label ">类型</label>
+                    <label for="tType13" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType13" class="form-control" name="tType13">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType13-error">&nbsp;</span>
 
@@ -130,7 +130,7 @@
 
                     <label for="tCost13" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost13" name="tCost13">
+                        <input type="number" class="form-control " id="tCost13" name="tCost13">
                         <span class="help-block errorMsg" id="tCost13-error">&nbsp;</span>
                     </div>
                 </div>
@@ -138,10 +138,10 @@
                     <label for="tType14" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType14" class="form-control" name="tType14">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType14-error">&nbsp;</span>
 
@@ -155,7 +155,7 @@
 
                     <label for="tCost14" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost14" name="tCost14">
+                        <input type="number" class="form-control " id="tCost14" name="tCost14">
                         <span class="help-block errorMsg" id="tCost14-error">&nbsp;</span>
                     </div>
                 </div>
@@ -172,10 +172,10 @@
                     <label for="tType21" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType21" class="form-control" name="tType21">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType21-error">&nbsp;</span>
 
@@ -189,7 +189,7 @@
 
                     <label for="tCost21" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost21" name="tCost21">
+                        <input type="number" class="form-control " id="tCost21" name="tCost21">
                         <span class="help-block errorMsg" id="tCost21-error">&nbsp;</span>
                     </div>
                 </div>
@@ -197,10 +197,10 @@
                     <label for="tType22" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType22" class="form-control" name="tType22">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType22-error">&nbsp;</span>
 
@@ -214,18 +214,18 @@
 
                     <label for="tCost22" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost22" name="tCost22">
+                        <input type="number" class="form-control " id="tCost22" name="tCost22">
                         <span class="help-block errorMsg" id="tCost22-error">&nbsp;</span>
                     </div>
                 </div>
                 <div class="form-group ">
-                    <label for="tType11" class="col-sm-1 control-label ">类型</label>
+                    <label for="tType23" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType23" class="form-control" name="tType23">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType23-error">&nbsp;</span>
 
@@ -239,7 +239,7 @@
 
                     <label for="tCost23" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost23" name="tCost23">
+                        <input type="number" class="form-control " id="tCost23" name="tCost23">
                         <span class="help-block errorMsg" id="tCost23-error">&nbsp;</span>
                     </div>
                 </div>
@@ -247,10 +247,10 @@
                     <label for="tType24" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType24" class="form-control" name="tType24">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType24-error">&nbsp;</span>
 
@@ -264,7 +264,7 @@
 
                     <label for="tCost24" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost24" name="tCost24">
+                        <input type="number" class="form-control " id="tCost24" name="tCost24">
                         <span class="help-block errorMsg" id="tCost24-error">&nbsp;</span>
                     </div>
                 </div>
@@ -281,10 +281,10 @@
                     <label for="tType31" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType31" class="form-control" name="tType31">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType31-error">&nbsp;</span>
 
@@ -298,7 +298,7 @@
 
                     <label for="tCost31" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost31" name="tCost31">
+                        <input type="number" class="form-control " id="tCost31" name="tCost31">
                         <span class="help-block errorMsg" id="tCost31-error">&nbsp;</span>
                     </div>
                 </div>
@@ -306,10 +306,10 @@
                     <label for="tType32" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType32" class="form-control" name="tType32">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType32-error">&nbsp;</span>
 
@@ -323,18 +323,18 @@
 
                     <label for="tCost32" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost32" name="tCost32">
+                        <input type="number" class="form-control " id="tCost32" name="tCost32">
                         <span class="help-block errorMsg" id="tCost32-error">&nbsp;</span>
                     </div>
                 </div>
                 <div class="form-group ">
-                    <label for="tType11" class="col-sm-1 control-label ">类型</label>
+                    <label for="tType33" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType33" class="form-control" name="tType33">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType33-error">&nbsp;</span>
 
@@ -348,7 +348,7 @@
 
                     <label for="tCost33" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost33" name="tCost33">
+                        <input type="number" class="form-control " id="tCost33" name="tCost33">
                         <span class="help-block errorMsg" id="tCost33-error">&nbsp;</span>
                     </div>
                 </div>
@@ -356,10 +356,10 @@
                     <label for="tType34" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType34" class="form-control" name="tType34">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType34-error">&nbsp;</span>
 
@@ -373,7 +373,7 @@
 
                     <label for="tCost34" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost34" name="tCost34">
+                        <input type="number" class="form-control " id="tCost34" name="tCost34">
                         <span class="help-block errorMsg" id="tCost34-error">&nbsp;</span>
                     </div>
                 </div>
@@ -390,10 +390,10 @@
                     <label for="tType41" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType41" class="form-control" name="tType41">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType41-error">&nbsp;</span>
 
@@ -407,43 +407,43 @@
 
                     <label for="tCost41" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost41" name="tCost41">
+                        <input type="number" class="form-control " id="tCost41" name="tCost41">
                         <span class="help-block errorMsg" id="tCost41-error">&nbsp;</span>
                     </div>
                 </div>
                 <div class="form-group ">
-                    <label for="tType41" class="col-sm-1 control-label ">类型</label>
+                    <label for="tType42" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
-                        <select id="tType41" class="form-control" name="tType41">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                        <select id="tType42" class="form-control" name="tType42">
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
-                        <span class="help-block errorMsg" id="tType41-error">&nbsp;</span>
+                        <span class="help-block errorMsg" id="tType42-error">&nbsp;</span>
 
                     </div>
 
-                    <label for="tContent41" class="col-sm-1 control-label">内容</label>
+                    <label for="tContent42" class="col-sm-1 control-label">内容</label>
                     <div class="col-sm-3">
-                        <input type="text " class="form-control " id="tContent41" name="tContent41">
-                        <span class="help-block errorMsg" id="tContent41-error">&nbsp;</span>
+                        <input type="text " class="form-control " id="tContent42" name="tContent42">
+                        <span class="help-block errorMsg" id="tContent42-error">&nbsp;</span>
                     </div>
 
-                    <label for="tCost41" class="col-sm-1 control-label ">用时(分)</label>
+                    <label for="tCost42" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost41" name="tCost41">
-                        <span class="help-block errorMsg" id="tCost41-error">&nbsp;</span>
+                        <input type="number" class="form-control " id="tCost42" name="tCost42">
+                        <span class="help-block errorMsg" id="tCost42-error">&nbsp;</span>
                     </div>
                 </div>
                 <div class="form-group ">
-                    <label for="tType11" class="col-sm-1 control-label ">类型</label>
+                    <label for="tType43" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType43" class="form-control" name="tType43">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType43-error">&nbsp;</span>
 
@@ -457,7 +457,7 @@
 
                     <label for="tCost43" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost43" name="tCost43">
+                        <input type="number" class="form-control " id="tCost43" name="tCost43">
                         <span class="help-block errorMsg" id="tCost43-error">&nbsp;</span>
                     </div>
                 </div>
@@ -465,10 +465,10 @@
                     <label for="tType44" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType44" class="form-control" name="tType44">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType44-error">&nbsp;</span>
 
@@ -482,7 +482,7 @@
 
                     <label for="tCost44" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost44" name="tCost44">
+                        <input type="number" class="form-control " id="tCost44" name="tCost44">
                         <span class="help-block errorMsg" id="tCost44-error">&nbsp;</span>
                     </div>
                 </div>
@@ -499,10 +499,10 @@
                     <label for="tType51" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType51" class="form-control" name="tType51">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType51-error">&nbsp;</span>
 
@@ -516,7 +516,7 @@
 
                     <label for="tCost51" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost51" name="tCost51">
+                        <input type="number" class="form-control " id="tCost51" name="tCost51">
                         <span class="help-block errorMsg" id="tCost51-error">&nbsp;</span>
                     </div>
                 </div>
@@ -524,10 +524,10 @@
                     <label for="tType52" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType52" class="form-control" name="tType52">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType52-error">&nbsp;</span>
 
@@ -541,18 +541,18 @@
 
                     <label for="tCost52" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost52" name="tCost52">
+                        <input type="number" class="form-control " id="tCost52" name="tCost52">
                         <span class="help-block errorMsg" id="tCost52-error">&nbsp;</span>
                     </div>
                 </div>
                 <div class="form-group ">
-                    <label for="tType11" class="col-sm-1 control-label ">类型</label>
+                    <label for="tType53" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType53" class="form-control" name="tType53">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType53-error">&nbsp;</span>
 
@@ -566,7 +566,7 @@
 
                     <label for="tCost53" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost53" name="tCost53">
+                        <input type="number" class="form-control " id="tCost53" name="tCost53">
                         <span class="help-block errorMsg" id="tCost53-error">&nbsp;</span>
                     </div>
                 </div>
@@ -574,10 +574,10 @@
                     <label for="tType54" class="col-sm-1 control-label ">类型</label>
                     <div class="col-sm-3 ">
                         <select id="tType54" class="form-control" name="tType54">
-                            <option value="1 ">身体训练</option>
-                            <option value="2 ">技术训练</option>
-                            <option value="3 ">战术训练</option>
-                            <option value="4 ">理论知识</option>
+                            <option value="1">身体训练</option>
+                            <option value="2">技术训练</option>
+                            <option value="3">战术训练</option>
+                            <option value="4">理论知识</option>
                         </select>
                         <span class="help-block errorMsg" id="tType54-error">&nbsp;</span>
 
@@ -591,7 +591,7 @@
 
                     <label for="tCost54" class="col-sm-1 control-label ">用时(分)</label>
                     <div class="col-sm-3 ">
-                        <input type="text " class="form-control " id="tCost54" name="tCost54">
+                        <input type="number" class="form-control " id="tCost54" name="tCost54">
                         <span class="help-block errorMsg" id="tCost54-error">&nbsp;</span>
                     </div>
                 </div>
@@ -607,7 +607,7 @@
                                class="btn btn-primary" value="编辑"/>
                         <input id="btnSave" name="btnSave" type="button" onclick="trainingDetail.op.submitForm()"
                                style="width: 100px;" class="btn btn-primary" value="保存"/>
-                        <input type="button" onclick=" schoolDetail.schoolAdd.back()" style="width: 100px;"
+                        <input type="button" onclick=" trainingDetail.op.back()" style="width: 100px;"
                                class="btn btn-primary" value="返回"/>
                     </div>
                 </div>

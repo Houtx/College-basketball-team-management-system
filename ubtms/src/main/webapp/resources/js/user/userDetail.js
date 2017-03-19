@@ -148,7 +148,6 @@ var userDetail = {
                     $('#' + errorMsgId).parent().removeClass('has-error');
                     $('#' + errorMsgId).css('visibility', 'hidden');
                 }
-
             });
         },
         fileChange: function () {

@@ -3,30 +3,26 @@ package ubtms.module.training.entity;
 public class TrainingItem {
     private Integer id;
 
-    /**
-    * 1身体训练 
-2 技术训练  
-3 战术训练
-4 理论知识
-    */
     private Byte item;
 
-    /**
-    * 训练内容
-    */
     private String content;
 
-    /**
-    * 训练花费时间
-    */
-    private Byte cost;
+    private Integer cost;
 
-    /**
-    * 1-5代表星期一至星期五
-    */
     private Byte day;
 
     private Integer traingingId;
+
+    public TrainingItem() {
+    }
+
+    public TrainingItem(Byte item, String content, Integer cost, Byte day, Integer traingingId) {
+        this.item = item;
+        this.content = content;
+        this.cost = cost;
+        this.day = day;
+        this.traingingId = traingingId;
+    }
 
     public Integer getId() {
         return id;
@@ -52,11 +48,11 @@ public class TrainingItem {
         this.content = content;
     }
 
-    public Byte getCost() {
+    public Integer getCost() {
         return cost;
     }
 
-    public void setCost(Byte cost) {
+    public void setCost(Integer cost) {
         this.cost = cost;
     }
 
