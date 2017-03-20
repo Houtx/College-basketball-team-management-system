@@ -28,6 +28,8 @@ public class TrainingServiceImpl implements TrainingService {
     @Autowired
     SchoolService schoolService;
 
+
+
     @Override
     public int saveTraining(HttpServletRequest request) {
         String schoolName = request.getParameter("schoolName");
@@ -50,6 +52,17 @@ public class TrainingServiceImpl implements TrainingService {
                TrainingItem trainingItem = new TrainingItem(new Byte(type),content,cost,day,trainingId);
                 trainingItemMapper.insert(trainingItem);
             }
+        }
+        return 1;
+    }
+
+    @Override
+    public int updateTraining(TrainingDto trainingDto) {
+        int schId = schoolService.selectOne(new School(trainingDto.getSchName())).getSchId();
+        trainingDto.setSchoolId(schId);
+        trainingMapper.updateByPrimaryKey(trainingDto);
+        for (TrainingItem item : trainingDto.getTrainingItems()) {
+            trainingItemMapper.updateByPrimaryKey(item);
         }
         return 1;
     }

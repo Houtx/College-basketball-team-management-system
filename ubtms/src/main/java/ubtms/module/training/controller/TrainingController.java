@@ -86,9 +86,9 @@ public class TrainingController {
         return map;
     }
 
-    @RequestMapping("/trainingAddAndEditAction")
+    @RequestMapping("/trainingAddAction")
     @ResponseBody
-    public Map<String, Object> addAndEditGameMsg(HttpServletRequest request) {
+    public Map<String, Object> addTraining(HttpServletRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
             trainingService.saveTraining(request);
@@ -102,6 +102,21 @@ public class TrainingController {
         return map;
     }
 
+    @RequestMapping("/trainingEditAction")
+    @ResponseBody
+    public Map<String, Object> editTraining(@RequestBody TrainingDto trainingDto) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            trainingService.updateTraining(trainingDto);
+            map.put("success", true);
+            map.put("msg", "修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("msg", "修改成功:系统异常");
+        }
+        return map;
+    }
 
     @RequestMapping("/trainingGetAction")
     @ResponseBody

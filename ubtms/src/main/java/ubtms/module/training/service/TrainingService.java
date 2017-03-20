@@ -15,6 +15,7 @@ import java.util.List;
 
 public interface TrainingService {
     int saveTraining(HttpServletRequest request);
+    int updateTraining(TrainingDto trainingDto);
     List<TrainingDto> getTrainingMng(TrainingQuery trainingQuery);
     int countTrainingMng(TrainingQuery trainingQuery);
     TrainingDto getTrainingById(Integer id);

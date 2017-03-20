@@ -25,7 +25,11 @@ public class Training {
         this.schoolId = schoolId;
         this.title = title;
     }
-
+    public Training(Integer id, String title, Integer schoolId) {
+        this.id=id;
+        this.schoolId = schoolId;
+        this.title = title;
+    }
     public Integer getId() {
         return id;
     }

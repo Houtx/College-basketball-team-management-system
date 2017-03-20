@@ -21,9 +21,6 @@
 
 <body>
 <div class="container-fluid">
-    <input type="hidden" id="opType" value="${opType}">
-    <input type="hidden" id="trainingId" value="${trainingId}">
-
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 myNav">
             <div class="navContent">
@@ -36,7 +33,29 @@
         <div class="col-xs-10 myColCenterBlock">
             <form class="form-horizontal myForm" role="form" id="trainingForm" method="post"
                   enctype="multipart/form-data">
-
+                <input type="hidden" id="trainingEditP" value="${trainingEditP}">
+                <input type="hidden" id="opType" value="${opType}">
+                <input type="hidden" id="trainingId" value="${trainingId}">
+                <input type="hidden" id="tId11">
+                <input type="hidden" id="tId12">
+                <input type="hidden" id="tId13">
+                <input type="hidden" id="tId14">
+                <input type="hidden" id="tId21">
+                <input type="hidden" id="tId22">
+                <input type="hidden" id="tId23">
+                <input type="hidden" id="tId24">
+                <input type="hidden" id="tId31">
+                <input type="hidden" id="tId32">
+                <input type="hidden" id="tId33">
+                <input type="hidden" id="tId34">
+                <input type="hidden" id="tId41">
+                <input type="hidden" id="tId42">
+                <input type="hidden" id="tId43">
+                <input type="hidden" id="tId44">
+                <input type="hidden" id="tId51">
+                <input type="hidden" id="tId52">
+                <input type="hidden" id="tId53">
+                <input type="hidden" id="tId54">
                 <div class="form-group">
                     <label for="schoolName" class="col-sm-1 control-label"><span class="requiredMsg">*</span>学校</label>
                     <div class="col-sm-11">
@@ -605,11 +624,11 @@
                 <div class="col-sm-11">
                     <div style=" margin-left: auto; margin-right: auto;">
                         <input id="btnEdit" name="btnEdit" type="button"
-                               onclick="schoolDetail.schoolAdd.handleEditBtn()" style="display:none;width: 100px;"
+                               onclick="trainingDetail.op.handleEdit()" style="display:none;width: 100px;"
                                class="btn btn-primary" value="编辑"/>
                         <input id="btnSave" name="btnSave" type="button" onclick="trainingDetail.op.submitForm()"
                                style="width: 100px;" class="btn btn-primary" value="保存"/>
-                        <input type="button" onclick=" trainingDetail.op.back()" style="width: 100px;"
+                        <input id="btnBack" type="button" onclick=" trainingDetail.op.back()" style="width: 100px;"
                                class="btn btn-primary" value="返回"/>
                     </div>
                 </div>

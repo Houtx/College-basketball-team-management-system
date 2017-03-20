@@ -6,12 +6,15 @@ var trainingDetail = {
         parent: function () {
             return "training/trainingMngPage";
         },
-        getTraining:function () {
+        getTraining: function () {
             return 'training/trainingDetailGetAction';
         },
-        addAndEdit: function () {
-            return 'training/trainingAddAndEditAction';
+        add: function () {
+            return 'training/trainingAddAction';
         },
+        edit: function () {
+            return 'training/trainingEditAction';
+        }
     },
 
     op: {
@@ -20,32 +23,37 @@ var trainingDetail = {
             trainingDetail.op.setFormValidator();
             var opType = $('#opType').val();
             //1编辑 2添加
-            if(opType!="2"){
+            if (opType != "2") {
                 trainingDetail.op.initData();
-
-               // trainingDetail.op.handleEdit();
+                // 0 详情
+                if(opType=="0"){
+                    trainingDetail.op.handleDetail();
+                }
+                // trainingDetail.op.handleEdit();
             }
             myToastr.init();
         },
 
-        initData:function () {
+        initData: function () {
             var trainingId = $('#trainingId').val();
-            $.get(trainingDetail.URL.getTraining()+"?id="+trainingId,{},function (data) {
+            $.get(trainingDetail.URL.getTraining() + "?id=" + trainingId, {}, function (data) {
                 $('#title').val(data.title);
                 $('#schoolName').val(data.schName);
-                var k=0;
+                var k = 0;
                 for (var i = 1; i <= 5; i++) {
                     for (var j = 1; j <= 4; j++) {
+                       // debugger;
                         var trainingItem = data.trainingItems[k++];
-                        var type = "tType"+i+j;
-                        var content = "tContent"+i+j;
-                        var cost = "tCost"+i+j;
-                        $('#'+type).val(trainingItem.item);
-                        $('#'+content).val(trainingItem.content);
-                        $('#'+cost).val(trainingItem.cost);
+                        var tId = "tId" + i + j;
+                        var type = "tType" + i + j;
+                        var content = "tContent" + i + j;
+                        var cost = "tCost" + i + j;
+                        $('#' + tId).val(trainingItem.id);
+                        $('#' + type).val(trainingItem.item);
+                        $('#' + content).val(trainingItem.content);
+                        $('#' + cost).val(trainingItem.cost);
                     }
                 }
-
             });
         },
         setFormValidator: function () {
@@ -103,14 +111,51 @@ var trainingDetail = {
                 return;
             }
             var url;
-            var trainingType = $('#opType').val();
-            if (trainingType == "1") {
-                var trainingId = $('#trainingId').val();
-               // url = trainingDetail.URL.edit()+"&trainingId="+trainingId;
-            } else {
-                url = trainingDetail.URL.addAndEdit();
-            }
+            var opType = $('#opType').val();
             $('#btnSave').attr('disabled', true);
+            if (opType == "1") {
+                var trainingId = $('#trainingId').val();
+                var training = new Object();
+                training.id = trainingId;
+                training.title = $('#title').val();
+                training.schName = $('#schoolName').val();
+                training.trainingItems = new Array();
+                for (var i = 1; i <= 5; i++) {
+                    for (var j = 1; j <= 4; j++) {
+                        var trainingItem = new Object();
+                        var tId = "tId" + i + j;
+                        var type = "tType" + i + j;
+                        var content = "tContent" + i + j;
+                        var cost = "tCost" + i + j;
+                        trainingItem.id = $('#' + tId).val();
+                        trainingItem.item = $('#' + type).val();
+                        trainingItem.content = $('#' + content).val();
+                        trainingItem.cost = $('#' + cost).val();
+                        trainingItem.day = i;
+                        trainingItem.traingingId = trainingId;
+                        training.trainingItems.push(trainingItem);
+                    }
+                }
+                $.ajax({
+                    type: "post",
+                    url: trainingDetail.URL.edit(),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(training),
+                    success: function (data, status) {
+                        if (data.success) {
+                            toastr.success(data.msg);
+                            trainingDetail.op.successBack();
+                        } else {
+                            toastr.error(data.msg);
+                            $('#btnSave').attr('disabled', false);
+                        }
+                    }
+                });
+                return;
+            } else {
+                url = trainingDetail.URL.add();
+            }
             $.post(url, $('#trainingForm').serialize(), function (result) {
                 if (result.success) {
                     toastr.success(result.msg);
@@ -123,20 +168,28 @@ var trainingDetail = {
         },
 
         handleDetail: function () {
-            $('#title').html("&nbsp;赛事管理&nbsp;&nbsp;>&nbsp;&nbsp;赛事详情");
+            //$('#title').html("&nbsp;训练计划&nbsp;&nbsp;>&nbsp;&nbsp;训练计划详情");
+
+            $("input").attr('disabled', true);
+            $("select").attr('disabled', true);
+
+            $('#btnBack').attr('disabled', false);
             $('#btnSave').hide();
-            $('#file').attr('disabled', true);
-            $('#trainingName').attr('disabled', true);
-            $('#introduction').attr('disabled', true);
+            $('#btnSave').attr('disabled', false);
             var editState = $('#trainingEditP').val();
             if (editState == 1) {
+                $('#btnEdit').attr('disabled', false);
                 $('#btnEdit').show();
             }
         },
 
         handleEdit: function () {
-            $('#title').html("&nbsp;赛事管理&nbsp;&nbsp;>&nbsp;&nbsp;修改赛事");
-            $('#schoolName').attr('disabled', true);
+            //$('#title').html("&nbsp;赛事管理&nbsp;&nbsp;>&nbsp;&nbsp;修改赛事");
+            $("input").attr('disabled', false);
+            $("select").attr('disabled', false);
+            $('#btnEdit').hide();
+            $('#btnSave').show();
+            $('#opType').val("1");
         },
 
     }

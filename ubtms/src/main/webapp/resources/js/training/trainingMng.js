@@ -78,7 +78,7 @@ var TableInit = function () {
                 align: 'center',
                 title: '操作',
                 formatter: function (value, row, index, params) {
-                    debugger;
+                    // debugger;
                     var editState = $('#trainingEditP').val();
                     var detail = "<a href=" + trainingMng.URL.addAndEdit() + "?id=" + row.id +"&opType=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;详情</a>";
                     var edit = "<a style='margin-left: 30px' href=" + trainingMng.URL.addAndEdit() + "?id=" + row.id +"&opType=1><i class='glyphicon glyphicon-eye-open'></i>&nbsp;编辑</a>";
@@ -147,7 +147,6 @@ var ButtonInit = function () {
                             toastr.error(data.msg);
                         }
                     }
-
                 });
             });
         });
