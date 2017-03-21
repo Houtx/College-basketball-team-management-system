@@ -1,5 +1,6 @@
 package ubtms.module.training.service;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Service;
 import ubtms.module.training.dto.TrainingDto;
 import ubtms.module.training.entity.Training;
@@ -20,4 +21,5 @@ public interface TrainingService {
     int countTrainingMng(TrainingQuery trainingQuery);
     TrainingDto getTrainingById(Integer id);
     int delTraining(List<Training> trainings);
+    HSSFWorkbook exportExcel(TrainingDto trainingDto);
 }

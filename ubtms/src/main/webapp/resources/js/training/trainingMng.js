@@ -12,7 +12,9 @@
         delete: function () {
             return "/training/trainingDelAction";
         },
-
+        export: function () {
+            return "/training/trainingExportExcelAction";
+        },
     },
 
     init: function () {
@@ -78,14 +80,14 @@ var TableInit = function () {
                 align: 'center',
                 title: '操作',
                 formatter: function (value, row, index, params) {
-                    // debugger;
                     var editState = $('#trainingEditP').val();
-                    var detail = "<a href=" + trainingMng.URL.addAndEdit() + "?id=" + row.id +"&opType=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;详情</a>";
+                    var exportData = "<a style='margin-right: 30px' href=" + trainingMng.URL.export() + "?id=" + row.id +"><i class='glyphicon glyphicon-eye-open'></i>&nbsp;导出</a>";
+                    var detail = "<a  href=" + trainingMng.URL.addAndEdit() + "?id=" + row.id +"&opType=0><i class='glyphicon glyphicon-eye-open'></i>&nbsp;详情</a>";
                     var edit = "<a style='margin-left: 30px' href=" + trainingMng.URL.addAndEdit() + "?id=" + row.id +"&opType=1><i class='glyphicon glyphicon-eye-open'></i>&nbsp;编辑</a>";
                     if (editState == 1) {
-                        return detail + edit;
+                        return exportData+detail + edit;
                     } else {
-                        return detail;
+                        return exportData+detail;
                     }
                 },
                 width:'300px'

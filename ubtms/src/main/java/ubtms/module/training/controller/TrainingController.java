@@ -1,19 +1,17 @@
 package ubtms.module.training.controller;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import ubtms.basic.dto.MngResult;
 import ubtms.basic.util.PermissionUtil;
-import ubtms.module.game.dto.GameDto;
-import ubtms.module.game.entity.Game;
-import ubtms.module.game.entity.GameExample;
 import ubtms.module.game.service.GameService;
 import ubtms.module.role.entity.Menu;
-import ubtms.module.school.entity.School;
 import ubtms.module.school.service.SchoolService;
 import ubtms.module.training.dto.TrainingDto;
 import ubtms.module.training.entity.Training;
@@ -22,6 +20,7 @@ import ubtms.module.training.service.TrainingService;
 import ubtms.module.user.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -56,6 +55,20 @@ public class TrainingController {
         Integer id = Integer.valueOf(request.getParameter("id"));
         TrainingDto training = trainingService.getTrainingById(id);
         return training;
+    }
+
+    @RequestMapping("/trainingExportExcelAction")
+    public ModelAndView exportExcel(HttpServletRequest request, HttpServletResponse response) {
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        TrainingDto training = trainingService.getTrainingById(id);
+        HSSFWorkbook hssfWorkbook = trainingService.exportExcel(training);
+        ViewExcel viewExcel = new ViewExcel();
+        try {
+            viewExcel.buildExcelDocument(null, hssfWorkbook, request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ModelAndView(viewExcel, null);
     }
 
     @RequestMapping("/trainingAddAndEditPage")
