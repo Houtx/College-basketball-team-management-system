@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ubtms.module.role.dao.RoleMapper">
+    <resultMap id="BaseResultMap" type="ubtms.module.role.entity.Role">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="school_id" property="schoolId" jdbcType="INTEGER"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <!--        <association property="school" javaType="ubtms.module.school.entity.School">
+                    <id property="schId" column="sch_id" jdbcType="INTEGER"/>
+                    <result property="schName" column="sch_name" jdbcType="VARCHAR"/>
+                </association>-->
+<!--
+        <association property="school" javaType="ubtms.module.school.entity.School" column="sch_id" select="selectSchool"/>
+-->
+
+    </resultMap>
+
+    <resultMap id="roleRightsMap" type="ubtms.module.role.entity.Role">
+        <id column="role_id" property="id" jdbcType="INTEGER"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="role_school_id" property="schoolId" jdbcType="INTEGER"/>
+        <result column="role_state" property="state" jdbcType="TINYINT"/>
+        <collection property="menus" resultMap="menusMap"/>
+    </resultMap>
+
+    <resultMap id="menusMap" type="ubtms.module.role.entity.Menu">
+        <id column="menu_id" property="id"/>
+        <result column="menu_name" property="name"/>
+        <result column="menu_icon" property="icon"/>
+        <result column="menu_sort" property="sort"/>
+        <result column="menu_state" property="state"/>
+        <association property="role" resultMap="roleRightsMap"/>
+        <collection property="subMenus" resultMap="subMenusMap"/>
+    </resultMap>
+
+    <resultMap id="subMenusMap" type="ubtms.module.role.entity.SubMenu">
+        <id column="sub_menu_id" property="id"/>
+        <result column="sub_menu_name" property="name"/>
+        <result column="sub_menu_sort" property="sort"/>
+        <result column="sub_menu_url" property="url"/>
+        <result column="sub_menu_state" property="state"/>
+
+        <association property="menu" resultMap="menusMap"/>
+        <collection property="permissions" ofType="ubtms.module.role.entity.Permission">
+            <id column="permission_id" property="id"/>
+            <result column="permission_type" property="type"/>
+            <result column="permission_state" property="state"/>
+            <result column="permission_sort" property="sort"/>
+            <association property="subMenu" resultMap="subMenusMap"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectSchool" parameterType="int" resultType="ubtms.module.school.entity.School">
+        select * from school where sch_id = #{sch_id}
+    </select>
+
+    <select id="selectById" resultType="ubtms.module.role.entity.Role">
+        SELECT  * from role WHERE id = #{id}
+    </select>
+    <select id="selectByPrimaryKey" resultMap="roleRightsMap" parameterType="java.lang.Integer">
+    SELECT
+      p.id AS permission_id,
+      p.type AS permission_type,
+      p.state AS permission_state,
+      p.sort AS permission_sort,
+      s.id AS sub_menu_id,
+      s.url AS sub_menu_url,
+      s.name AS sub_menu_name,
+      s.sort AS sub_menu_sort,
+      s.state AS sub_menu_state,
+      m.id AS menu_id,
+      m.icon AS menu_icon,
+      m.name AS menu_name,
+      m.sort AS menu_sort,
+      m.state AS menu_state,
+      rl.id AS role_id,
+      rl.role_name AS role_name,
+      rl.state AS role_state,
+      rl.school_id AS role_school_id
+    FROM role rl
+    LEFT JOIN menu m ON m.role_id=rl.id
+    LEFT JOIN sub_menu s ON s.parent_id=m.id
+    LEFT JOIN permission p ON p.parent_id=s.id
+    where rl.id=#{id}
+  </select>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, role_name, school_id , state
+  </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="ubtms.module.role.entity.RoleExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        *
+        <!--<include refid="Base_Column_List"/>-->
+        from role
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test="offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+
+    <select id="select" resultType="Role">
+        SELECT * FROM role
+        <where>
+            <if test="id!=null">
+                id=#{id}
+            </if>
+            <if test="roleName!=null">
+                AND role_name like #{roleName}
+            </if>
+            <if test="schoolId!=null">
+                AND school_id like #{schoolId}
+            </if>
+            <if test="state!=null">
+                AND state=#{state}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="ubtms.module.role.entity.RoleExample">
+        delete from role
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="ubtms.module.role.entity.Role">
+    insert into role
+    values (#{id}, #{roleName}, #{schoolId},#{state})
+  </insert>
+
+    <insert id="insertSelective" parameterType="ubtms.module.role.entity.Role">
+        insert into role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roleName != null">
+                role_name,
+            </if>
+            <if test="schoolId != null">
+                school_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="schoolId != null">
+                #{schoolId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="ubtms.module.role.entity.RoleExample" resultType="java.lang.Integer">
+        select count(*) from role
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update role
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.roleName != null">
+                role_name = #{record.roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.schoolId != null">
+                school_id = #{record.schoolId,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update role
+        set id = #{record.id,jdbcType=INTEGER},
+        role_name = #{record.roleName,jdbcType=VARCHAR},
+        school_id = #{record.schoolId,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="ubtms.module.role.entity.Role">
+        update role
+        <set>
+            <if test="roleName != null">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="schoolId != null">
+                school_id = #{schoolId,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                state = #{state}
+            </if>            
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="ubtms.module.role.entity.Role">
+    update role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      school_id = #{schoolId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

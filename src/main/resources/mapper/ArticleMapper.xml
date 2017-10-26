@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ubtms.module.community.dao.ArticleMapper">
+    <resultMap id="articleResultMap" type="ubtms.module.community.entity.Article">
+        <id column="article_id" property="id" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="article_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="article_content" property="content" jdbcType="LONGVARCHAR"/>
+        <collection property="commentDtos" resultMap="commentDtosMap"/>
+    </resultMap>
+
+    <resultMap id="commentDtosMap" type="ubtms.module.community.dto.CommentDto">
+        <id column="comment_id" property="id" jdbcType="INTEGER"/>
+        <result column="comment_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="comment_content" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="head_pic" property="headPic" jdbcType="LONGVARCHAR"/>
+        <result column="comment_username" property="userName" jdbcType="VARCHAR"/>
+        <collection property="replyDtos" resultMap="replyDtosMap"/>
+    </resultMap>
+
+    <resultMap id="replyDtosMap" type="ubtms.module.community.dto.ReplyDto">
+        <id column="reply_id" property="id" jdbcType="INTEGER"/>
+        <result column="reply_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="reply_content" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="reply_username" property="opUserName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap" type="ubtms.module.community.entity.Article">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="ubtms.module.community.entity.Article" extends="BaseResultMap">
+        <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, title, create_time, user_id
+  </sql>
+    <sql id="Blob_Column_List">
+    content
+  </sql>
+    <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+            parameterType="ubtms.module.community.entity.ArticleExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from article
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="ubtms.module.community.entity.ArticleExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from article
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test="offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+    <!--<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--,-->
+    <!--<include refid="Blob_Column_List"/>-->
+    <!--from article-->
+    <!--where id = #{id,jdbcType=INTEGER}-->
+    <!--</select>-->
+    <select id="selectWithCommentByPrimaryKey" resultMap="articleResultMap">
+        SELECT
+        `comment`.id AS comment_id,
+        `comment`.create_time AS comment_create_time,
+        `comment`.content AS comment_content,
+        article.id AS article_id,
+        article.title,
+        article.create_time AS article_create_time,
+        article.content AS article_content,
+        article.user_id,
+        reply.id AS reply_id,
+        reply.create_time AS reply_create_time,
+        reply.content AS reply_content ,
+        reply_user.real_name AS reply_username,
+        comment_user.real_name AS comment_username,
+        comment_user.head_pic AS head_pic
+        FROM
+        article
+        LEFT JOIN `comment` ON `comment`.article_id = article.id
+        LEFT JOIN `user` comment_user ON comment_user.id = `comment`.user_id
+        LEFT JOIN reply ON reply.comment_id = `comment`.id
+        LEFT JOIN `user` reply_user ON reply.user_id = reply_user.id
+        WHERE article.id = #{id} ORDER BY `comment`.create_time DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+    <select id="selectByPrimaryKey" resultType="ubtms.module.community.entity.Article">
+        select * from article WHERE id = #{id};
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="ubtms.module.community.entity.ArticleExample">
+        delete from article
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="ubtms.module.community.entity.Article">
+    insert into article (title, create_time,
+      user_id, content)
+    values (#{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{userId,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="ubtms.module.community.entity.Article">
+        insert into article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="ubtms.module.community.entity.ArticleExample"
+            resultType="java.lang.Integer">
+        select count(*) from article
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <select id="countWithLimit" parameterType="ubtms.module.community.entity.ArticleLimitObject" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        article
+        INNER JOIN `user` ON article.user_id = `user`.id
+        INNER JOIN role ON `user`.role_id = role.id
+        INNER JOIN school ON role.school_id = school.sch_id
+        <where>
+            <if test="schoolName!=null">
+                school.sch_name = #{schoolName}
+            </if>
+            <if test="data.title!=null">
+                AND title LIKE "%"#{data.title}"%"
+            </if>
+            <if test="system!=null">
+                OR school.sch_name LIKE #{system}
+            </if>
+        </where>
+    </select>
+    <select id="selectWithLimit" parameterType="ubtms.module.community.entity.ArticleLimitObject"
+            resultType="ubtms.module.community.dto.ArticleDto">
+        SELECT
+        article.id,
+        article.title,
+        article.create_time,
+        article.content,
+        article.user_id,
+        `user`.real_name AS `author`,
+        school.sch_name AS `schoolName`
+        FROM
+        article
+        INNER JOIN `user` ON article.user_id = `user`.id
+        INNER JOIN role ON `user`.role_id = role.id
+        INNER JOIN school ON role.school_id = school.sch_id
+        <where>
+            <if test="schoolName!=null">
+                school.sch_name LIKE #{schoolName}
+            </if>
+            <if test="data.title!=null">
+                AND title LIKE "%"#{data.title}"%"
+            </if>
+            <if test="system!=null">
+                OR school.sch_name LIKE #{system}
+            </if>
+        </where>
+        ORDER BY article.create_time DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map">
+        update article
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.title != null">
+                title = #{record.title,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.userId != null">
+                user_id = #{record.userId,jdbcType=INTEGER},
+            </if>
+            <if test="record.content != null">
+                content = #{record.content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExampleWithBLOBs" parameterType="map">
+        update article
+        set id = #{record.id,jdbcType=INTEGER},
+        title = #{record.title,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        user_id = #{record.userId,jdbcType=INTEGER},
+        content = #{record.content,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update article
+        set id = #{record.id,jdbcType=INTEGER},
+        title = #{record.title,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        user_id = #{record.userId,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="ubtms.module.community.entity.Article">
+        update article
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="ubtms.module.community.entity.Article">
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="ubtms.module.community.entity.Article">
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      content = #{content}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

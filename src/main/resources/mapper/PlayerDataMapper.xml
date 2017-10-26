@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ubtms.module.user.dao.PlayerDataMapper">
+    <resultMap id="BaseResultMap" type="ubtms.module.user.entity.PlayerData">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+        <result column="shot" property="shot" jdbcType="INTEGER"/>
+        <result column="field_goal" property="fieldGoal" jdbcType="INTEGER"/>
+        <result column="three_point_shot" property="threePointShot" jdbcType="INTEGER"/>
+        <result column="three_point_shot_goal" property="threePointShotGoal" jdbcType="INTEGER"/>
+        <result column="backboard" property="backboard" jdbcType="INTEGER"/>
+        <result column="assist" property="assist" jdbcType="INTEGER"/>
+        <result column="steal" property="steal" jdbcType="INTEGER"/>
+        <result column="blockshot" property="blockshot" jdbcType="INTEGER"/>
+        <result column="turnover" property="turnover" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, score, shot, field_goal, three_point_shot, three_point_shot_goal, backboard, 
+    assist, steal, blockshot, turnover
+  </sql>
+
+    <select id="selectLastData" resultType="ubtms.module.user.entity.PlayerData">
+    select * from player_data order by id DESC limit 1
+  </select>
+
+    <select id="sumMySchoolScore" resultType="Integer">
+        SELECT
+        sum(player_data.score)
+        FROM
+        player_data
+        INNER JOIN school_player_data ON school_player_data.data_id = player_data.id
+        INNER JOIN game ON school_player_data.game_id = game.id
+        where game.id=#{gameId}
+    </select>
+    <select id="sumRivalScore" resultType="Integer">
+        SELECT
+        sum(player_data.score)
+        FROM
+        player_data
+        INNER JOIN rival_player_data ON rival_player_data.data_id = player_data.id
+        INNER JOIN game ON rival_player_data.game_id = game.id
+        where game.id=#{gameId}
+    </select>
+
+    <select id="countAVGData" resultType="int">
+        SELECT count(*) from (
+        SELECT
+        AVG(player_data.score) AS score,
+        AVG(player_data.backboard) AS backboard,
+        AVG(player_data.assist) AS assist,
+        AVG(player_data.steal) AS steal,
+        AVG(player_data.blockshot) AS blockshot,
+        school.sch_name,
+        `user`.real_name AS player_name
+        FROM
+        player_data
+        INNER JOIN school_player_data ON school_player_data.data_id = player_data.id
+        INNER JOIN `user` ON school_player_data.player_id = `user`.id
+        INNER JOIN `role` ON `user`.role_id = `role`.id
+        INNER JOIN school ON `role`.school_id = school.sch_id
+        GROUP BY
+        `user`.id
+        <trim prefix="HAVING" prefixOverrides="AND">
+            <if test="schName != null">
+                school.sch_name = #{schName}
+            </if>
+            <if test="userName != null">
+                AND `user`.real_name = #{userName}
+            </if>
+        </trim>
+        )mydata
+    </select>
+
+    <select id="selectAVGData" resultType="ubtms.module.user.dto.PlayerDataDto">
+        SELECT
+        AVG(player_data.score) AS score,
+        AVG(player_data.backboard) AS backboard,
+        AVG(player_data.assist) AS assist,
+        AVG(player_data.steal) AS steal,
+        AVG(player_data.blockshot) AS blockshot,
+        school.sch_name,
+        `user`.real_name AS player_name,
+        `user`.id AS player_id
+        FROM
+        player_data
+        INNER JOIN school_player_data ON school_player_data.data_id = player_data.id
+        INNER JOIN `user` ON school_player_data.player_id = `user`.id
+        INNER JOIN role ON `user`.role_id = role.id
+        INNER JOIN school ON role.school_id = school.sch_id
+        GROUP BY
+        `user`.id
+        <trim prefix="HAVING" prefixOverrides="AND">
+            <if test="schName != null">
+                school.sch_name = #{schName}
+            </if>
+            <if test="userId != null">
+                AND `user`.id = #{userId}
+            </if>
+            <if test="userName != null">
+                AND `user`.real_name = #{userName}
+            </if>
+        </trim>
+        ORDER BY AVG(player_data.score) desc
+        <if test="limit != null">
+            limit #{offset},#{limit}
+        </if>
+    </select>
+
+
+    <select id="selectByUserIdAndTime" resultType="ubtms.module.user.dto.PlayerDataDto">
+        SELECT
+        player_data.id,
+        player_data.score,
+        player_data.shot,
+        player_data.field_goal,
+        player_data.three_point_shot,
+        player_data.three_point_shot_goal,
+        player_data.backboard,
+        player_data.assist,
+        player_data.steal,
+        player_data.blockshot,
+        player_data.turnover,
+        game.start_time AS time
+        FROM
+        player_data
+        INNER JOIN school_player_data ON school_player_data.data_id = player_data.id
+        INNER JOIN game ON school_player_data.game_id = game.id
+        INNER JOIN `user` ON school_player_data.player_id = `user`.id
+        <where>
+            <if test="userId != null">
+                `user`.id=#{userId}
+            </if>
+            <if test="startTime != null">
+                AND game.start_time >= #{startTime} AND game.start_time &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+    <select id="selectRivalPlayerData" resultType="ubtms.module.user.dto.PlayerDataDto">
+        SELECT
+        player_data.id,
+        player_data.score,
+        player_data.shot,
+        player_data.field_goal,
+        player_data.three_point_shot,
+        player_data.three_point_shot_goal,
+        player_data.backboard,
+        player_data.assist,
+        player_data.steal,
+        player_data.blockshot,
+        player_data.turnover,
+        rival_player_data.player_name,
+        rival_player_data.duty,
+        rival_player_data.shirt_num
+        FROM
+        player_data
+        INNER JOIN rival_player_data ON rival_player_data.data_id = player_data.id
+        INNER JOIN game ON rival_player_data.game_id = game.id
+        where game.id=#{gameId}
+    </select>
+
+
+    <select id="selectMySchoolPlayerData" resultType="ubtms.module.user.dto.PlayerDataDto">
+        SELECT
+        `user`.real_name AS player_name,
+        `user`.id AS player_id,
+        `user`.duty,
+        `user`.shirt_num,
+        school.sch_name,
+        player_data.turnover,
+        player_data.blockshot,
+        player_data.steal,
+        player_data.assist,
+        player_data.backboard,
+        player_data.three_point_shot_goal,
+        player_data.three_point_shot,
+        player_data.field_goal,
+        player_data.shot,
+        player_data.score,
+        player_data.id AS id
+        FROM
+        `user`
+        INNER JOIN role ON `user`.role_id = role.id
+        INNER JOIN school ON role.school_id = school.sch_id
+        INNER JOIN game ON game.school_id = school.sch_id
+        INNER JOIN school_player_data ON school_player_data.game_id = game.id AND school_player_data.player_id = `user`.id
+        INNER JOIN player_data ON school_player_data.data_id = player_data.id
+        where game.id=#{gameId}
+  </select>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="ubtms.module.user.entity.PlayerDataExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from player_data
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test="offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from player_data
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from player_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="ubtms.module.user.entity.PlayerDataExample">
+        delete from player_data
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="ubtms.module.user.entity.PlayerData">
+    insert into player_data (id, score, shot, 
+      field_goal, three_point_shot, three_point_shot_goal, 
+      backboard, assist, steal, 
+      blockshot, turnover)
+    values (#{id,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{shot,jdbcType=INTEGER}, 
+      #{fieldGoal,jdbcType=INTEGER}, #{threePointShot,jdbcType=INTEGER}, #{threePointShotGoal,jdbcType=INTEGER}, 
+      #{backboard,jdbcType=INTEGER}, #{assist,jdbcType=INTEGER}, #{steal,jdbcType=INTEGER}, 
+      #{blockshot,jdbcType=INTEGER}, #{turnover,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="ubtms.module.user.entity.PlayerData">
+        insert into player_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="shot != null">
+                shot,
+            </if>
+            <if test="fieldGoal != null">
+                field_goal,
+            </if>
+            <if test="threePointShot != null">
+                three_point_shot,
+            </if>
+            <if test="threePointShotGoal != null">
+                three_point_shot_goal,
+            </if>
+            <if test="backboard != null">
+                backboard,
+            </if>
+            <if test="assist != null">
+                assist,
+            </if>
+            <if test="steal != null">
+                steal,
+            </if>
+            <if test="blockshot != null">
+                blockshot,
+            </if>
+            <if test="turnover != null">
+                turnover,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="shot != null">
+                #{shot,jdbcType=INTEGER},
+            </if>
+            <if test="fieldGoal != null">
+                #{fieldGoal,jdbcType=INTEGER},
+            </if>
+            <if test="threePointShot != null">
+                #{threePointShot,jdbcType=INTEGER},
+            </if>
+            <if test="threePointShotGoal != null">
+                #{threePointShotGoal,jdbcType=INTEGER},
+            </if>
+            <if test="backboard != null">
+                #{backboard,jdbcType=INTEGER},
+            </if>
+            <if test="assist != null">
+                #{assist,jdbcType=INTEGER},
+            </if>
+            <if test="steal != null">
+                #{steal,jdbcType=INTEGER},
+            </if>
+            <if test="blockshot != null">
+                #{blockshot,jdbcType=INTEGER},
+            </if>
+            <if test="turnover != null">
+                #{turnover,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="ubtms.module.user.entity.PlayerDataExample"
+            resultType="java.lang.Integer">
+        select count(*) from player_data
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update player_data
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.score != null">
+                score = #{record.score,jdbcType=INTEGER},
+            </if>
+            <if test="record.shot != null">
+                shot = #{record.shot,jdbcType=INTEGER},
+            </if>
+            <if test="record.fieldGoal != null">
+                field_goal = #{record.fieldGoal,jdbcType=INTEGER},
+            </if>
+            <if test="record.threePointShot != null">
+                three_point_shot = #{record.threePointShot,jdbcType=INTEGER},
+            </if>
+            <if test="record.threePointShotGoal != null">
+                three_point_shot_goal = #{record.threePointShotGoal,jdbcType=INTEGER},
+            </if>
+            <if test="record.backboard != null">
+                backboard = #{record.backboard,jdbcType=INTEGER},
+            </if>
+            <if test="record.assist != null">
+                assist = #{record.assist,jdbcType=INTEGER},
+            </if>
+            <if test="record.steal != null">
+                steal = #{record.steal,jdbcType=INTEGER},
+            </if>
+            <if test="record.blockshot != null">
+                blockshot = #{record.blockshot,jdbcType=INTEGER},
+            </if>
+            <if test="record.turnover != null">
+                turnover = #{record.turnover,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update player_data
+        set id = #{record.id,jdbcType=INTEGER},
+        score = #{record.score,jdbcType=INTEGER},
+        shot = #{record.shot,jdbcType=INTEGER},
+        field_goal = #{record.fieldGoal,jdbcType=INTEGER},
+        three_point_shot = #{record.threePointShot,jdbcType=INTEGER},
+        three_point_shot_goal = #{record.threePointShotGoal,jdbcType=INTEGER},
+        backboard = #{record.backboard,jdbcType=INTEGER},
+        assist = #{record.assist,jdbcType=INTEGER},
+        steal = #{record.steal,jdbcType=INTEGER},
+        blockshot = #{record.blockshot,jdbcType=INTEGER},
+        turnover = #{record.turnover,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="ubtms.module.user.entity.PlayerData">
+        update player_data
+        <set>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="shot != null">
+                shot = #{shot,jdbcType=INTEGER},
+            </if>
+            <if test="fieldGoal != null">
+                field_goal = #{fieldGoal,jdbcType=INTEGER},
+            </if>
+            <if test="threePointShot != null">
+                three_point_shot = #{threePointShot,jdbcType=INTEGER},
+            </if>
+            <if test="threePointShotGoal != null">
+                three_point_shot_goal = #{threePointShotGoal,jdbcType=INTEGER},
+            </if>
+            <if test="backboard != null">
+                backboard = #{backboard,jdbcType=INTEGER},
+            </if>
+            <if test="assist != null">
+                assist = #{assist,jdbcType=INTEGER},
+            </if>
+            <if test="steal != null">
+                steal = #{steal,jdbcType=INTEGER},
+            </if>
+            <if test="blockshot != null">
+                blockshot = #{blockshot,jdbcType=INTEGER},
+            </if>
+            <if test="turnover != null">
+                turnover = #{turnover,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="ubtms.module.user.entity.PlayerData">
+    update player_data
+    set score = #{score,jdbcType=INTEGER},
+      shot = #{shot,jdbcType=INTEGER},
+      field_goal = #{fieldGoal,jdbcType=INTEGER},
+      three_point_shot = #{threePointShot,jdbcType=INTEGER},
+      three_point_shot_goal = #{threePointShotGoal,jdbcType=INTEGER},
+      backboard = #{backboard,jdbcType=INTEGER},
+      assist = #{assist,jdbcType=INTEGER},
+      steal = #{steal,jdbcType=INTEGER},
+      blockshot = #{blockshot,jdbcType=INTEGER},
+      turnover = #{turnover,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

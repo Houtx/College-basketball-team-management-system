@@ -1,0 +1,26 @@
+@charset "utf-8";
+@import "color";
+@row_top: 0px;
+@detail_row_martin_top:30px;
+.myForm{
+    >div{
+       margin-bottom: @row_top;   
+       .requiredMsg{
+           color: red;
+       }  
+       .errorMsg{
+           visibility: hidden;
+           margin-bottom: 5px;
+       }
+    }
+    .picRow{
+        label{
+            margin-top: 76px;
+        }
+    }
+}
+
+.detailRow{
+    margin-top: @detail_row_martin_top;
+}
+
