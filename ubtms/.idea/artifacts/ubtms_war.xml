@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="ubtms:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="test.war">
-      <element id="artifact" artifact-name="ubtms:war exploded" />
-    </root>
-  </artifact>
-</component>
