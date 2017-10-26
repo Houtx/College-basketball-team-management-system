@@ -12,28 +12,15 @@
  - 球员数据管理：实现球员数据查询、图形展示
  - 训练计划信息管理：实现训练计划信息的录入、训练计划信息的查询、训练计划信息的维护
 
-## 已实现模块
-- 学校管理、角色管理、人员管理、赛程信息管理
-
 ## 服务端
 - Spring+SpringMVC+MyBatis
 
 ## 数据库
 - MySQL
 
-## 前端框架及插件
+## 前端
 - jQquery
-- jQuery Validate
 - Bootstrap
-- bootstrap-table
-- bootstrap-treeview
-- bootstrap-datetimepicker
-- bootstrap3-typeahead
-- wangEditor
-- toastr
-- layer
-- G2
-
 
 
 
